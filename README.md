@@ -2,6 +2,8 @@
 
 My flutter version of a Scoreboard application
 
+GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
