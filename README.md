@@ -4,6 +4,27 @@ My flutter version of a Scoreboard application
 
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
+## TODO
+- score page
+- settings page
+- big gesture button
+  - up down
+  - tap
+  - labelLeft
+  - valueLeft
+  - labelRight
+  - valueRight
+  - colorLeft
+  - colorRight
+- white SizedBox
+- floating button for settings
+
+- settings page
+
+- same names as unit calculator
+- later, rename if needed
+- diff to get pieces
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
