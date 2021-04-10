@@ -16,13 +16,15 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
 
-  // int _unitType = 0;
   String _labelLeft = "Away";
   String _labelRight = "Home";
   int _valueLeft = 0;
   int _valueRight = 0;
-  // double _tenX = 1.0;
-  // double _twoX = 1.0;
+
+  double _dragStartPositionLeft = 0.0;
+  double _dragStartPositionRight = 0.0;
+
+
   //
   // var selectedUnitSelect = "";
   // List<String> allUnitSelects = CalculatorEngine().getUnitTypeSelectList();
@@ -63,6 +65,69 @@ class _InputPageState extends State<InputPage> {
   // }
   //
   //
+
+  void _clearLeft() async {
+    setState(() {
+      _valueLeft = 0;
+    });
+  }
+
+  void _incrementLeft() async {
+    setState(() {
+      _valueLeft += 1;
+    });
+  }
+
+  void _decrementLeft() async {
+    setState(() {
+      _valueLeft -= 1;
+      if (_valueLeft < 0) _valueLeft = 0;
+    });
+  }
+
+  void _clearRight() async {
+    setState(() {
+      _valueRight = 0;
+    });
+  }
+
+  void _incrementRight() async {
+    setState(() {
+      _valueRight += 1;
+    });
+  }
+
+  void _decrementRight() async {
+    setState(() {
+      _valueRight -= 1;
+      if (_valueRight < 0) _valueRight = 0;
+    });
+  }
+
+  void _clearBoth() async {
+    setState(() {
+      _valueLeft = 0;
+      _valueRight = 0;
+    });
+  }
+
+  void _dragStartLeft() async {
+
+  }
+
+  void _dragEndLeft() async {
+
+  }
+
+  void _dragStartRight() async {
+
+  }
+
+  void _dragEndRight() async {
+
+  }
+
+
   // void _updateValueLeftEtc(double newValue) {
   //   _valueLeft = newValue;
   //   _valueLeft = double.parse(_valueLeft.toStringAsFixed(2));
@@ -136,7 +201,9 @@ class _InputPageState extends State<InputPage> {
                     children: <Widget>[
                       Expanded(
                         child: ReusableCard(
-                          onPress: null, //_openUnitTypeDialog,
+                          onPress: _incrementLeft,
+                          onDragStart: null,
+                          onDragEnd: null,
                           color: kActiveCardColour,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +222,7 @@ class _InputPageState extends State<InputPage> {
                       ),
                       Expanded(
                         child: ReusableCard(
-                          onPress: null, //_openUnitTypeDialog,
+                          onPress: _incrementRight,
                           color: kActiveCardColour,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -179,6 +246,19 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
         ),
+        floatingActionButton: Container(
+          width: 60,
+          height: 60,
+          child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 0,
+            onPressed: _clearBoth,
+            tooltip: 'Settings',
+            child: Icon(Icons.settings, size: 50),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
     }
     else {
@@ -194,7 +274,7 @@ class _InputPageState extends State<InputPage> {
                     children: <Widget>[
                       Expanded(
                         child: ReusableCard(
-                          onPress: null, //_openUnitTypeDialog,
+                          onPress: _incrementLeft,
                           color: kActiveCardColour,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -213,7 +293,7 @@ class _InputPageState extends State<InputPage> {
                       ),
                       Expanded(
                         child: ReusableCard(
-                          onPress: null, //_openUnitTypeDialog,
+                          onPress: _incrementRight,
                           color: kActiveCardColour,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -237,11 +317,19 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: null,
-          tooltip: 'Settings',
-          child: Icon(Icons.settings),
+        floatingActionButton: Container(
+          width: 60,
+          height: 60,
+          child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 0,
+            onPressed: _clearBoth,
+            tooltip: 'Settings',
+            child: Icon(Icons.settings, size: 50),
+          ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
     }
   }
