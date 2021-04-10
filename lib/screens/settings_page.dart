@@ -30,7 +30,7 @@ class SettingsPage extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: ReusableCard(
-                    color: kActiveCardColour,
+                    color: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,7 +79,7 @@ class SettingsPage extends StatelessWidget {
                 Expanded(
                   flex: 5,
                   child: ReusableCard(
-                    color: kActiveCardColour,
+                    color: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +114,7 @@ class SettingsPage extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: ReusableCard(
-                    color: kActiveCardColour,
+                    color: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,7 +133,7 @@ class SettingsPage extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: ReusableCard(
-                    color: kActiveCardColour,
+                    color: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,

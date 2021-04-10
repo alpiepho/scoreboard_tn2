@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:unit_calculator/components/bottom_button.dart';
 import 'package:scoreboard_tn/components/reusable_card.dart';
+import 'package:scoreboard_tn/components/settings_button.dart';
 // import 'package:unit_calculator/components/round_icon_button.dart';
 import 'package:scoreboard_tn/constants.dart';
 // import 'package:unit_calculator/screens/settings_page.dart';
@@ -21,8 +22,12 @@ class _InputPageState extends State<InputPage> {
   int _valueLeft = 0;
   int _valueRight = 0;
 
-  double _dragStartPositionLeft = 0.0;
-  double _dragStartPositionRight = 0.0;
+  double _panPositionXLeft = 0.0;
+  double _panPositionXRight = 0.0;
+
+  double _panPositionYLeft = 0.0;
+  double _panPositionYRight = 0.0;
+
 
 
   //
@@ -66,12 +71,6 @@ class _InputPageState extends State<InputPage> {
   //
   //
 
-  void _clearLeft() async {
-    setState(() {
-      _valueLeft = 0;
-    });
-  }
-
   void _incrementLeft() async {
     setState(() {
       _valueLeft += 1;
@@ -82,12 +81,6 @@ class _InputPageState extends State<InputPage> {
     setState(() {
       _valueLeft -= 1;
       if (_valueLeft < 0) _valueLeft = 0;
-    });
-  }
-
-  void _clearRight() async {
-    setState(() {
-      _valueRight = 0;
     });
   }
 
@@ -111,19 +104,69 @@ class _InputPageState extends State<InputPage> {
     });
   }
 
-  void _dragStartLeft() async {
+  void _swapTeams() async {
+    setState(() {
+      var valueTemp = _valueLeft;
+      _valueLeft = _valueRight;
+      _valueRight = valueTemp;
+      var labelTemp = _labelLeft;
+      _labelLeft = _labelRight;
+      _labelRight = labelTemp;
+    });
+}
 
+  void _panUpdateLeft(DragUpdateDetails details) async {
+    // use swipe to adjust score
+    if (details.delta.dy.abs() > 1) {
+      _panPositionYLeft += details.delta.dy;
+      if (_panPositionYLeft < -100) {
+        _panPositionYLeft = 0.0;
+        _incrementLeft();
+      } else if (_panPositionYLeft > 100) {
+        _panPositionYLeft = 0.0;
+        _decrementLeft();
+      }
+    } else {
+      _panPositionYLeft = 0.0;
+    }
+
+    // use swipe to swap teams
+    if (details.delta.dx.abs() > 1) {
+      _panPositionXLeft += details.delta.dx;
+      if (_panPositionXLeft > 200) {
+        _panPositionYLeft = 0.0;
+        _swapTeams();
+      }
+    } else {
+      _panPositionXLeft = 0.0;
+    }
   }
 
-  void _dragEndLeft() async {
+  void _panUpdateRight(DragUpdateDetails details) async {
+    // use swipe to adjust score
+    if (details.delta.dy.abs() > 1) {
+      _panPositionYRight += details.delta.dy;
+      if (_panPositionYRight < -100) {
+        _panPositionYRight = 0.0;
+        _incrementRight();
+      } else if (_panPositionYRight > 100) {
+        _panPositionYRight = 0.0;
+        _decrementRight();
+      }
+    } else {
+      _panPositionYRight = 0.0;
+    }
 
-  }
-
-  void _dragStartRight() async {
-
-  }
-
-  void _dragEndRight() async {
+    // use swipe to swap teams
+    if (details.delta.dx.abs() > 1) {
+      _panPositionXRight += details.delta.dx;
+      if (_panPositionXRight < -200) {
+        _panPositionXRight = 0.0;
+        _swapTeams();
+      }
+    } else {
+      _panPositionXRight = 0.0;
+    }
 
   }
 
@@ -202,9 +245,8 @@ class _InputPageState extends State<InputPage> {
                       Expanded(
                         child: ReusableCard(
                           onPress: _incrementLeft,
-                          onDragStart: null,
-                          onDragEnd: null,
-                          color: kActiveCardColour,
+                          onPan: _panUpdateLeft,
+                          color: kActiveCardColor,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -223,7 +265,8 @@ class _InputPageState extends State<InputPage> {
                       Expanded(
                         child: ReusableCard(
                           onPress: _incrementRight,
-                          color: kActiveCardColour,
+                          onPan: _panUpdateRight,
+                          color: kActiveCardColor,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -246,17 +289,8 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
         ),
-        floatingActionButton: Container(
-          width: 60,
-          height: 60,
-          child: FloatingActionButton(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            elevation: 0,
-            onPressed: _clearBoth,
-            tooltip: 'Settings',
-            child: Icon(Icons.settings, size: 50),
-          ),
+        floatingActionButton: SettingsButton(
+          onPress: _clearBoth,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
@@ -275,7 +309,8 @@ class _InputPageState extends State<InputPage> {
                       Expanded(
                         child: ReusableCard(
                           onPress: _incrementLeft,
-                          color: kActiveCardColour,
+                          onPan: _panUpdateLeft,
+                          color: kActiveCardColor,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -294,7 +329,8 @@ class _InputPageState extends State<InputPage> {
                       Expanded(
                         child: ReusableCard(
                           onPress: _incrementRight,
-                          color: kActiveCardColour,
+                          onPan: _panUpdateRight,
+                          color: kActiveCardColor,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -317,19 +353,10 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
         ),
-        floatingActionButton: Container(
-          width: 60,
-          height: 60,
-          child: FloatingActionButton(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            elevation: 0,
-            onPressed: _clearBoth,
-            tooltip: 'Settings',
-            child: Icon(Icons.settings, size: 50),
-          ),
+        floatingActionButton: SettingsButton(
+          onPress: _clearBoth,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
     }
   }
