@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_material_pickers/flutter_material_pickers.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:unit_calculator/components/bottom_button.dart';
-import 'package:scoreboard_tn/components/reusable_card.dart';
+import 'package:scoreboard_tn/components/score_card.dart';
 import 'package:scoreboard_tn/components/settings_button.dart';
-// import 'package:unit_calculator/components/round_icon_button.dart';
+import 'package:scoreboard_tn/components/settings_modal.dart';
 import 'package:scoreboard_tn/constants.dart';
-// import 'package:unit_calculator/screens/settings_page.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -30,46 +25,27 @@ class _InputPageState extends State<InputPage> {
 
 
 
-  //
-  // var selectedUnitSelect = "";
-  // List<String> allUnitSelects = CalculatorEngine().getUnitTypeSelectList();
-  //
-  // _readPersistentData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final unitType = prefs.getInt('unitType') ?? 0;
-  //   final valueLeft = prefs.getDouble('valueLeft') ?? 1.0;
-  //   final valueRight = prefs.getDouble('valueRight') ?? 2.54;
-  //   final tenX = prefs.getDouble('tenX') ?? 1.0;
-  //   final twoX = prefs.getDouble('twoX') ?? 1.0;
-  //   //print('_readPersistentData: $unitType');
-  //   //print('_readPersistentData: valueLeft');
-  //   //print('_readPersistentData: valueRight');
-  //   //print('_readPersistentData: tenX');
-  //   //print('_readPersistentData: twoX');
-  //   setState(() {
-  //     _unitType = unitType;
-  //     _valueLeft = valueLeft;
-  //     _valueRight = valueRight;
-  //     _tenX = tenX;
-  //     _twoX = twoX;
-  //   });
-  // }
-  //
-  // _savePersistentData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setInt('unitType', _unitType);
-  //   prefs.setDouble('valueLeft', _valueLeft);
-  //   prefs.setDouble('valueRight', _valueRight);
-  //   prefs.setDouble('tenX', _tenX);
-  //   prefs.setDouble('twoX', _twoX);
-  //   //print('_savePersistentData $_unitType');
-  //   //print('_savePersistentData _valueLeft');
-  //   //print('_savePersistentData _valueRight');
-  //   //print('_savePersistentData _tenX');
-  //   //print('_savePersistentData _twoX');
-  // }
-  //
-  //
+  _readPersistentData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final labelLeft = prefs.getString('labelLeft') ?? 'Away';
+    final labelRight = prefs.getString('labelRight') ?? 'Home';
+    final valueLeft = prefs.getInt('valueLeft') ?? 0;
+    final valueRight = prefs.getInt('valueRight') ?? 0;
+    setState(() {
+      _labelLeft = labelLeft;
+      _labelRight = labelRight;
+      _valueLeft = valueLeft;
+      _valueRight = valueRight;
+    });
+  }
+
+  _savePersistentData() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('labelLeft', _labelLeft);
+    prefs.setString('labelRight', _labelRight);
+    prefs.setInt('valueLeft', _valueLeft);
+    prefs.setInt('valueRight', _valueRight);
+  }
 
   void _incrementLeft() async {
     setState(() {
@@ -102,6 +78,17 @@ class _InputPageState extends State<InputPage> {
       _valueLeft = 0;
       _valueRight = 0;
     });
+    Navigator.of(context).pop();
+  }
+
+  void _resetBoth() async {
+    setState(() {
+      _labelLeft = "Away";
+      _labelRight = "Home";
+      _valueLeft = 0;
+      _valueRight = 0;
+    });
+    Navigator.of(context).pop();
   }
 
   void _swapTeams() async {
@@ -113,7 +100,18 @@ class _InputPageState extends State<InputPage> {
       _labelLeft = _labelRight;
       _labelRight = labelTemp;
     });
-}
+    Navigator.of(context).pop();
+  }
+
+  void _saveBoth() async {
+    // setState(() {
+    //   _labelLeft = "Away";
+    //   _labelRight = "Home";
+    //   _valueLeft = 0;
+    //   _valueRight = 0;
+    // });
+    Navigator.of(context).pop();
+  }
 
   void _panUpdateLeft(DragUpdateDetails details) async {
     // use swipe to adjust score
@@ -167,66 +165,8 @@ class _InputPageState extends State<InputPage> {
     } else {
       _panPositionXRight = 0.0;
     }
-
   }
 
-
-  // void _updateValueLeftEtc(double newValue) {
-  //   _valueLeft = newValue;
-  //   _valueLeft = double.parse(_valueLeft.toStringAsFixed(2));
-  //   _valueRight = _calc.convert(_unitType, _valueLeft);
-  //   _valueRight = double.parse(_valueRight.toStringAsFixed(2));
-  //   _savePersistentData();
-  // }
-  //
-  // void _openUnitTypeDialog() async {
-  //   showMaterialScrollPicker(
-  //     backgroundColor: kActiveCardColour,
-  //     headerColor: kActiveCardColour,
-  //     showDivider: false,
-  //     context: context,
-  //     title: "Pick Unit Type",
-  //     items: allUnitSelects,
-  //     selectedItem: selectedUnitSelect,
-  //     onChanged: (value) {
-  //       if (value == 'google') {
-  //         launch('https://www.google.com/search?q=meter+to+yard');
-  //       }
-  //       else {
-  //         setState(() {
-  //           selectedUnitSelect = value;
-  //           _unitType = this._calc.decodeUnitTypeSelectString(selectedUnitSelect);
-  //           if (_valueRight < this._calc.rangeMin(_unitType)) _valueRight = this._calc.rangeMin(_unitType);
-  //           if (_valueRight > this._calc.rangeMax(_unitType)) _valueRight = this._calc.rangeMax(_unitType);
-  //           _updateValueLeftEtc(_valueRight);
-  //         });
-  //       }
-  //     },
-  //   );
-  // }
-  //
-  // void _moveToSettingsPage() async {
-  //   final result = await Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => SettingsPage(
-  //         unitType: _unitType,
-  //       ),
-  //     ),
-  //   );
-  //   if (result != null) {
-  //     setState(() {
-  //       _unitType = (result < _calc.maxUnits() ? result : 0);
-  //       _updateValueLeftEtc(_valueRight);
-  //     });
-  //   }
-  // }
-  //
-  // @override
-  // initState() {
-  //   super.initState();
-  //   _readPersistentData();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -243,10 +183,10 @@ class _InputPageState extends State<InputPage> {
                   child: Column(
                     children: <Widget>[
                       Expanded(
-                        child: ReusableCard(
+                        child: TeamScoreCard(
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
-                          color: kActiveCardColor,
+                          color: kTeamCardColorLeft,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -263,10 +203,10 @@ class _InputPageState extends State<InputPage> {
                         ),
                       ),
                       Expanded(
-                        child: ReusableCard(
+                        child: TeamScoreCard(
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
-                          color: kActiveCardColor,
+                          color: kTeamCardColorRight,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -290,8 +230,19 @@ class _InputPageState extends State<InputPage> {
           ),
         ),
         floatingActionButton: SettingsButton(
-          onPress: _clearBoth,
-        ),
+          onPress: () {
+            showModalBottomSheet(context: context,
+                builder: (BuildContext bc) {
+                  return SettingsModal(
+                    onClear: _clearBoth,
+                    onReset: _resetBoth,
+                    onSwap: _swapTeams,
+                    onDone: _saveBoth,
+                  );
+                }
+              );
+            }
+          ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
     }
@@ -307,10 +258,10 @@ class _InputPageState extends State<InputPage> {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: ReusableCard(
+                        child: TeamScoreCard(
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
-                          color: kActiveCardColor,
+                          color: kTeamCardColorLeft,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -327,10 +278,10 @@ class _InputPageState extends State<InputPage> {
                         ),
                       ),
                       Expanded(
-                        child: ReusableCard(
+                        child: TeamScoreCard(
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
-                          color: kActiveCardColor,
+                          color: kTeamCardColorRight,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -354,7 +305,18 @@ class _InputPageState extends State<InputPage> {
           ),
         ),
         floatingActionButton: SettingsButton(
-          onPress: _clearBoth,
+            onPress: () {
+              showModalBottomSheet(context: context,
+                  builder: (BuildContext bc) {
+                    return SettingsModal(
+                      onClear: _clearBoth,
+                      onReset: _resetBoth,
+                      onSwap: _swapTeams,
+                      onDone: _saveBoth,
+                    );
+                  }
+              );
+            }
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );

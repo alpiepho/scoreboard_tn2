@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ReusableCard extends StatelessWidget {
-  ReusableCard({required this.color, this.cardChild, this.onPress, this.onPan});
+class TeamScoreCard extends StatelessWidget {
+  TeamScoreCard({required this.color, this.cardChild, this.onPress, this.onPan});
 
   final Color color;
   final Widget? cardChild;
@@ -15,11 +15,12 @@ class ReusableCard extends StatelessWidget {
       onPanUpdate: onPan as void Function(DragUpdateDetails)?,
       child: Container(
         child: cardChild,
-        margin: EdgeInsets.all(10.0),
+        //margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
         width: double.infinity,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(20.0),
+          //borderRadius: BorderRadius.circular(20.0),
         ),
       ),
     );
