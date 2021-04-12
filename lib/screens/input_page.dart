@@ -74,21 +74,81 @@ class _InputPageState extends State<InputPage> {
   }
 
   void _clearBoth() async {
-    setState(() {
-      _valueLeft = 0;
-      _valueRight = 0;
-    });
-    Navigator.of(context).pop();
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Clear Scores'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Would you clear scores?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Clear'),
+              onPressed: () {
+                setState(() {
+                  _valueLeft = 0;
+                  _valueRight = 0;
+                });
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _resetBoth() async {
-    setState(() {
-      _labelLeft = "Away";
-      _labelRight = "Home";
-      _valueLeft = 0;
-      _valueRight = 0;
-    });
-    Navigator.of(context).pop();
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Reset All'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Would you reset everything?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Reset'),
+              onPressed: () {
+                setState(() {
+                  _labelLeft = "Away";
+                  _labelRight = "Home";
+                  _valueLeft = 0;
+                  _valueRight = 0;
+                });
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _swapTeams() async {
@@ -173,6 +233,7 @@ class _InputPageState extends State<InputPage> {
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     if (isPortrait) {
       return Scaffold(
+        backgroundColor: kInputPageBackgroundColor,
         body: Center(
           child: Container(
             width: kMainContainerWidthPortrait,
@@ -187,6 +248,7 @@ class _InputPageState extends State<InputPage> {
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
                           color: kTeamCardColorLeft,
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -207,6 +269,7 @@ class _InputPageState extends State<InputPage> {
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
                           color: kTeamCardColorRight,
+                          margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -231,7 +294,8 @@ class _InputPageState extends State<InputPage> {
         ),
         floatingActionButton: SettingsButton(
           onPress: () {
-            showModalBottomSheet(context: context,
+            showModalBottomSheet(
+                context: context,
                 builder: (BuildContext bc) {
                   return SettingsModal(
                     onClear: _clearBoth,
@@ -239,7 +303,8 @@ class _InputPageState extends State<InputPage> {
                     onSwap: _swapTeams,
                     onDone: _saveBoth,
                   );
-                }
+                },
+                isScrollControlled: true,
               );
             }
           ),
@@ -248,6 +313,7 @@ class _InputPageState extends State<InputPage> {
     }
     else {
       return Scaffold(
+        backgroundColor: kInputPageBackgroundColor,
         body: Center(
           child: Container(
             width: kMainContainerWidthLandscape,
@@ -262,6 +328,7 @@ class _InputPageState extends State<InputPage> {
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
                           color: kTeamCardColorLeft,
+                          margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -282,6 +349,7 @@ class _InputPageState extends State<InputPage> {
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
                           color: kTeamCardColorRight,
+                          margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -306,7 +374,8 @@ class _InputPageState extends State<InputPage> {
         ),
         floatingActionButton: SettingsButton(
             onPress: () {
-              showModalBottomSheet(context: context,
+              showModalBottomSheet(
+                  context: context,
                   builder: (BuildContext bc) {
                     return SettingsModal(
                       onClear: _clearBoth,
@@ -314,7 +383,8 @@ class _InputPageState extends State<InputPage> {
                       onSwap: _swapTeams,
                       onDone: _saveBoth,
                     );
-                  }
+                  },
+                  isScrollControlled: true,
               );
             }
         ),

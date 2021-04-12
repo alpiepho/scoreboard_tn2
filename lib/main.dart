@@ -10,6 +10,9 @@ void main() {
   // before the runApp() call
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Hide status bar
+  //SystemChrome.setEnabledSystemUIOverlays([]);
+
   // Than we setup preferred orientations,
   // and only after it finished we run our app
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
