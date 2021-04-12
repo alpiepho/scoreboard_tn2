@@ -3,12 +3,21 @@ import 'package:scoreboard_tn/components/settings_card.dart';
 import 'package:scoreboard_tn/constants.dart';
 
 class SettingsModal extends StatelessWidget {
-  SettingsModal({this.onReset, this.onClear, this.onSwap, this.onDone});
+  SettingsModal({
+    required this.labelLeft,
+    this.onReset,
+    this.onClear,
+    this.onSwap,
+    this.onDone,
+    this.labelLeftChanged,
+  });
 
+  final String labelLeft;
   final Function? onReset;
   final Function? onClear;
   final Function? onSwap;
   final Function? onDone;
+  final Function? labelLeftChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +62,11 @@ class SettingsModal extends StatelessWidget {
             // ),
             new ListTile(
               leading: null,
-              title: new Text('Away'),
-              onTap: () => {}
+              title: new TextFormField(
+                initialValue: labelLeft,
+                onChanged: labelLeftChanged as Function(String text)?,
+              ),
+              //onTap: () => {}
             ),
             new ListTile(
               leading: null,

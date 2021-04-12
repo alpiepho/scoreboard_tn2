@@ -17,12 +17,16 @@ class _InputPageState extends State<InputPage> {
   int _valueLeft = 0;
   int _valueRight = 0;
 
-  double _panPositionXLeft = 0.0;
-  double _panPositionXRight = 0.0;
+  //double _panPositionXLeft = 0.0;
+  //double _panPositionXRight = 0.0;
 
   double _panPositionYLeft = 0.0;
   double _panPositionYRight = 0.0;
 
+  String _newLabelLeft = "Away";
+  String _newLabelRight = "Home";
+  int _newValueLeft = 0;
+  int _newValueRight = 0;
 
 
   _readPersistentData() async {
@@ -164,13 +168,16 @@ class _InputPageState extends State<InputPage> {
   }
 
   void _saveBoth() async {
-    // setState(() {
-    //   _labelLeft = "Away";
-    //   _labelRight = "Home";
-    //   _valueLeft = 0;
-    //   _valueRight = 0;
-    // });
+    setState(() {
+      _labelLeft = _newLabelLeft;
+    });
     Navigator.of(context).pop();
+  }
+
+  void _labelLeftChanged(String text) async {
+    setState(() {
+      _newLabelLeft = text;
+    });
   }
 
   void _panUpdateLeft(DragUpdateDetails details) async {
@@ -188,16 +195,16 @@ class _InputPageState extends State<InputPage> {
       _panPositionYLeft = 0.0;
     }
 
-    // use swipe to swap teams
-    if (details.delta.dx.abs() > 1) {
-      _panPositionXLeft += details.delta.dx;
-      if (_panPositionXLeft > 200) {
-        _panPositionYLeft = 0.0;
-        _swapTeams();
-      }
-    } else {
-      _panPositionXLeft = 0.0;
-    }
+    // // use swipe to swap teams
+    // if (details.delta.dx.abs() > 1) {
+    //   _panPositionXLeft += details.delta.dx;
+    //   if (_panPositionXLeft > 200) {
+    //     _panPositionYLeft = 0.0;
+    //     _swapTeams();
+    //   }
+    // } else {
+    //   _panPositionXLeft = 0.0;
+    // }
   }
 
   void _panUpdateRight(DragUpdateDetails details) async {
@@ -215,16 +222,16 @@ class _InputPageState extends State<InputPage> {
       _panPositionYRight = 0.0;
     }
 
-    // use swipe to swap teams
-    if (details.delta.dx.abs() > 1) {
-      _panPositionXRight += details.delta.dx;
-      if (_panPositionXRight < -200) {
-        _panPositionXRight = 0.0;
-        _swapTeams();
-      }
-    } else {
-      _panPositionXRight = 0.0;
-    }
+    // // use swipe to swap teams
+    // if (details.delta.dx.abs() > 1) {
+    //   _panPositionXRight += details.delta.dx;
+    //   if (_panPositionXRight < -200) {
+    //     _panPositionXRight = 0.0;
+    //     _swapTeams();
+    //   }
+    // } else {
+    //   _panPositionXRight = 0.0;
+    // }
   }
 
 
@@ -298,10 +305,12 @@ class _InputPageState extends State<InputPage> {
                 context: context,
                 builder: (BuildContext bc) {
                   return SettingsModal(
+                    labelLeft: _labelLeft,
                     onClear: _clearBoth,
                     onReset: _resetBoth,
                     onSwap: _swapTeams,
                     onDone: _saveBoth,
+                    labelLeftChanged: _labelLeftChanged,
                   );
                 },
                 isScrollControlled: true,
@@ -378,10 +387,12 @@ class _InputPageState extends State<InputPage> {
                   context: context,
                   builder: (BuildContext bc) {
                     return SettingsModal(
+                      labelLeft: _labelLeft,
                       onClear: _clearBoth,
                       onReset: _resetBoth,
                       onSwap: _swapTeams,
                       onDone: _saveBoth,
+                      labelLeftChanged: _labelLeftChanged,
                     );
                   },
                   isScrollControlled: true,
