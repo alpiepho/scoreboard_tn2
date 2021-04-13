@@ -5,19 +5,31 @@ import 'package:scoreboard_tn/constants.dart';
 class SettingsModal extends StatelessWidget {
   SettingsModal({
     required this.labelLeft,
+    required this.labelRight,
+    required this.valueLeft,
+    required this.valueRight,
     this.onReset,
     this.onClear,
     this.onSwap,
     this.onDone,
     this.labelLeftChanged,
+    this.labelRightChanged,
+    this.valueLeftChanged,
+    this.valueRightChanged,
   });
 
   final String labelLeft;
+  final String labelRight;
+  final String valueLeft;
+  final String valueRight;
   final Function? onReset;
   final Function? onClear;
   final Function? onSwap;
   final Function? onDone;
   final Function? labelLeftChanged;
+  final Function? labelRightChanged;
+  final Function? valueLeftChanged;
+  final Function? valueRightChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +75,19 @@ class SettingsModal extends StatelessWidget {
             new ListTile(
               leading: null,
               title: new TextFormField(
+                autofocus: false,
                 initialValue: labelLeft,
                 onChanged: labelLeftChanged as Function(String text)?,
               ),
-              //onTap: () => {}
             ),
             new ListTile(
               leading: null,
-              title: new Text('0'),
-              onTap: () => {},
+              title: new TextFormField(
+                autofocus: false,
+                keyboardType: TextInputType.number,
+                initialValue: valueLeft,
+                onChanged: valueLeftChanged as Function(String text)?,
+              ),
             ),
             new ListTile(
               title: new Text('Color'),
@@ -80,13 +96,20 @@ class SettingsModal extends StatelessWidget {
             ),
             new ListTile(
                 leading: null,
-                title: new Text('Home'),
-                onTap: () => {}
+              title: new TextFormField(
+                autofocus: false,
+                initialValue: labelRight,
+                onChanged: labelRightChanged as Function(String text)?,
+              ),
             ),
             new ListTile(
               leading: null,
-              title: new Text('0'),
-              onTap: () => {},
+              title: new TextFormField(
+                autofocus: false,
+                keyboardType: TextInputType.number,
+                initialValue: valueRight,
+                onChanged: valueRightChanged as Function(String text)?,
+              ),
             ),
             new ListTile(
               title: new Text('Color'),

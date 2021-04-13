@@ -17,9 +17,6 @@ class _InputPageState extends State<InputPage> {
   int _valueLeft = 0;
   int _valueRight = 0;
 
-  //double _panPositionXLeft = 0.0;
-  //double _panPositionXRight = 0.0;
-
   double _panPositionYLeft = 0.0;
   double _panPositionYRight = 0.0;
 
@@ -29,27 +26,27 @@ class _InputPageState extends State<InputPage> {
   int _newValueRight = 0;
 
 
-  _readPersistentData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final labelLeft = prefs.getString('labelLeft') ?? 'Away';
-    final labelRight = prefs.getString('labelRight') ?? 'Home';
-    final valueLeft = prefs.getInt('valueLeft') ?? 0;
-    final valueRight = prefs.getInt('valueRight') ?? 0;
-    setState(() {
-      _labelLeft = labelLeft;
-      _labelRight = labelRight;
-      _valueLeft = valueLeft;
-      _valueRight = valueRight;
-    });
-  }
-
-  _savePersistentData() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('labelLeft', _labelLeft);
-    prefs.setString('labelRight', _labelRight);
-    prefs.setInt('valueLeft', _valueLeft);
-    prefs.setInt('valueRight', _valueRight);
-  }
+  // _readPersistentData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final labelLeft = prefs.getString('labelLeft') ?? 'Away';
+  //   final labelRight = prefs.getString('labelRight') ?? 'Home';
+  //   final valueLeft = prefs.getInt('valueLeft') ?? 0;
+  //   final valueRight = prefs.getInt('valueRight') ?? 0;
+  //   setState(() {
+  //     _labelLeft = labelLeft;
+  //     _labelRight = labelRight;
+  //     _valueLeft = valueLeft;
+  //     _valueRight = valueRight;
+  //   });
+  // }
+  //
+  // _savePersistentData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('labelLeft', _labelLeft);
+  //   prefs.setString('labelRight', _labelRight);
+  //   prefs.setInt('valueLeft', _valueLeft);
+  //   prefs.setInt('valueRight', _valueRight);
+  // }
 
   void _incrementLeft() async {
     setState(() {
@@ -170,6 +167,9 @@ class _InputPageState extends State<InputPage> {
   void _saveBoth() async {
     setState(() {
       _labelLeft = _newLabelLeft;
+      _labelRight = _newLabelRight;
+      _valueLeft = _newValueLeft;
+      _valueRight = _newValueRight;
     });
     Navigator.of(context).pop();
   }
@@ -178,6 +178,30 @@ class _InputPageState extends State<InputPage> {
     setState(() {
       _newLabelLeft = text;
     });
+  }
+
+  void _labelRightChanged(String text) async {
+    setState(() {
+      _newLabelRight = text;
+    });
+  }
+
+  void _valueLeftChanged(String text) async {
+    if (text.isNotEmpty) {
+      setState(() {
+        _newValueLeft = int.parse(text);
+        if (_newValueLeft < 0) _newValueLeft = 0;
+      });
+    }
+  }
+
+  void _valueRightChanged(String text) async {
+    if (text.isNotEmpty) {
+      setState(() {
+        _newValueRight = int.parse(text);
+        if (_newValueRight < 0) _newValueRight = 0;
+      });
+    }
   }
 
   void _panUpdateLeft(DragUpdateDetails details) async {
@@ -194,17 +218,6 @@ class _InputPageState extends State<InputPage> {
     } else {
       _panPositionYLeft = 0.0;
     }
-
-    // // use swipe to swap teams
-    // if (details.delta.dx.abs() > 1) {
-    //   _panPositionXLeft += details.delta.dx;
-    //   if (_panPositionXLeft > 200) {
-    //     _panPositionYLeft = 0.0;
-    //     _swapTeams();
-    //   }
-    // } else {
-    //   _panPositionXLeft = 0.0;
-    // }
   }
 
   void _panUpdateRight(DragUpdateDetails details) async {
@@ -221,17 +234,6 @@ class _InputPageState extends State<InputPage> {
     } else {
       _panPositionYRight = 0.0;
     }
-
-    // // use swipe to swap teams
-    // if (details.delta.dx.abs() > 1) {
-    //   _panPositionXRight += details.delta.dx;
-    //   if (_panPositionXRight < -200) {
-    //     _panPositionXRight = 0.0;
-    //     _swapTeams();
-    //   }
-    // } else {
-    //   _panPositionXRight = 0.0;
-    // }
   }
 
 
@@ -306,11 +308,17 @@ class _InputPageState extends State<InputPage> {
                 builder: (BuildContext bc) {
                   return SettingsModal(
                     labelLeft: _labelLeft,
+                    labelRight: _labelRight,
+                    valueLeft: _valueLeft.toString(),
+                    valueRight: _valueRight.toString(),
                     onClear: _clearBoth,
                     onReset: _resetBoth,
                     onSwap: _swapTeams,
                     onDone: _saveBoth,
                     labelLeftChanged: _labelLeftChanged,
+                    labelRightChanged: _labelRightChanged,
+                    valueLeftChanged: _valueLeftChanged,
+                    valueRightChanged: _valueRightChanged,
                   );
                 },
                 isScrollControlled: true,
@@ -388,11 +396,17 @@ class _InputPageState extends State<InputPage> {
                   builder: (BuildContext bc) {
                     return SettingsModal(
                       labelLeft: _labelLeft,
+                      labelRight: _labelRight,
+                      valueLeft: _valueLeft.toString(),
+                      valueRight: _valueRight.toString(),
                       onClear: _clearBoth,
                       onReset: _resetBoth,
                       onSwap: _swapTeams,
                       onDone: _saveBoth,
                       labelLeftChanged: _labelLeftChanged,
+                      labelRightChanged: _labelRightChanged,
+                      valueLeftChanged: _valueLeftChanged,
+                      valueRightChanged: _valueRightChanged,
                     );
                   },
                   isScrollControlled: true,
