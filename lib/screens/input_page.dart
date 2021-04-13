@@ -12,6 +12,11 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
 
+  Color _colorTextLeft = Colors.black;
+  Color _colorBackgroundLeft = Colors.red;
+  Color _colorTextRight = Colors.black;
+  Color _colorBackgroundRight = Colors.blueAccent;
+
   String _labelLeft = "Away";
   String _labelRight = "Home";
   int _valueLeft = 0;
@@ -20,10 +25,14 @@ class _InputPageState extends State<InputPage> {
   double _panPositionYLeft = 0.0;
   double _panPositionYRight = 0.0;
 
-  String _newLabelLeft = "Away";
-  String _newLabelRight = "Home";
+  String _newLabelLeft = "";
+  String _newLabelRight = "";
   int _newValueLeft = 0;
   int _newValueRight = 0;
+  Color _newColorTextLeft = Colors.black;
+  Color _newColorBackgroundLeft = Colors.red;
+  Color _newColorTextRight = Colors.black;
+  Color _newColorBackgroundRight = Colors.blueAccent;
 
 
   // _readPersistentData() async {
@@ -141,6 +150,10 @@ class _InputPageState extends State<InputPage> {
                   _labelRight = "Home";
                   _valueLeft = 0;
                   _valueRight = 0;
+                  _colorTextLeft = Colors.black;
+                  _colorBackgroundLeft = Colors.red;
+                  _colorTextRight = Colors.black;
+                  _colorBackgroundRight = Colors.blueAccent;
                 });
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
@@ -170,6 +183,10 @@ class _InputPageState extends State<InputPage> {
       _labelRight = _newLabelRight;
       _valueLeft = _newValueLeft;
       _valueRight = _newValueRight;
+      _colorTextLeft = _newColorTextLeft;
+      _colorBackgroundLeft = _newColorBackgroundLeft;
+      _colorTextRight = _newColorTextRight;
+      _colorBackgroundRight = _newColorBackgroundRight;
     });
     Navigator.of(context).pop();
   }
@@ -202,6 +219,30 @@ class _InputPageState extends State<InputPage> {
         if (_newValueRight < 0) _newValueRight = 0;
       });
     }
+  }
+
+  void _colorTextLeftChanged(Color color) async {
+    setState(() {
+      _newColorTextLeft = color;
+    });
+  }
+
+  void _colorBackgroundLeftChanged(Color color) async {
+    setState(() {
+      _newColorBackgroundLeft = color;
+    });
+  }
+
+  void _colorTextRightChanged(Color color) async {
+    setState(() {
+      _newColorTextRight = color;
+    });
+  }
+
+  void _colorBackgroundRightChanged(Color color) async {
+    setState(() {
+      _newColorBackgroundRight = color;
+    });
   }
 
   void _panUpdateLeft(DragUpdateDetails details) async {
@@ -256,18 +297,18 @@ class _InputPageState extends State<InputPage> {
                         child: TeamScoreCard(
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
-                          color: kTeamCardColorLeft,
+                          color: _colorBackgroundLeft,
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: kLabelTextStyle,
+                                style: kLabelTextStyle.copyWith(color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: kNumberTextStyle,
+                                style: kNumberTextStyle.copyWith(color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -277,18 +318,18 @@ class _InputPageState extends State<InputPage> {
                         child: TeamScoreCard(
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
-                          color: kTeamCardColorRight,
+                          color: _colorBackgroundRight,
                           margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: kLabelTextStyle,
+                                style: kLabelTextStyle.copyWith(color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: kNumberTextStyle,
+                                style: kNumberTextStyle.copyWith(color: _colorTextRight),
                               ),
                             ],
                           ),
@@ -311,6 +352,10 @@ class _InputPageState extends State<InputPage> {
                     labelRight: _labelRight,
                     valueLeft: _valueLeft.toString(),
                     valueRight: _valueRight.toString(),
+                    colorTextLeft: _colorTextLeft,
+                    colorBackgroundLeft: _colorBackgroundLeft,
+                    colorTextRight: _colorTextRight,
+                    colorBackgroundRight: _colorBackgroundRight,
                     onClear: _clearBoth,
                     onReset: _resetBoth,
                     onSwap: _swapTeams,
@@ -319,6 +364,10 @@ class _InputPageState extends State<InputPage> {
                     labelRightChanged: _labelRightChanged,
                     valueLeftChanged: _valueLeftChanged,
                     valueRightChanged: _valueRightChanged,
+                    colorTextLeftChanged: _colorTextLeftChanged,
+                    colorBackgroundLeftChanged: _colorBackgroundLeftChanged,
+                    colorTextRightChanged: _colorTextRightChanged,
+                    colorBackgroundRightChanged: _colorBackgroundRightChanged,
                   );
                 },
                 isScrollControlled: true,
@@ -344,18 +393,18 @@ class _InputPageState extends State<InputPage> {
                         child: TeamScoreCard(
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
-                          color: kTeamCardColorLeft,
+                          color: _colorBackgroundLeft,
                           margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: kLabelTextStyle,
+                                style: kLabelTextStyle.copyWith(color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: kNumberTextStyle,
+                                style: kNumberTextStyle.copyWith(color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -365,18 +414,18 @@ class _InputPageState extends State<InputPage> {
                         child: TeamScoreCard(
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
-                          color: kTeamCardColorRight,
+                          color: _colorBackgroundRight,
                           margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: kLabelTextStyle,
+                                style: kLabelTextStyle.copyWith(color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: kNumberTextStyle,
+                                style: kNumberTextStyle.copyWith(color: _colorTextRight),
                               ),
                             ],
                           ),
@@ -407,6 +456,10 @@ class _InputPageState extends State<InputPage> {
                       labelRightChanged: _labelRightChanged,
                       valueLeftChanged: _valueLeftChanged,
                       valueRightChanged: _valueRightChanged,
+                      colorTextLeft: _colorTextLeft,
+                      colorBackgroundLeft: _colorBackgroundLeft,
+                      colorTextRight: _colorTextRight,
+                      colorBackgroundRight: _colorBackgroundRight,
                     );
                   },
                   isScrollControlled: true,

@@ -4,10 +4,6 @@ const kVersion = '0.1';
 
 const kInputPageBackgroundColor = Colors.black45;
 
-
-const kTeamCardColorLeft = Colors.red; //Color(0xFF1D1E33);
-const kTeamCardColorRight = Colors.blueAccent; //Color(0xFF1D1E33);
-
 const kMainContainerWidthPortrait = 600.0;
 const kMainContainerWidthLandscape = 1000.0;
 

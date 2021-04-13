@@ -8,6 +8,10 @@ class SettingsModal extends StatelessWidget {
     required this.labelRight,
     required this.valueLeft,
     required this.valueRight,
+    required this.colorTextLeft,
+    required this.colorBackgroundLeft,
+    required this.colorTextRight,
+    required this.colorBackgroundRight,
     this.onReset,
     this.onClear,
     this.onSwap,
@@ -16,12 +20,21 @@ class SettingsModal extends StatelessWidget {
     this.labelRightChanged,
     this.valueLeftChanged,
     this.valueRightChanged,
+    this.colorTextLeftChanged,
+    this.colorBackgroundLeftChanged,
+    this.colorTextRightChanged,
+    this.colorBackgroundRightChanged,
+
   });
 
   final String labelLeft;
   final String labelRight;
   final String valueLeft;
   final String valueRight;
+  final Color colorTextLeft;
+  final Color colorBackgroundLeft;
+  final Color colorTextRight;
+  final Color colorBackgroundRight;
   final Function? onReset;
   final Function? onClear;
   final Function? onSwap;
@@ -30,6 +43,10 @@ class SettingsModal extends StatelessWidget {
   final Function? labelRightChanged;
   final Function? valueLeftChanged;
   final Function? valueRightChanged;
+  final Function? colorTextLeftChanged;
+  final Function? colorBackgroundLeftChanged;
+  final Function? colorTextRightChanged;
+  final Function? colorBackgroundRightChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +83,7 @@ class SettingsModal extends StatelessWidget {
         ],
       ),
       body: Container(
-        child: new Wrap(
+        child: ListView(
           children: <Widget>[
             // SettingsCard(
             //     color: Colors.lightBlue,
@@ -90,9 +107,14 @@ class SettingsModal extends StatelessWidget {
               ),
             ),
             new ListTile(
-              title: new Text('Color'),
-              trailing: new Icon(Icons.color_lens),
-              onTap: () => {},
+              title: new Text('Text Color'),
+              trailing: new Icon(Icons.color_lens), // TODO replace with current color, may need local function that calls color*Changed
+              onTap: () => {}, // TODO call colorpicker here with color*Changed
+            ),
+            new ListTile(
+              title: new Text('Background Color'),
+              trailing: new Icon(Icons.color_lens), // TODO replace with current color, may need local function that calls color*Changed
+              onTap: () => {}, // TODO call colorpicker here with color*Changed
             ),
             new ListTile(
                 leading: null,
@@ -112,9 +134,14 @@ class SettingsModal extends StatelessWidget {
               ),
             ),
             new ListTile(
-              title: new Text('Color'),
-              trailing: new Icon(Icons.color_lens),
-              onTap: () => {},
+              title: new Text('Text Color'),
+              trailing: new Icon(Icons.color_lens), // TODO replace with current color, may need local function that calls color*Changed
+              onTap: () => {}, // TODO call colorpicker here with color*Changed
+            ),
+            new ListTile(
+              title: new Text('Background Color'),
+              trailing: new Icon(Icons.color_lens), // TODO replace with current color, may need local function that calls color*Changed
+              onTap: () => {}, // TODO call colorpicker here with color*Changed
             ),
             new ListTile(
               title: new Text('Reset All'),
