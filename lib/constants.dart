@@ -9,7 +9,7 @@ const kMainContainerWidthLandscape = 1000.0;
 
 const kLabelTextStyle = TextStyle(
   fontSize: 50.0,
-  color: Colors.black, //Color(0xFF8D8E98),
+  color: Colors.black,
   fontWeight: FontWeight.bold,
 );
 
@@ -25,3 +25,15 @@ const kLargeButtonTextStyle = TextStyle(
 
 
 const kSettingsModalBackgroundColor = Colors.black45;
+
+const kSettingsTextStyle = TextStyle(
+  fontSize: 20.0,
+  color: Colors.black,
+  fontWeight: FontWeight.normal,
+);
+
+const kSettingsTextEditStyle = TextStyle(
+  fontSize: 20.0,
+  color: Colors.lightBlueAccent,
+  fontWeight: FontWeight.normal,
+);

@@ -73,12 +73,16 @@ class SettingsModal extends StatelessWidget {
           ),
           Container(
             width: 50,
+            child: SizedBox(),
+          ),
+          Container(
+            width: 50,
             child: GestureDetector(
               onTap: onDone as void Function()?,
               child: Icon(Icons.done),
             ),
           ),
-        ],
+         ],
       ),
       body: Container(
         child: ListView(
@@ -87,27 +91,32 @@ class SettingsModal extends StatelessWidget {
               leading: null,
               title: new TextFormField(
                 decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Name'
+                    hintText: 'Team Name',
                 ),
                 autofocus: false,
                 initialValue: labelLeft,
                 onChanged: labelLeftChanged as Function(String text)?,
+                style: kSettingsTextEditStyle,
               ),
             ),
             new ListTile(
               leading: null,
               title: new TextFormField(
                 decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Name'
+                    hintText: 'Team Score'
                 ),
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 initialValue: valueLeft,
                 onChanged: valueLeftChanged as Function(String text)?,
+                style: kSettingsTextEditStyle,
               ),
             ),
             new ListTile(
-              title: new Text('Text Color'),
+              title: new Text(
+                'Text Color',
+                style: kSettingsTextStyle,
+              ),
               trailing: Container(
                 width: 30.0,
                 height: 30.0,
@@ -119,7 +128,10 @@ class SettingsModal extends StatelessWidget {
               onTap: colorTextLeftEdit as Function()?,
             ),
             new ListTile(
-              title: new Text('Background Color'),
+              title: new Text(
+                'Background Color',
+                style: kSettingsTextStyle,
+              ),
               trailing: Container(
                 width: 30.0,
                 height: 30.0,
@@ -140,22 +152,27 @@ class SettingsModal extends StatelessWidget {
                 autofocus: false,
                 initialValue: labelRight,
                 onChanged: labelRightChanged as Function(String text)?,
+                style: kSettingsTextEditStyle,
               ),
             ),
             new ListTile(
               leading: null,
               title: new TextFormField(
                 decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Name'
+                    hintText: 'Team Score'
                 ),
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 initialValue: valueRight,
                 onChanged: valueRightChanged as Function(String text)?,
+                style: kSettingsTextEditStyle,
               ),
             ),
             new ListTile(
-              title: new Text('Text Color'),
+              title: new Text(
+                'Text Color',
+                style: kSettingsTextStyle,
+              ),
               trailing: Container(
                 width: 30.0,
                 height: 30.0,
@@ -167,7 +184,10 @@ class SettingsModal extends StatelessWidget {
               onTap: colorTextRightEdit as Function()?,
             ),
             new ListTile(
-              title: new Text('Background Color'),
+              title: new Text(
+                'Background Color',
+                style: kSettingsTextStyle,
+              ),
               trailing: Container(
                 width: 30.0,
                 height: 30.0,
@@ -180,7 +200,10 @@ class SettingsModal extends StatelessWidget {
             ),
             Divider(),
             new ListTile(
-              title: new Text('Reset All'),
+              title: new Text(
+                'Reset All',
+                style: kSettingsTextStyle,
+              ),
               trailing: new Icon(Icons.clear_all),
               onTap: onReset as void Function()?,
             ),
