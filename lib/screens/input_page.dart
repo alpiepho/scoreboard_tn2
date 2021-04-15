@@ -254,7 +254,7 @@ class _InputPageState extends State<InputPage> {
         return AlertDialog(
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
-            child: MaterialPicker(
+            child: ColorPicker(
               pickerColor: _colorTextLeft,
               onColorChanged: _colorTextLeftChanged,
               //showLabel: true,
@@ -295,28 +295,147 @@ class _InputPageState extends State<InputPage> {
   }
 
   void _colorBackgroundLeftEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: _colorBackgroundLeft,
+              onColorChanged: _colorBackgroundLeftChanged,
+              //showLabel: true,
+              //pickerAreaHeightPercent: 0.8,
+            ),
+            // Use Material color picker:
+            //
+            // child: MaterialPicker(
+            //   pickerColor: pickerColor,
+            //   onColorChanged: changeColor,
+            //   showLabel: true, // only on portrait mode
+            // ),
+            //
+            // Use Block color picker:
+            //
+            // child: BlockPicker(
+            //   pickerColor: currentColor,
+            //   onColorChanged: changeColor,
+            // ),
+            //
+            // child: MultipleChoiceBlockPicker(
+            //   pickerColors: currentColors,
+            //   onColorsChanged: changeColors,
+            // ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                //setState(() => currentColor = pickerColor);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _colorTextRightEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: _colorTextRight,
+              onColorChanged: _colorTextRightChanged,
+              //showLabel: true,
+              //pickerAreaHeightPercent: 0.8,
+            ),
+            // Use Material color picker:
+            //
+            // child: MaterialPicker(
+            //   pickerColor: pickerColor,
+            //   onColorChanged: changeColor,
+            //   showLabel: true, // only on portrait mode
+            // ),
+            //
+            // Use Block color picker:
+            //
+            // child: BlockPicker(
+            //   pickerColor: currentColor,
+            //   onColorChanged: changeColor,
+            // ),
+            //
+            // child: MultipleChoiceBlockPicker(
+            //   pickerColors: currentColors,
+            //   onColorsChanged: changeColors,
+            // ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                //setState(() => currentColor = pickerColor);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _colorBackgroundRightEdit() async {
-  }
-
-  Color _getNewColorTextLeft() {
-    return _newColorTextLeft;
-  }
-
-  Future<Color> _getNewColorBackgroundLeft() async {
-    return _newColorBackgroundLeft;
-  }
-
-  Future<Color> _getNewColorTextRight() async {
-    return _newColorTextRight;
-  }
-
-  Future<Color> _getNewColorBackgroundRight() async {
-    return _newColorBackgroundRight;
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: _colorBackgroundRight,
+              onColorChanged: _colorBackgroundRightChanged,
+              //showLabel: true,
+              //pickerAreaHeightPercent: 0.8,
+            ),
+            // Use Material color picker:
+            //
+            // child: MaterialPicker(
+            //   pickerColor: pickerColor,
+            //   onColorChanged: changeColor,
+            //   showLabel: true, // only on portrait mode
+            // ),
+            //
+            // Use Block color picker:
+            //
+            // child: BlockPicker(
+            //   pickerColor: currentColor,
+            //   onColorChanged: changeColor,
+            // ),
+            //
+            // child: MultipleChoiceBlockPicker(
+            //   pickerColors: currentColors,
+            //   onColorsChanged: changeColors,
+            // ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                //setState(() => currentColor = pickerColor);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 
@@ -448,11 +567,10 @@ class _InputPageState extends State<InputPage> {
                     labelRightChanged: _labelRightChanged,
                     valueLeftChanged: _valueLeftChanged,
                     valueRightChanged: _valueRightChanged,
-                    getNewColorTextLeft: _getNewColorTextLeft,
                     colorTextLeftEdit: _colorTextLeftEdit,
-                    colorBackgroundLeftEdit: _colorBackgroundLeftChanged,
-                    colorTextRightEdit: _colorTextRightChanged,
-                    colorBackgroundRightEdit: _colorBackgroundRightChanged,
+                    colorBackgroundLeftEdit: _colorBackgroundLeftEdit,
+                    colorTextRightEdit: _colorTextRightEdit,
+                    colorBackgroundRightEdit: _colorBackgroundRightEdit,
                   );
                 },
                 isScrollControlled: true,
@@ -542,19 +660,22 @@ class _InputPageState extends State<InputPage> {
                       labelRight: _labelRight,
                       valueLeft: _valueLeft.toString(),
                       valueRight: _valueRight.toString(),
-                      onClear: _clearBoth,
-                      onReset: _resetBoth,
-                      onSwap: _swapTeams,
-                      onDone: _saveBoth,
-                      labelLeftChanged: _colorTextLeftEdit,
-                      labelRightChanged: _labelRightChanged,
-                      valueLeftChanged: _valueLeftChanged,
-                      valueRightChanged: _valueRightChanged,
-                      getNewColorTextLeft: _getNewColorTextLeft,
                       colorTextLeft: _colorTextLeft,
                       colorBackgroundLeft: _colorBackgroundLeft,
                       colorTextRight: _colorTextRight,
                       colorBackgroundRight: _colorBackgroundRight,
+                      onClear: _clearBoth,
+                      onReset: _resetBoth,
+                      onSwap: _swapTeams,
+                      onDone: _saveBoth,
+                      labelLeftChanged: _labelLeftChanged,
+                      labelRightChanged: _labelRightChanged,
+                      valueLeftChanged: _valueLeftChanged,
+                      valueRightChanged: _valueRightChanged,
+                      colorTextLeftEdit: _colorTextLeftEdit,
+                      colorBackgroundLeftEdit: _colorBackgroundLeftEdit,
+                      colorTextRightEdit: _colorTextRightEdit,
+                      colorBackgroundRightEdit: _colorBackgroundRightEdit,
                     );
                   },
                   isScrollControlled: true,

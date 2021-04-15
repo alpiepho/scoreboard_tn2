@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scoreboard_tn/components/settings_card.dart';
 import 'package:scoreboard_tn/constants.dart';
 
 class SettingsModal extends StatelessWidget {
@@ -20,14 +19,10 @@ class SettingsModal extends StatelessWidget {
     this.labelRightChanged,
     this.valueLeftChanged,
     this.valueRightChanged,
-
-    this.getNewColorTextLeft,
-
     this.colorTextLeftEdit,
     this.colorBackgroundLeftEdit,
     this.colorTextRightEdit,
     this.colorBackgroundRightEdit,
-
   });
 
   final String labelLeft;
@@ -46,9 +41,6 @@ class SettingsModal extends StatelessWidget {
   final Function? labelRightChanged;
   final Function? valueLeftChanged;
   final Function? valueRightChanged;
-
-  final Function? getNewColorTextLeft;
-
   final Function? colorTextLeftEdit;
   final Function? colorBackgroundLeftEdit;
   final Function? colorTextRightEdit;
@@ -56,8 +48,6 @@ class SettingsModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var newColorLeft = getNewColorTextLeft!();
-
     return Scaffold(
       backgroundColor: kSettingsModalBackgroundColor,
       appBar: AppBar(
@@ -93,13 +83,12 @@ class SettingsModal extends StatelessWidget {
       body: Container(
         child: ListView(
           children: <Widget>[
-            // SettingsCard(
-            //     color: Colors.lightBlue,
-            //     cardChild: TextField(),
-            // ),
             new ListTile(
               leading: null,
               title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Team Name'
+                ),
                 autofocus: false,
                 initialValue: labelLeft,
                 onChanged: labelLeftChanged as Function(String text)?,
@@ -108,6 +97,9 @@ class SettingsModal extends StatelessWidget {
             new ListTile(
               leading: null,
               title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Team Name'
+                ),
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 initialValue: valueLeft,
@@ -119,22 +111,32 @@ class SettingsModal extends StatelessWidget {
               trailing: Container(
                 width: 30.0,
                 height: 30.0,
-                //color: colorTextLeft,
-                  decoration: BoxDecoration(
-                      color: newColorLeft,
-                      borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-               ),
+                decoration: BoxDecoration(
+                    color: colorTextLeft,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+              ),
               onTap: colorTextLeftEdit as Function()?,
             ),
             new ListTile(
               title: new Text('Background Color'),
-              trailing: new Icon(Icons.color_lens), // TODO replace with current color, may need callback
-              onTap: () => {}, // TODO call colorpicker here with color*Changed
+              trailing: Container(
+                width: 30.0,
+                height: 30.0,
+                decoration: BoxDecoration(
+                    color: colorBackgroundLeft,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+              ),
+              onTap: colorBackgroundLeftEdit as Function()?,
             ),
+            Divider(),
             new ListTile(
                 leading: null,
               title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Team Name'
+                ),
                 autofocus: false,
                 initialValue: labelRight,
                 onChanged: labelRightChanged as Function(String text)?,
@@ -143,6 +145,9 @@ class SettingsModal extends StatelessWidget {
             new ListTile(
               leading: null,
               title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Team Name'
+                ),
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 initialValue: valueRight,
@@ -151,14 +156,29 @@ class SettingsModal extends StatelessWidget {
             ),
             new ListTile(
               title: new Text('Text Color'),
-              trailing: new Icon(Icons.color_lens), // TODO replace with current color, may need callback
-              onTap: () => {}, // TODO call colorpicker here with color*Changed
+              trailing: Container(
+                width: 30.0,
+                height: 30.0,
+                decoration: BoxDecoration(
+                    color: colorTextRight,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+              ),
+              onTap: colorTextRightEdit as Function()?,
             ),
             new ListTile(
               title: new Text('Background Color'),
-              trailing: new Icon(Icons.color_lens), /// TODO replace with current color, may need callback
-              onTap: () => {}, // TODO call colorpicker here with color*Changed
+              trailing: Container(
+                width: 30.0,
+                height: 30.0,
+                decoration: BoxDecoration(
+                    color: colorBackgroundRight,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+              ),
+              onTap: colorBackgroundRightEdit as Function()?,
             ),
+            Divider(),
             new ListTile(
               title: new Text('Reset All'),
               trailing: new Icon(Icons.clear_all),
