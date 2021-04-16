@@ -279,8 +279,8 @@ class _ScoresPageState extends State<ScoresPage> {
                   return SettingsModal(
                     context,
                     this._engine,
-                    _clearBoth,
                     _resetBoth,
+                    _clearBoth,
                     _swapTeams,
                     _saveBoth,
                   );
@@ -362,8 +362,8 @@ class _ScoresPageState extends State<ScoresPage> {
                     return SettingsModal(
                       context,
                       this._engine,
-                      _clearBoth,
                       _resetBoth,
+                      _clearBoth,
                       _swapTeams,
                       _saveBoth,
                     );
