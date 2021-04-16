@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const kVersion = '0.1';
+const kVersion = '0.2';
 
 const kInputPageBackgroundColor = Colors.black45;
 
 const kMainContainerWidthPortrait = 600.0;
 const kMainContainerWidthLandscape = 1000.0;
 
-const kLabelTextStyle = TextStyle(
-  fontSize: 50.0,
+var kLabelTextStyle = GoogleFonts.montserrat(
+  fontSize: 70,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
 
-const kNumberTextStyle = TextStyle(
-  fontSize: 250.0,
+var kNumberTextStyle = GoogleFonts.montserrat(
+  fontSize: 350,
+  color: Colors.black,
   fontWeight: FontWeight.bold,
 );
-
-const kLargeButtonTextStyle = TextStyle(
-  fontSize: 25.0,
-  fontWeight: FontWeight.bold,
-);
-
 
 const kSettingsModalBackgroundColor = Colors.black45;
 

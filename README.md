@@ -5,13 +5,14 @@ My flutter version of a Scoreboard application
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
 ## TODO
-- add state to settings_modal
-- refactor components of score_page
-- refactor components of settings_modal
 - persist
+- font
 - icons
 - lighthouse
 - readme
+
+# Future
+- Fix top bar (but it does show time etc)
 
 
 ## Getting Started
