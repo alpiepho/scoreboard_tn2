@@ -9,13 +9,13 @@ const kMainContainerWidthPortrait = 600.0;
 const kMainContainerWidthLandscape = 1000.0;
 
 var kLabelTextStyle = GoogleFonts.montserrat(
-  fontSize: 70,
+  fontSize: 50,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
 
 var kNumberTextStyle = GoogleFonts.montserrat(
-  fontSize: 350,
+  fontSize: 250,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
