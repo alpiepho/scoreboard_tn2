@@ -6,6 +6,8 @@ GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
 ## TODO
 - add state to settings_modal
+- refactor components of score_page
+- refactor components of settings_modal
 - persist
 - icons
 - lighthouse

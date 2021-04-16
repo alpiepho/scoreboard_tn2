@@ -67,7 +67,6 @@ class _ScoresPageState extends State<ScoresPage> {
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
     });
-
   }
 
   void _incrementLeft() async {
@@ -278,12 +277,12 @@ class _ScoresPageState extends State<ScoresPage> {
                 context: context,
                 builder: (BuildContext bc) {
                   return SettingsModal(
-                    context: context,
-                    engine: this._engine,
-                    onClear: _clearBoth,
-                    onReset: _resetBoth,
-                    onSwap: _swapTeams,
-                    onDone: _saveBoth,
+                    context,
+                    this._engine,
+                    _clearBoth,
+                    _resetBoth,
+                    _swapTeams,
+                    _saveBoth,
                   );
                 },
                 isScrollControlled: true,
@@ -361,12 +360,12 @@ class _ScoresPageState extends State<ScoresPage> {
                   context: context,
                   builder: (BuildContext bc) {
                     return SettingsModal(
-                      context: context,
-                      engine: this._engine,
-                      onClear: _clearBoth,
-                      onReset: _resetBoth,
-                      onSwap: _swapTeams,
-                      onDone: _saveBoth,
+                      context,
+                      this._engine,
+                      _clearBoth,
+                      _resetBoth,
+                      _swapTeams,
+                      _saveBoth,
                     );
                   },
                   isScrollControlled: true,

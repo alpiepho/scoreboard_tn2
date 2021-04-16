@@ -3,30 +3,96 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:scoreboard_tn/constants.dart';
 import 'package:scoreboard_tn/engine.dart';
 
-class SettingsModal extends StatelessWidget {
-  SettingsModal({
-    required this.context,
-    required this.engine,
-    this.onReset,
-    this.onClear,
-    this.onSwap,
-    this.onDone,
-    // this.colorTextLeftEdit,
-    // this.colorBackgroundLeftEdit,
-    // this.colorTextRightEdit,
-    // this.colorBackgroundRightEdit,
-  });
+class SettingsModal extends StatefulWidget {
+  late BuildContext context;
+  late Engine engine;
+  late Function onReset;
+  late Function onClear;
+  late Function onSwap;
+  late Function onDone;
 
-  final BuildContext context;
-  final Engine engine;
-  final Function? onReset;
-  final Function? onClear;
-  final Function? onSwap;
-  final Function? onDone;
-  // final Function? colorTextLeftEdit;
-  // final Function? colorBackgroundLeftEdit;
-  // final Function? colorTextRightEdit;
-  // final Function? colorBackgroundRightEdit;
+  SettingsModal(
+      BuildContext context,
+      Engine engine,
+      Function onReset,
+      Function onClear,
+      Function onSwap,
+      Function onDone
+      ) {
+    this.context = context;
+    this.engine = engine;
+    this.onReset = onReset;
+    this.onClear = onClear;
+    this.onSwap = onSwap;
+    this.onDone = onDone;
+  }
+
+  @override
+  _SettingsModal createState() => _SettingsModal(context, engine, onReset, onClear, onSwap, onDone);
+}
+
+class _SettingsModal extends State<SettingsModal> {
+
+  _SettingsModal(
+      BuildContext context,
+      Engine engine,
+      Function onReset,
+      Function onClear,
+      Function onSwap,
+      Function onDone
+      ) {
+    this.context = context;
+    this.engine = engine;
+    this.onReset = onReset;
+    this.onClear = onClear;
+    this.onSwap = onSwap;
+    this.onDone = onDone;
+    this._newColorTextLeft = this.engine.newColorTextLeft;
+    this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
+    this._newColorTextRight = this.engine.newColorTextRight;
+    this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
+  }
+
+  late BuildContext context;
+  late Engine engine;
+  late Function onReset;
+  late Function onClear;
+  late Function onSwap;
+  late Function onDone;
+
+  late Color _newColorTextLeft;
+  late Color _newColorBackgroundLeft;
+  late Color _newColorTextRight;
+  late Color _newColorBackgroundRight;
+
+  void _fromEngine() async {
+    setState(() {
+      this._newColorTextLeft = this.engine.newColorTextLeft;
+      this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
+      this._newColorTextRight = this.engine.newColorTextRight;
+      this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
+    });
+  }
+
+  void _onColorTextLeftChanged(Color color) {
+    this.engine.newColorTextLeft = color;
+    _fromEngine();
+  }
+
+  void _onColorBackgroundLeftChanged(Color color) {
+    this.engine.newColorBackgroundLeft = color;
+    _fromEngine();
+  }
+
+  void _onColorTextRightChanged(Color color) {
+    this.engine.newColorTextRight = color;
+    _fromEngine();
+  }
+
+  void _onColorBackgroundRightChanged(Color color) {
+    this.engine.newColorBackgroundRight = color;
+    _fromEngine();
+  }
 
   void colorTextLeftEdit() async {
     showDialog<void>(
@@ -37,8 +103,8 @@ class SettingsModal extends StatelessWidget {
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
             child: ColorPicker(
-              pickerColor: engine.newColorTextLeft,
-              onColorChanged: (color) => engine.newColorTextLeft = color,
+              pickerColor: _newColorTextLeft,
+              onColorChanged: _onColorTextLeftChanged,
             ),
           ),
           actions: <Widget>[
@@ -63,8 +129,8 @@ class SettingsModal extends StatelessWidget {
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
             child: ColorPicker(
-              pickerColor: engine.newColorBackgroundLeft,
-              onColorChanged: (color) => engine.newColorBackgroundLeft = color,
+              pickerColor: _newColorBackgroundLeft,
+              onColorChanged: _onColorBackgroundLeftChanged,
             ),
           ),
           actions: <Widget>[
@@ -89,8 +155,8 @@ class SettingsModal extends StatelessWidget {
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
             child: ColorPicker(
-              pickerColor: engine.newColorTextRight,
-              onColorChanged: (color) => engine.newColorTextRight = color,
+              pickerColor: _newColorTextRight,
+              onColorChanged: _onColorTextRightChanged,
             ),
           ),
           actions: <Widget>[
@@ -115,8 +181,8 @@ class SettingsModal extends StatelessWidget {
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
             child: ColorPicker(
-              pickerColor: engine.newColorBackgroundRight,
-              onColorChanged:  (color) => engine.newColorBackgroundRight = color,
+              pickerColor: _newColorBackgroundRight,
+              onColorChanged: _onColorBackgroundRightChanged,
             ),
           ),
           actions: <Widget>[
@@ -207,7 +273,7 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: engine.colorTextLeft,
+                    color: _newColorTextLeft,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
@@ -222,7 +288,7 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: engine.colorBackgroundLeft,
+                    color: _newColorBackgroundLeft,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
@@ -263,7 +329,7 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: engine.colorTextRight,
+                    color: _newColorTextRight,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
@@ -278,7 +344,7 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: engine.colorBackgroundRight,
+                    color: _newColorBackgroundRight,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
