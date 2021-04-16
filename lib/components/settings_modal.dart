@@ -1,50 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:scoreboard_tn/constants.dart';
+import 'package:scoreboard_tn/engine.dart';
 
 class SettingsModal extends StatelessWidget {
   SettingsModal({
-    required this.labelLeft,
-    required this.labelRight,
-    required this.valueLeft,
-    required this.valueRight,
-    required this.colorTextLeft,
-    required this.colorBackgroundLeft,
-    required this.colorTextRight,
-    required this.colorBackgroundRight,
+    required this.context,
+    required this.engine,
     this.onReset,
     this.onClear,
     this.onSwap,
     this.onDone,
-    this.labelLeftChanged,
-    this.labelRightChanged,
-    this.valueLeftChanged,
-    this.valueRightChanged,
-    this.colorTextLeftEdit,
-    this.colorBackgroundLeftEdit,
-    this.colorTextRightEdit,
-    this.colorBackgroundRightEdit,
+    // this.colorTextLeftEdit,
+    // this.colorBackgroundLeftEdit,
+    // this.colorTextRightEdit,
+    // this.colorBackgroundRightEdit,
   });
 
-  final String labelLeft;
-  final String labelRight;
-  final String valueLeft;
-  final String valueRight;
-  final Color colorTextLeft;
-  final Color colorBackgroundLeft;
-  final Color colorTextRight;
-  final Color colorBackgroundRight;
+  final BuildContext context;
+  final Engine engine;
   final Function? onReset;
   final Function? onClear;
   final Function? onSwap;
   final Function? onDone;
-  final Function? labelLeftChanged;
-  final Function? labelRightChanged;
-  final Function? valueLeftChanged;
-  final Function? valueRightChanged;
-  final Function? colorTextLeftEdit;
-  final Function? colorBackgroundLeftEdit;
-  final Function? colorTextRightEdit;
-  final Function? colorBackgroundRightEdit;
+  // final Function? colorTextLeftEdit;
+  // final Function? colorBackgroundLeftEdit;
+  // final Function? colorTextRightEdit;
+  // final Function? colorBackgroundRightEdit;
+
+  void colorTextLeftEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: engine.newColorTextLeft,
+              onColorChanged: (color) => engine.newColorTextLeft = color,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void colorBackgroundLeftEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: engine.newColorBackgroundLeft,
+              onColorChanged: (color) => engine.newColorBackgroundLeft = color,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void colorTextRightEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: engine.newColorTextRight,
+              onColorChanged: (color) => engine.newColorTextRight = color,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void colorBackgroundRightEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: engine.newColorBackgroundRight,
+              onColorChanged:  (color) => engine.newColorBackgroundRight = color,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +180,8 @@ class SettingsModal extends StatelessWidget {
                     hintText: 'Team Name',
                 ),
                 autofocus: false,
-                initialValue: labelLeft,
-                onChanged: labelLeftChanged as Function(String text)?,
+                initialValue: engine.labelLeft,
+                onChanged: (text) => engine.newLabelLeft = text,
                 style: kSettingsTextEditStyle,
               ),
             ),
@@ -107,8 +193,8 @@ class SettingsModal extends StatelessWidget {
                 ),
                 autofocus: false,
                 keyboardType: TextInputType.number,
-                initialValue: valueLeft,
-                onChanged: valueLeftChanged as Function(String text)?,
+                initialValue: engine.valueLeft.toString(),
+                onChanged: (text) => engine.newValueLeftString = text,
                 style: kSettingsTextEditStyle,
               ),
             ),
@@ -121,11 +207,11 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: colorTextLeft,
+                    color: engine.colorTextLeft,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
-              onTap: colorTextLeftEdit as Function()?,
+              onTap: colorTextLeftEdit,
             ),
             new ListTile(
               title: new Text(
@@ -136,11 +222,11 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: colorBackgroundLeft,
+                    color: engine.colorBackgroundLeft,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
-              onTap: colorBackgroundLeftEdit as Function()?,
+              onTap: colorBackgroundLeftEdit,
             ),
             Divider(),
             new ListTile(
@@ -150,8 +236,8 @@ class SettingsModal extends StatelessWidget {
                     hintText: 'Team Name'
                 ),
                 autofocus: false,
-                initialValue: labelRight,
-                onChanged: labelRightChanged as Function(String text)?,
+                initialValue: engine.labelRight,
+                onChanged: (text) => engine.newLabelRight = text,
                 style: kSettingsTextEditStyle,
               ),
             ),
@@ -163,8 +249,8 @@ class SettingsModal extends StatelessWidget {
                 ),
                 autofocus: false,
                 keyboardType: TextInputType.number,
-                initialValue: valueRight,
-                onChanged: valueRightChanged as Function(String text)?,
+                initialValue: engine.valueRight.toString(),
+                onChanged: (text) => engine.newValueRightString = text,
                 style: kSettingsTextEditStyle,
               ),
             ),
@@ -177,11 +263,11 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: colorTextRight,
+                    color: engine.colorTextRight,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
-              onTap: colorTextRightEdit as Function()?,
+              onTap: colorTextRightEdit,
             ),
             new ListTile(
               title: new Text(
@@ -192,17 +278,17 @@ class SettingsModal extends StatelessWidget {
                 width: 30.0,
                 height: 30.0,
                 decoration: BoxDecoration(
-                    color: colorBackgroundRight,
+                    color: engine.colorBackgroundRight,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
               ),
-              onTap: colorBackgroundRightEdit as Function()?,
+              onTap: colorBackgroundRightEdit,
             ),
             Divider(),
             new ListTile(
               title: new Text(
                 'Reset All',
-                style: kSettingsTextStyle,
+                style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.clear_all),
               onTap: onReset as void Function()?,

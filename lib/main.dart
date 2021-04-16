@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scoreboard_tn/screens/input_page.dart';
+import 'package:scoreboard_tn/screens/scores_page.dart';
 
 void main() {
   //runApp(Scoreboard());
@@ -31,7 +31,7 @@ class Scoreboard extends StatelessWidget {
       //  scaffoldBackgroundColor: Color(0xFF0A0E21),
       //  backgroundColor: Color(0xFF0A0E21),
       //),
-      home: InputPage(),
+      home: ScoresPage(),
     );
   }
 }

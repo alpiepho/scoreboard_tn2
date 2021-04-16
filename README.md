@@ -5,17 +5,12 @@ My flutter version of a Scoreboard application
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
 ## TODO
-- hide status bar
-- cards for setting dialog
-- review constants
-- text input
-- keyboard
-- number input
-- number keyboard
-- color select
-- pass values back on done
+- add state to settings_modal
 - persist
 - icons
+- lighthouse
+- readme
+
 
 ## Getting Started
 

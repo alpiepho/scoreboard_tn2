@@ -28,12 +28,12 @@ const kSettingsModalBackgroundColor = Colors.black45;
 
 const kSettingsTextStyle = TextStyle(
   fontSize: 20.0,
-  color: Colors.black,
+  color: Colors.black45,
   fontWeight: FontWeight.normal,
 );
 
 const kSettingsTextEditStyle = TextStyle(
   fontSize: 20.0,
-  color: Colors.lightBlueAccent,
+  color: Colors.black,
   fontWeight: FontWeight.normal,
 );
