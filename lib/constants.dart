@@ -93,5 +93,5 @@ var kLabelTextStyle_rocksalt = GoogleFonts.rockSalt(
 var kNumberTextStyle_rocksalt = GoogleFonts.rockSalt(
   fontSize: 120,
   color: Colors.black,
-  fontWeight: FontWeight.normal,
+  fontWeight: FontWeight.bold,
 );
