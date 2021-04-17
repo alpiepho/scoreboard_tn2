@@ -26,6 +26,10 @@ class _ScoresPageState extends State<ScoresPage> {
   int _valueLeft = 0;
   int _valueRight = 0;
 
+  TextStyle _labelTextStyle = kLabelTextStyle;
+  TextStyle _numberTextStyle = kNumberTextStyle;
+
+
   // for increment/decrement swiping
   double _panPositionYLeft = 0.0;
   double _panPositionYRight = 0.0;
@@ -66,6 +70,9 @@ class _ScoresPageState extends State<ScoresPage> {
       _labelRight = this._engine.labelRight;
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
+
+      _labelTextStyle = this._engine.labelTextStyle;
+      _numberTextStyle = this._engine.numberTextStyle;
     });
   }
 
@@ -226,17 +233,17 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
                           color: _colorBackgroundLeft,
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: kLabelTextStyle.copyWith(color: _colorTextLeft),
+                                style: _labelTextStyle.copyWith(color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: kNumberTextStyle.copyWith(color: _colorTextLeft),
+                                style: _numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -247,17 +254,17 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
                           color: _colorBackgroundRight,
-                          margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                          margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: kLabelTextStyle.copyWith(color: _colorTextRight),
+                                style: _labelTextStyle.copyWith(color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: kNumberTextStyle.copyWith(color: _colorTextRight),
+                                style: _numberTextStyle.copyWith(color: _colorTextRight),
                               ),
                             ],
                           ),
@@ -309,17 +316,17 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
                           color: _colorBackgroundLeft,
-                          margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                          margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: kLabelTextStyle.copyWith(color: _colorTextLeft),
+                                style: _labelTextStyle.copyWith(color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: kNumberTextStyle.copyWith(color: _colorTextLeft),
+                                style: _numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -330,17 +337,17 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
                           color: _colorBackgroundRight,
-                          margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                          margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: kLabelTextStyle.copyWith(color: _colorTextRight),
+                                style: _labelTextStyle.copyWith(color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: kNumberTextStyle.copyWith(color: _colorTextRight),
+                                style: _numberTextStyle.copyWith(color: _colorTextRight),
                               ),
                             ],
                           ),

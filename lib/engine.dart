@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scoreboard_tn/constants.dart';
 
 class Engine {
   Color _colorTextLeft = Colors.black;
@@ -20,6 +21,8 @@ class Engine {
   Color _newColorTextRight = Colors.black;
   Color _newColorBackgroundRight = Colors.blueAccent;
 
+  TextStyle _labelTextStyle = kLabelTextStyle;
+  TextStyle _numberTextStyle = kNumberTextStyle;
 
   Engine();
 
@@ -80,6 +83,19 @@ class Engine {
   set newLabelLeft(String value) {
     _newLabelLeft = value;
   }
+
+  TextStyle get labelTextStyle => _labelTextStyle;
+
+  set labelTextStyle(TextStyle value) {
+    _labelTextStyle = value;
+  }
+
+  TextStyle get numberTextStyle => _numberTextStyle;
+
+  set numberTextStyle(TextStyle value) {
+    _numberTextStyle = value;
+  }
+
 
   //
   // Getter/Setters for temporary variables
