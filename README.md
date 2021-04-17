@@ -5,13 +5,12 @@ My flutter version of a Scoreboard application
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
 ## TODO
-- icons
-- lighthouse
 - persist
 - lighthouse
 - readme
 
 # Future
+- fix home screen icon
 - more fonts
 - Fix top bar (but it does show time etc)
 
