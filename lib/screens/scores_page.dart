@@ -37,27 +37,27 @@ class _ScoresPageState extends State<ScoresPage> {
   Engine _engine = Engine();
 
 
-  // _readPersistentData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final labelLeft = prefs.getString('labelLeft') ?? 'Away';
-  //   final labelRight = prefs.getString('labelRight') ?? 'Home';
-  //   final valueLeft = prefs.getInt('valueLeft') ?? 0;
-  //   final valueRight = prefs.getInt('valueRight') ?? 0;
-  //   setState(() {
-  //     _labelLeft = labelLeft;
-  //     _labelRight = labelRight;
-  //     _valueLeft = valueLeft;
-  //     _valueRight = valueRight;
-  //   });
-  // }
-  //
-  // _savePersistentData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setString('labelLeft', _labelLeft);
-  //   prefs.setString('labelRight', _labelRight);
-  //   prefs.setInt('valueLeft', _valueLeft);
-  //   prefs.setInt('valueRight', _valueRight);
-  // }
+  void _loadEngine() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _labelLeft = prefs.getString('labelLeft') ?? "Away";
+      _labelRight = prefs.getString('labelRight') ?? "Home";
+      _valueLeft = prefs.getInt('valueLeft') ?? 0;
+      _valueRight = prefs.getInt('valueRight') ?? 0;
+      _engine.labelLeft = _labelLeft;
+      _engine.labelRight = _labelRight;
+      _engine.valueLeft = _valueLeft;
+      _engine.valueRight = _valueRight;
+    });
+  }
+
+  void _saveEngine() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('labelLeft', _engine.labelLeft);
+    prefs.setString('labelRight', _engine.labelRight);
+    prefs.setInt('valueLeft', _engine.valueLeft);
+    prefs.setInt('valueRight', _engine.valueRight);
+  }
 
   void _fromEngine() async {
     setState(() {
@@ -73,6 +73,8 @@ class _ScoresPageState extends State<ScoresPage> {
 
       _labelTextStyle = this._engine.labelTextStyle;
       _numberTextStyle = this._engine.numberTextStyle;
+
+      _saveEngine();
     });
   }
 
@@ -212,6 +214,11 @@ class _ScoresPageState extends State<ScoresPage> {
     }
   }
 
+  @override
+  initState() {
+    super.initState();
+    _loadEngine();
+  }
 
   @override
   Widget build(BuildContext context) {

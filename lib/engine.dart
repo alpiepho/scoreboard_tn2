@@ -26,7 +26,6 @@ class Engine {
 
   Engine();
 
-
   //
   // Getter/Setters for main variables
   //
