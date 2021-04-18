@@ -184,6 +184,7 @@ class Engine {
     _colorBackgroundLeft = Colors.red;
     _colorTextRight = Colors.black;
     _colorBackgroundRight = Colors.blueAccent;
+    fontType = FontTypes.system;
   }
 
   void swapTeams() {
