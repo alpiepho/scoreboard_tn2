@@ -87,6 +87,8 @@ class _ScoresPageState extends State<ScoresPage> {
           _numberTextStyle = kNumberTextStyle_system;
           break;
       }
+      _engine.labelTextStyle = _labelTextStyle;
+      _engine.numberTextStyle = _numberTextStyle;
     });
   }
 
