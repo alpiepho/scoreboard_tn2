@@ -202,7 +202,7 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
-  void fontChanged(FontTypes fontType, TextStyle labelStyle, TextStyle numberStyle) async {
+  void fontChanged(FontTypes fontType) async {
     this.engine.fontType = fontType;
     this.onDone();
   }
@@ -383,42 +383,42 @@ class _SettingsModal extends State<SettingsModal> {
                 'Default: ex. 0123456789',
                 style: kLabelTextStyle_system.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.system, kLabelTextStyle_system, kNumberTextStyle_system),
+              onTap: () => fontChanged(FontTypes.system),
             ),
             new ListTile(
               title: new Text(
                 'Lato: ex. 0123456789',
                 style: kLabelTextStyle_lato.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.lato, kLabelTextStyle_lato, kNumberTextStyle_lato),
+              onTap: () => fontChanged(FontTypes.lato),
             ),
             new ListTile(
               title: new Text(
                 'Merriweather: ex. 0123456789',
                 style: kLabelTextStyle_merriweather.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.merriweather, kLabelTextStyle_merriweather, kNumberTextStyle_merriweather),
+              onTap: () => fontChanged(FontTypes.merriweather),
             ),
             new ListTile(
               title: new Text(
                 'Montserrat: ex. 0123456789',
                 style: kLabelTextStyle_montserrat.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.montserrat, kLabelTextStyle_montserrat, kNumberTextStyle_montserrat),
+              onTap: () => fontChanged(FontTypes.montserrat),
             ),
             new ListTile(
               title: new Text(
                 'RobotoMono: ex. 0123456789',
                 style: kLabelTextStyle_robotomono.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.robotoMono, kLabelTextStyle_robotomono, kNumberTextStyle_robotomono),
+              onTap: () => fontChanged(FontTypes.robotoMono),
             ),
             new ListTile(
               title: new Text(
                 'RockSalt: ex. 0123456789',
                 style: kLabelTextStyle_rocksalt.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.rockSalt, kLabelTextStyle_rocksalt, kNumberTextStyle_rocksalt),
+              onTap: () => fontChanged(FontTypes.rockSalt),
             ),
             Divider(),
 
