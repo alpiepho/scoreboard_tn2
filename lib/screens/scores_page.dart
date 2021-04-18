@@ -26,8 +26,9 @@ class _ScoresPageState extends State<ScoresPage> {
   int _valueLeft = 0;
   int _valueRight = 0;
 
-  TextStyle _labelTextStyle = kLabelTextStyle;
-  TextStyle _numberTextStyle = kNumberTextStyle;
+  FontTypes _fontType = FontTypes.system;
+  TextStyle _labelTextStyle = kLabelTextStyle_system;
+  TextStyle _numberTextStyle = kNumberTextStyle_system;
 
 
   // for increment/decrement swiping
@@ -44,10 +45,48 @@ class _ScoresPageState extends State<ScoresPage> {
       _labelRight = prefs.getString('labelRight') ?? "Home";
       _valueLeft = prefs.getInt('valueLeft') ?? 0;
       _valueRight = prefs.getInt('valueRight') ?? 0;
+      _colorTextLeft = Color(prefs.getInt('colorTextLeft') ?? Colors.black.value);
+      _colorBackgroundLeft = Color(prefs.getInt('colorBackgroundLeft') ?? Colors.red.value);
+      _colorTextRight = Color(prefs.getInt('colorTextRight') ?? Colors.black.value);
+      _colorBackgroundRight = Color(prefs.getInt('colorBackgroundRight') ?? Colors.blueAccent.value);
       _engine.labelLeft = _labelLeft;
       _engine.labelRight = _labelRight;
       _engine.valueLeft = _valueLeft;
       _engine.valueRight = _valueRight;
+      _engine.colorTextLeft = _colorTextLeft;
+      _engine.colorBackgroundLeft = _colorBackgroundLeft;
+      _engine.colorTextRight = _colorTextRight;
+      _engine.colorBackgroundRight = _colorBackgroundRight;
+
+      int index = prefs.getInt('fontType') ?? 0;
+      _fontType = FontTypes.values[index];
+      switch (_fontType) {
+        case FontTypes.lato:
+          _labelTextStyle = kLabelTextStyle_lato;
+          _numberTextStyle = kNumberTextStyle_lato;
+          break;
+        case FontTypes.merriweather:
+          _labelTextStyle = kLabelTextStyle_merriweather;
+          _numberTextStyle = kNumberTextStyle_merriweather;
+          break;
+        case FontTypes.montserrat:
+          _labelTextStyle = kLabelTextStyle_montserrat;
+          _numberTextStyle = kNumberTextStyle_montserrat;
+          break;
+        case FontTypes.robotoMono:
+          _labelTextStyle = kLabelTextStyle_robotomono;
+          _numberTextStyle = kNumberTextStyle_robotomono;
+          break;
+        case FontTypes.rockSalt:
+          _labelTextStyle = kLabelTextStyle_rocksalt;
+          _numberTextStyle = kNumberTextStyle_rocksalt;
+          break;
+        default:
+          _fontType = FontTypes.system;
+          _labelTextStyle = kLabelTextStyle_system;
+          _numberTextStyle = kNumberTextStyle_system;
+          break;
+      }
     });
   }
 
@@ -57,20 +96,28 @@ class _ScoresPageState extends State<ScoresPage> {
     prefs.setString('labelRight', _engine.labelRight);
     prefs.setInt('valueLeft', _engine.valueLeft);
     prefs.setInt('valueRight', _engine.valueRight);
+
+    prefs.setInt('colorTextLeft', _engine.colorTextLeft.value);
+    prefs.setInt('colorBackgroundLeft', _engine.colorBackgroundLeft.value);
+    prefs.setInt('colorTextRight', _engine.colorTextRight.value);
+    prefs.setInt('colorBackgroundRight', _engine.colorBackgroundRight.value);
+
+    prefs.setInt('fontType', _engine.fontType.index);
   }
 
   void _fromEngine() async {
     setState(() {
-      _colorTextLeft = this._engine.colorTextLeft;
-      _colorBackgroundLeft = this._engine.colorBackgroundLeft;
-      _colorTextRight = this._engine.colorTextRight;
-      _colorBackgroundRight = this._engine.colorBackgroundRight;
-
       _labelLeft  = this._engine.labelLeft;
       _labelRight = this._engine.labelRight;
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
 
+      _colorTextLeft = this._engine.colorTextLeft;
+      _colorBackgroundLeft = this._engine.colorBackgroundLeft;
+      _colorTextRight = this._engine.colorTextRight;
+      _colorBackgroundRight = this._engine.colorBackgroundRight;
+
+      _fontType = this._engine.fontType;
       _labelTextStyle = this._engine.labelTextStyle;
       _numberTextStyle = this._engine.numberTextStyle;
 

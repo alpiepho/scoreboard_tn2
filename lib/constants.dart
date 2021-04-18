@@ -31,12 +31,21 @@ const kSettingsTextEditStyle = TextStyle(
 //
 // look at https://fonts.google.com/?preview.text=0123456&preview.text_type=custom&preview.size=113
 //
-const kLabelTextStyle = TextStyle(
+enum FontTypes {
+  system,
+  lato,
+  merriweather,
+  montserrat,
+  robotoMono,
+  rockSalt,
+}
+
+const kLabelTextStyle_system = TextStyle(
   fontSize: 50.0,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
-const kNumberTextStyle = TextStyle(
+const kNumberTextStyle_system = TextStyle(
   fontSize: 250.0,
   fontWeight: FontWeight.bold,
 );

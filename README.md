@@ -37,9 +37,7 @@ Thanks for trying out this applications.
 
 
 # Todo and Future Changes
-- fix start up persistence
-- add color to persistent data
-- add font to persistant data
+- refactor persistence for fonts
 - fix home screen icon
 - more fonts
 - move fonts to another dialog?

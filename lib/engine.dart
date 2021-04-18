@@ -21,8 +21,10 @@ class Engine {
   Color _newColorTextRight = Colors.black;
   Color _newColorBackgroundRight = Colors.blueAccent;
 
-  TextStyle _labelTextStyle = kLabelTextStyle;
-  TextStyle _numberTextStyle = kNumberTextStyle;
+  FontTypes _fontType = FontTypes.system;
+
+  TextStyle _labelTextStyle = kLabelTextStyle_system;
+  TextStyle _numberTextStyle = kNumberTextStyle_system;
 
   Engine();
 
@@ -81,6 +83,12 @@ class Engine {
 
   set newLabelLeft(String value) {
     _newLabelLeft = value;
+  }
+
+  FontTypes get fontType => _fontType;
+
+  set fontType(FontTypes value) {
+    _fontType = value;
   }
 
   TextStyle get labelTextStyle => _labelTextStyle;
