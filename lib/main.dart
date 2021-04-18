@@ -11,7 +11,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Hide status bar
-  //SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
 
   // Than we setup preferred orientations,
   // and only after it finished we run our app

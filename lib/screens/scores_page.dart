@@ -45,21 +45,29 @@ class _ScoresPageState extends State<ScoresPage> {
       _labelRight = prefs.getString('labelRight') ?? "Home";
       _valueLeft = prefs.getInt('valueLeft') ?? 0;
       _valueRight = prefs.getInt('valueRight') ?? 0;
-      _colorTextLeft = Color(prefs.getInt('colorTextLeft') ?? Colors.black.value);
-      _colorBackgroundLeft = Color(prefs.getInt('colorBackgroundLeft') ?? Colors.red.value);
-      _colorTextRight = Color(prefs.getInt('colorTextRight') ?? Colors.black.value);
-      _colorBackgroundRight = Color(prefs.getInt('colorBackgroundRight') ?? Colors.blueAccent.value);
       _engine.labelLeft = _labelLeft;
       _engine.labelRight = _labelRight;
       _engine.valueLeft = _valueLeft;
       _engine.valueRight = _valueRight;
+
+      _colorTextLeft = Color(prefs.getInt('colorTextLeft') ?? Colors.black.value);
+      _colorBackgroundLeft = Color(prefs.getInt('colorBackgroundLeft') ?? Colors.red.value);
+      _colorTextRight = Color(prefs.getInt('colorTextRight') ?? Colors.black.value);
+      _colorBackgroundRight = Color(prefs.getInt('colorBackgroundRight') ?? Colors.blueAccent.value);
+
       _engine.colorTextLeft = _colorTextLeft;
       _engine.colorBackgroundLeft = _colorBackgroundLeft;
       _engine.colorTextRight = _colorTextRight;
       _engine.colorBackgroundRight = _colorBackgroundRight;
 
+      _engine.newColorTextLeft = _colorTextLeft;
+      _engine.newColorBackgroundLeft = _colorBackgroundLeft;
+      _engine.newColorTextRight = _colorTextRight;
+      _engine.newColorBackgroundRight = _colorBackgroundRight;
+
       int index = prefs.getInt('fontType') ?? 0;
       _fontType = FontTypes.values[index];
+      _engine.fontType = _fontType;
     });
   }
 
