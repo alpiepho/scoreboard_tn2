@@ -51,8 +51,6 @@ class _SettingsModal extends State<SettingsModal> {
     this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
     this._newColorTextRight = this.engine.newColorTextRight;
     this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
-    //this._newLabelTextStyle = this.engine.labelTextStyle;
-    //this._newNumberTextStyle = this.engine.numberTextStyle;
   }
 
   late BuildContext context;
@@ -77,8 +75,6 @@ class _SettingsModal extends State<SettingsModal> {
       this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
       this._newColorTextRight = this.engine.newColorTextRight;
       this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
-      //this._newLabelTextStyle = this.engine.labelTextStyle;
-      //this._newNumberTextStyle = this.engine.numberTextStyle;
     });
   }
 
@@ -208,8 +204,6 @@ class _SettingsModal extends State<SettingsModal> {
 
   void fontChanged(FontTypes fontType, TextStyle labelStyle, TextStyle numberStyle) async {
     this.engine.fontType = fontType;
-    this.engine.labelTextStyle = labelStyle;
-    this.engine.numberTextStyle = numberStyle;
     this.onDone();
   }
 

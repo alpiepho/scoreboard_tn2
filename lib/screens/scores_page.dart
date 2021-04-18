@@ -27,8 +27,8 @@ class _ScoresPageState extends State<ScoresPage> {
   int _valueRight = 0;
 
   FontTypes _fontType = FontTypes.system;
-  TextStyle _labelTextStyle = kLabelTextStyle_system;
-  TextStyle _numberTextStyle = kNumberTextStyle_system;
+  //TextStyle _labelTextStyle = kLabelTextStyle_system;
+  //TextStyle _numberTextStyle = kNumberTextStyle_system;
 
 
   // for increment/decrement swiping
@@ -60,35 +60,6 @@ class _ScoresPageState extends State<ScoresPage> {
 
       int index = prefs.getInt('fontType') ?? 0;
       _fontType = FontTypes.values[index];
-      switch (_fontType) {
-        case FontTypes.lato:
-          _labelTextStyle = kLabelTextStyle_lato;
-          _numberTextStyle = kNumberTextStyle_lato;
-          break;
-        case FontTypes.merriweather:
-          _labelTextStyle = kLabelTextStyle_merriweather;
-          _numberTextStyle = kNumberTextStyle_merriweather;
-          break;
-        case FontTypes.montserrat:
-          _labelTextStyle = kLabelTextStyle_montserrat;
-          _numberTextStyle = kNumberTextStyle_montserrat;
-          break;
-        case FontTypes.robotoMono:
-          _labelTextStyle = kLabelTextStyle_robotomono;
-          _numberTextStyle = kNumberTextStyle_robotomono;
-          break;
-        case FontTypes.rockSalt:
-          _labelTextStyle = kLabelTextStyle_rocksalt;
-          _numberTextStyle = kNumberTextStyle_rocksalt;
-          break;
-        default:
-          _fontType = FontTypes.system;
-          _labelTextStyle = kLabelTextStyle_system;
-          _numberTextStyle = kNumberTextStyle_system;
-          break;
-      }
-      _engine.labelTextStyle = _labelTextStyle;
-      _engine.numberTextStyle = _numberTextStyle;
     });
   }
 
@@ -120,8 +91,6 @@ class _ScoresPageState extends State<ScoresPage> {
       _colorBackgroundRight = this._engine.colorBackgroundRight;
 
       _fontType = this._engine.fontType;
-      _labelTextStyle = this._engine.labelTextStyle;
-      _numberTextStyle = this._engine.numberTextStyle;
 
       _saveEngine();
     });
@@ -271,6 +240,32 @@ class _ScoresPageState extends State<ScoresPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle labelTextStyle = kLabelTextStyle_system;
+    TextStyle numberTextStyle = kNumberTextStyle_system;
+
+    switch (_fontType) {
+      case FontTypes.lato:
+        labelTextStyle = kLabelTextStyle_lato;
+        numberTextStyle = kNumberTextStyle_lato;
+        break;
+      case FontTypes.merriweather:
+        labelTextStyle = kLabelTextStyle_merriweather;
+        numberTextStyle = kNumberTextStyle_merriweather;
+        break;
+      case FontTypes.montserrat:
+        labelTextStyle = kLabelTextStyle_montserrat;
+        numberTextStyle = kNumberTextStyle_montserrat;
+        break;
+      case FontTypes.robotoMono:
+        labelTextStyle = kLabelTextStyle_robotomono;
+        numberTextStyle = kNumberTextStyle_robotomono;
+        break;
+      case FontTypes.rockSalt:
+        labelTextStyle = kLabelTextStyle_rocksalt;
+        numberTextStyle = kNumberTextStyle_rocksalt;
+        break;
+    }
+
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     if (isPortrait) {
       return Scaffold(
@@ -295,11 +290,11 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: _labelTextStyle.copyWith(color: _colorTextLeft),
+                                style: labelTextStyle.copyWith(color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: _numberTextStyle.copyWith(color: _colorTextLeft),
+                                style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -316,11 +311,11 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: _labelTextStyle.copyWith(color: _colorTextRight),
+                                style: labelTextStyle.copyWith(color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: _numberTextStyle.copyWith(color: _colorTextRight),
+                                style: numberTextStyle.copyWith(color: _colorTextRight),
                               ),
                             ],
                           ),
@@ -378,11 +373,11 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: _labelTextStyle.copyWith(color: _colorTextLeft),
+                                style: labelTextStyle.copyWith(color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: _numberTextStyle.copyWith(color: _colorTextLeft),
+                                style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -399,11 +394,11 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: _labelTextStyle.copyWith(color: _colorTextRight),
+                                style: labelTextStyle.copyWith(color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: _numberTextStyle.copyWith(color: _colorTextRight),
+                                style: numberTextStyle.copyWith(color: _colorTextRight),
                               ),
                             ],
                           ),

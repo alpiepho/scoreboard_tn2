@@ -23,9 +23,6 @@ class Engine {
 
   FontTypes _fontType = FontTypes.system;
 
-  TextStyle _labelTextStyle = kLabelTextStyle_system;
-  TextStyle _numberTextStyle = kNumberTextStyle_system;
-
   Engine();
 
   //
@@ -91,17 +88,6 @@ class Engine {
     _fontType = value;
   }
 
-  TextStyle get labelTextStyle => _labelTextStyle;
-
-  set labelTextStyle(TextStyle value) {
-    _labelTextStyle = value;
-  }
-
-  TextStyle get numberTextStyle => _numberTextStyle;
-
-  set numberTextStyle(TextStyle value) {
-    _numberTextStyle = value;
-  }
 
 
   //

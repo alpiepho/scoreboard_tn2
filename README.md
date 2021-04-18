@@ -37,10 +37,9 @@ Thanks for trying out this applications.
 
 
 # Todo and Future Changes
-- refactor persistence for fonts
 - fix home screen icon
-- more fonts
-- move fonts to another dialog?
+- More fonts
+- Move fonts to another dialog?
 - Idea: Tie into time markers for associated YouTube/Other video
 - Fix more Lighthouse issues (might be in Flutter)
 - Fix top bar (but it does show time etc)
