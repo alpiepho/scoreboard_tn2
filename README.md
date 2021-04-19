@@ -35,6 +35,21 @@ Below are some lists of things yet to do and possible future changes.
 
 Thanks for trying out this applications.
 
+## Recording Timestamps
+
+A simple recorder with timestamps was added.  One use might be to add indexing to a YouTube video.  To use this, go to the settings page and scroll to the bottom.  Select Start to clear and start a new session.  Click stop to stop.
+
+As the score is updated, a line with the score details is added.  Finally, use the Copy Clipboard to get a copy of the session.
+
+The following is an example of what would be copied to the clipboard:
+```
+00:00 Start
+01:33 Away 1, Home 0
+...
+```
+
+NOTE: at this time there is no indication that recording is enabled.
+
 
 # Todo and Future Changes
 - fix settings landscape keyboard
