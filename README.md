@@ -37,9 +37,11 @@ Thanks for trying out this applications.
 
 
 # Todo and Future Changes
-- fix home screen icon
+- fix settings landscape keyboard
+- fix home screen image and re generate icons
 - More fonts
 - Move fonts to another dialog?
+- Move timestamps to another dialog?
 - Idea: Tie into time markers for associated YouTube/Other video
 - Fix more Lighthouse issues (might be in Flutter)
 - Fix top bar (but it does show time etc)

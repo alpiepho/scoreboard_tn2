@@ -23,6 +23,10 @@ class Engine {
 
   FontTypes _fontType = FontTypes.system;
 
+  bool _recordingEnabled = false;
+  DateTime _recordingStart = DateTime.now();
+  String _recording = "";
+
   Engine();
 
   //
@@ -154,25 +158,30 @@ class Engine {
   //
   void incrementLeft() {
     _valueLeft += 1;
+    _timestampRecordingAdd();
   }
 
   void decrementLeft() {
     _valueLeft -= 1;
     if (_valueLeft < 0) _valueLeft = 0;
+    _timestampRecordingAdd();
   }
 
   void incrementRight() {
     _valueRight += 1;
+    _timestampRecordingAdd();
   }
 
   void decrementRight() {
     _valueRight -= 1;
     if (_valueRight < 0) _valueRight = 0;
+    _timestampRecordingAdd();
   }
 
   void clearBoth() {
     _valueLeft = 0;
     _valueRight = 0;
+    _timestampRecordingAdd();
   }
 
   void resetBoth()  {
@@ -221,5 +230,29 @@ class Engine {
     _newColorTextLeft = _colorTextLeft;
     _newColorBackgroundLeft = _newColorBackgroundLeft;
     _newColorBackgroundRight = _newColorBackgroundRight;
+  }
+
+  void timestampRecordingStart() {
+    _recordingEnabled = true;
+    _recording = "00:00 Start\n";
+    _recordingStart = DateTime.now();
+  }
+
+  void timestampRecordingStop() {
+    _recordingEnabled = false;
+  }
+
+  String timestampRecordingCopy() {
+    return _recording;
+  }
+
+  _timestampFormat(Duration d) => d.toString().split('.').first.padLeft(8, "0");
+
+  void _timestampRecordingAdd() {
+    if (_recordingEnabled) {
+      final difference = DateTime.now().difference(_recordingStart);
+      String ts = _timestampFormat(new Duration(seconds: difference.inSeconds)) + " ";
+      _recording += ts + _labelLeft + " " + _valueLeft.toString() + ", " + _labelRight + " " + _valueRight.toString() + "\n";
+    }
   }
 }

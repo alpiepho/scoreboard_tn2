@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:scoreboard_tn/constants.dart';
 import 'package:scoreboard_tn/engine.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class SettingsModal extends StatefulWidget {
   late BuildContext context;
@@ -202,9 +205,30 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
+  void onTimestampRecordingStart() async {
+    this.engine.timestampRecordingStart();
+    Navigator.of(context).pop();
+  }
+
+  void onTimestampRecordingStop() async {
+    this.engine.timestampRecordingStop();
+    Navigator.of(context).pop();
+  }
+
+  void onTimestampRecordingCopy() async {
+    String contents = this.engine.timestampRecordingCopy();
+    Clipboard.setData(ClipboardData(text: contents));
+    Navigator.of(context).pop();
+  }
+
   void fontChanged(FontTypes fontType) async {
     this.engine.fontType = fontType;
     this.onDone();
+  }
+
+  void onHelp() async {
+    launch('https://github.com/alpiepho/scoreboard_tn');
+    Navigator.of(context).pop();
   }
 
   @override
@@ -419,6 +443,52 @@ class _SettingsModal extends State<SettingsModal> {
                 style: kLabelTextStyle_rocksalt.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
               onTap: () => fontChanged(FontTypes.rockSalt),
+            ),
+            Divider(),
+            Divider(),
+            Divider(),
+            Divider(),
+            new ListTile(
+              title: new Text(
+                'Timestamps:',
+                style: kSettingsTextEditStyle,
+              ),
+            ),
+            new ListTile(
+              title: new Text(
+                'Recording Start',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.playlist_add),
+              onTap: onTimestampRecordingStart,
+            ),
+            new ListTile(
+              title: new Text(
+                'Recording Stop',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.stop_circle),
+              onTap: onTimestampRecordingStop,
+            ),
+            new ListTile(
+              title: new Text(
+                'Copy to Clipboard',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.library_books),
+              onTap: onTimestampRecordingCopy,
+            ),
+            Divider(),
+            Divider(),
+            Divider(),
+            Divider(),
+            new ListTile(
+              title: new Text(
+                'Help',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.help),
+              onTap: onHelp,
             ),
             Divider(),
 
