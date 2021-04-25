@@ -234,6 +234,7 @@ class _SettingsModal extends State<SettingsModal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: kSettingsModalBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.grey,

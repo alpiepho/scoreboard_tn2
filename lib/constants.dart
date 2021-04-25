@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const kVersion = '0.2';
+const kVersion = '0.3';
 
 const kInputPageBackgroundColor = Colors.black45;
 

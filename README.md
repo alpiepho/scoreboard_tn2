@@ -17,7 +17,7 @@ This application was built to better learn Flutter and Dart.  The world really d
 - Persistent Data
 - Several other areas
 
-These are all areas that I hope to take forward into other applicaitons.  Flutter is fun.
+These are all areas that I hope to take forward into other applications.  Flutter is fun.
 
 ## Basic Usages
 
@@ -62,6 +62,9 @@ NOTE: at this time there is no indication that recording is enabled.
 - Fix top bar (but it does show time etc)
 - Fix no-rotation (setup but still rotates)
 
+## Reference
+
+Icons created with https://appicon.co/  NOTE: original image should be square to avoid white edges on IOS Home screen.
 
 ## (Original Flutter Starter README) Getting Started
 
