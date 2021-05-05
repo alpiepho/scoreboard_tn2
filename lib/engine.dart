@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:scoreboard_tn/constants.dart';
 
+class Score {
+  int valueLeft = 0;
+  int valueRight = 0;
+  int earnedLeft = 0;
+  int earnedRight = 0;
+}
+
 class Engine {
   Color _colorTextLeft = Colors.black;
   Color _colorBackgroundLeft = Colors.red;
@@ -11,6 +18,11 @@ class Engine {
   String _labelRight = "Home";
   int _valueLeft = 0;
   int _valueRight = 0;
+
+  bool _earnedEnabled = false;
+  bool _earnedVisible = false;
+  int _earnedLeft = 0;
+  int _earnedRight = 0;
 
   String _newLabelLeft = "";
   String _newLabelRight = "";
@@ -26,6 +38,7 @@ class Engine {
   bool _recordingEnabled = false;
   DateTime _recordingStart = DateTime.now();
   String _recording = "";
+  String _recordingRate = "Normal";
 
   Engine();
 
@@ -78,6 +91,30 @@ class Engine {
 
   set valueRight(int value) {
     _valueRight = value;
+  }
+
+  bool get earnedEnabled => _earnedEnabled;
+
+  set earnedEnabled(bool value) {
+    _earnedEnabled = value;
+  }
+
+  bool get earnedVisible => _earnedVisible;
+
+  set earnedVisible(bool value) {
+    _earnedVisible = value;
+  }
+
+  int get earnedLeft => _earnedLeft;
+
+  set earnedLeft(int value) {
+    _earnedLeft = value;
+  }
+
+  int get earnedRight => _earnedRight;
+
+  set earnedRight(int value) {
+    _earnedRight = value;
   }
 
   String get newLabelLeft => _newLabelLeft;
@@ -153,34 +190,88 @@ class Engine {
     _newColorBackgroundRight = value;
   }
 
+  String get recordingRate => _recordingRate;
+
+  set recordingRate(String value) {
+    _recordingRate = value;
+  }
+
   //
   // Public methods
   //
-  void incrementLeft() {
+
+  List<String> getRates() {
+    List<String> results = List.empty(growable: true);
+    results.add("0.25");
+    results.add("0.5");
+    results.add("0.75");
+    results.add("Normal");
+    results.add("1.25");
+    results.add("1.5");
+    results.add("1.75");
+    results.add("2");
+    return results;
+  }
+
+  double convertRate() {
+    double result = 1.0;
+    switch(_recordingRate) {
+      case "0.25": result = 0.25; break;
+      case "0.5": result = 0.5; break;
+      case "0.75": result = 0.75; break;
+      case "Normal": result = 1.0; break;
+      case "1.25": result = 1.25; break;
+      case "1.5": result = 1.5; break;
+      case "1.75": result = 1.75; break;
+      case "2": result = 2.0; break;
+    }
+    return result;
+  }
+
+  //TODO need stack of scores to properly decrement
+  //TODO replace intenal _value* _earned* using stack
+  //TODO persist stack
+  void incrementLeft(bool earned) {
     _valueLeft += 1;
+    if (earned) {
+      _earnedLeft += 1;
+    }
     _timestampRecordingAdd();
   }
 
-  void decrementLeft() {
+  void decrementLeft(bool earned) {
     _valueLeft -= 1;
     if (_valueLeft < 0) _valueLeft = 0;
+    if (earned) {
+      _earnedLeft -= 1;
+      if (_earnedLeft < 0) _earnedLeft = 0;
+    }
     _timestampRecordingAdd();
   }
 
-  void incrementRight() {
+  void incrementRight(bool earned) {
     _valueRight += 1;
+    if (earned) {
+      _earnedRight += 1;
+    }
     _timestampRecordingAdd();
   }
 
-  void decrementRight() {
+  void decrementRight(bool earned) {
     _valueRight -= 1;
     if (_valueRight < 0) _valueRight = 0;
+    if (earned) {
+      _earnedRight -= 1;
+      if (_earnedRight < 0) _earnedRight = 0;
+    }
     _timestampRecordingAdd();
   }
 
   void clearBoth() {
     _valueLeft = 0;
     _valueRight = 0;
+    _earnedLeft = 0;
+    _earnedRight = 0;
     _timestampRecordingAdd();
   }
 
@@ -200,6 +291,9 @@ class Engine {
     var valueTemp = _valueLeft;
     _valueLeft = _valueRight;
     _valueRight = valueTemp;
+    valueTemp = _earnedLeft;
+    _earnedLeft = _earnedRight;
+    _earnedRight = valueTemp;
     var labelTemp = _labelLeft;
     _labelLeft = _labelRight;
     _labelRight = labelTemp;
@@ -243,6 +337,7 @@ class Engine {
   }
 
   String timestampRecordingCopy() {
+    print(_recording);
     return _recording;
   }
 
@@ -250,9 +345,17 @@ class Engine {
 
   void _timestampRecordingAdd() {
     if (_recordingEnabled) {
-      final difference = DateTime.now().difference(_recordingStart);
-      String ts = _timestampFormat(new Duration(seconds: difference.inSeconds)) + " ";
-      _recording += ts + _labelLeft + " " + _valueLeft.toString() + ", " + _labelRight + " " + _valueRight.toString() + "\n";
+      final rate = convertRate();
+      final difference = DateTime.now().difference(_recordingStart) * rate;
+      if (this.earnedEnabled) {
+        String ts = _timestampFormat(new Duration(seconds: difference.inSeconds)) + " ";
+        _recording += ts + "actual:" + _labelLeft + " " + _valueLeft.toString() + ", " + _labelRight + " " + _valueRight.toString();
+        _recording +=      "   earned:" + _labelLeft + " " + _earnedLeft.toString() + ", " + _labelRight + " " + _earnedRight.toString() + "\n";
+      } else {
+        String ts = _timestampFormat(new Duration(seconds: difference.inSeconds)) + " ";
+        _recording += ts + _labelLeft + " " + _valueLeft.toString() + ", " + _labelRight + " " + _valueRight.toString() + "\n";
+      }
     }
   }
+
 }

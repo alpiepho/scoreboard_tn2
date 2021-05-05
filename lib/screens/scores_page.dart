@@ -6,6 +6,11 @@ import 'package:scoreboard_tn/constants.dart';
 import 'package:scoreboard_tn/engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+GlobalKey _keyPortraitLeft = GlobalKey();
+GlobalKey _keyPortraitRight = GlobalKey();
+GlobalKey _keyLandscapeLeft = GlobalKey();
+GlobalKey _keyLandscapeRight = GlobalKey();
+
 class ScoresPage extends StatefulWidget {
   @override
   _ScoresPageState createState() => _ScoresPageState();
@@ -25,10 +30,12 @@ class _ScoresPageState extends State<ScoresPage> {
   String _labelRight = "Home";
   int _valueLeft = 0;
   int _valueRight = 0;
+  int _earnedLeft = 0;
+  int _earnedRight = 0;
+  bool _earnedEnabled = false;
+  bool _earnedVisible = false;
 
   FontTypes _fontType = FontTypes.system;
-  //TextStyle _labelTextStyle = kLabelTextStyle_system;
-  //TextStyle _numberTextStyle = kNumberTextStyle_system;
 
 
   // for increment/decrement swiping
@@ -45,10 +52,18 @@ class _ScoresPageState extends State<ScoresPage> {
       _labelRight = prefs.getString('labelRight') ?? "Home";
       _valueLeft = prefs.getInt('valueLeft') ?? 0;
       _valueRight = prefs.getInt('valueRight') ?? 0;
+      _earnedLeft = prefs.getInt('earnedLeft') ?? 0;
+      _earnedRight = prefs.getInt('earnedRight') ?? 0;
+      _earnedEnabled = prefs.getBool('earnedEnabled') ?? false;
+      _earnedVisible = prefs.getBool('earnedVisible') ?? false;
       _engine.labelLeft = _labelLeft;
       _engine.labelRight = _labelRight;
       _engine.valueLeft = _valueLeft;
       _engine.valueRight = _valueRight;
+      _engine.earnedLeft = _earnedLeft;
+      _engine.earnedRight = _earnedRight;
+      _engine.earnedEnabled = _earnedEnabled;
+      _engine.earnedVisible = _earnedVisible;
 
       _colorTextLeft = Color(prefs.getInt('colorTextLeft') ?? Colors.black.value);
       _colorBackgroundLeft = Color(prefs.getInt('colorBackgroundLeft') ?? Colors.red.value);
@@ -77,6 +92,10 @@ class _ScoresPageState extends State<ScoresPage> {
     prefs.setString('labelRight', _engine.labelRight);
     prefs.setInt('valueLeft', _engine.valueLeft);
     prefs.setInt('valueRight', _engine.valueRight);
+    prefs.setInt('earnedLeft', _engine.earnedLeft);
+    prefs.setInt('earnedRight', _engine.earnedRight);
+    prefs.setBool('earnedEnabled', _engine.earnedEnabled);
+    prefs.setBool('earnedVisible', _engine.earnedVisible);
 
     prefs.setInt('colorTextLeft', _engine.colorTextLeft.value);
     prefs.setInt('colorBackgroundLeft', _engine.colorBackgroundLeft.value);
@@ -92,6 +111,10 @@ class _ScoresPageState extends State<ScoresPage> {
       _labelRight = this._engine.labelRight;
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
+      _earnedLeft = this._engine.earnedLeft;
+      _earnedRight = this._engine.earnedRight;
+      _earnedEnabled = this._engine.earnedEnabled;
+      _earnedVisible = this._engine.earnedVisible;
 
       _colorTextLeft = this._engine.colorTextLeft;
       _colorBackgroundLeft = this._engine.colorBackgroundLeft;
@@ -104,23 +127,66 @@ class _ScoresPageState extends State<ScoresPage> {
     });
   }
 
-  void _incrementLeft() async {
-    this._engine.incrementLeft();
+  bool _hitEarned(TapUpDetails details, BuildContext? c) {
+    if (c != null) {
+      RenderBox rb = c.findRenderObject() as RenderBox;
+      if(rb.size != Size.zero) {
+        Offset centerPtInWidgetSpace = Offset(rb.size.width/2, rb.size.height/2);
+        Offset centerPtInScreenSpace = rb.localToGlobal(centerPtInWidgetSpace);
+        double dx = 1.2*(rb.size.width/2);
+        double dy = 1.2*(rb.size.height/2);
+        if ((details.globalPosition.dx >= (centerPtInScreenSpace.dx - dx)) &&
+            (details.globalPosition.dx <= (centerPtInScreenSpace.dx + dx)) &&
+            (details.globalPosition.dy >= (centerPtInScreenSpace.dy - dy)) &&
+            (details.globalPosition.dy <= (centerPtInScreenSpace.dy + dy))
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  bool _hitEarnedLeft(TapUpDetails details) {
+    if (_hitEarned(details, _keyPortraitLeft.currentContext)) {
+      return true;
+    }
+    if (_hitEarned(details, _keyLandscapeLeft.currentContext)) {
+      return true;
+    }
+    return false;
+  }
+
+  bool _hitEarnedRight(TapUpDetails details) {
+    if (_hitEarned(details, _keyPortraitRight.currentContext)) {
+      return true;
+    }
+    if (_hitEarned(details, _keyLandscapeRight.currentContext)) {
+      return true;
+    }
+    return false;
+  }
+
+
+  void _incrementLeft(TapUpDetails details) async {
+    bool earned = _hitEarnedLeft(details);
+    this._engine.incrementLeft(earned);
     _fromEngine();
   }
 
   void _decrementLeft() async {
-    this._engine.decrementLeft();
+    this._engine.decrementLeft(true); //TODO how to swipe for earned only
     _fromEngine();
   }
 
-  void _incrementRight() async {
-    this._engine.incrementRight();
+  void _incrementRight(TapUpDetails details) async {
+    bool earned = _hitEarnedRight(details);
+    this._engine.incrementRight(earned);
     _fromEngine();
   }
 
   void _decrementRight() async {
-    this._engine.decrementRight();
+    this._engine.decrementRight(true); //TODO how to swipe for earned only
     _fromEngine();
   }
 
@@ -214,7 +280,8 @@ class _ScoresPageState extends State<ScoresPage> {
       _panPositionYLeft += details.delta.dy;
       if (_panPositionYLeft < -100) {
         _panPositionYLeft = 0.0;
-        _incrementLeft();
+        this._engine.incrementLeft(false);
+        _fromEngine();
       } else if (_panPositionYLeft > 100) {
         _panPositionYLeft = 0.0;
         _decrementLeft();
@@ -230,7 +297,8 @@ class _ScoresPageState extends State<ScoresPage> {
       _panPositionYRight += details.delta.dy;
       if (_panPositionYRight < -100) {
         _panPositionYRight = 0.0;
-        _incrementRight();
+        this._engine.incrementRight(false);
+        _fromEngine();
       } else if (_panPositionYRight > 100) {
         _panPositionYRight = 0.0;
         _decrementRight();
@@ -304,6 +372,11 @@ class _ScoresPageState extends State<ScoresPage> {
                                 (_valueLeft).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
+                              Text(
+                                "earned: " + (_earnedLeft).toString(),
+                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextLeft : _colorBackgroundLeft), fontSize: 30),
+                                key: _keyPortraitLeft,
+                              ),
                             ],
                           ),
                         ),
@@ -324,6 +397,11 @@ class _ScoresPageState extends State<ScoresPage> {
                               Text(
                                 (_valueRight).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextRight),
+                              ),
+                              Text(
+                                "earned: " + (_earnedRight).toString(),
+                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextRight : _colorBackgroundRight), fontSize: 30),
+                                key: _keyPortraitRight,
                               ),
                             ],
                           ),
@@ -359,6 +437,7 @@ class _ScoresPageState extends State<ScoresPage> {
       );
     }
     else {
+      var fontSize = numberTextStyle.fontSize;
       return Scaffold(
         backgroundColor: kInputPageBackgroundColor,
         body: Center(
@@ -387,6 +466,11 @@ class _ScoresPageState extends State<ScoresPage> {
                                 (_valueLeft).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
+                              Text(
+                                "earned: " + (_earnedLeft).toString(),
+                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextLeft : _colorBackgroundLeft), fontSize: 30),
+                                key: _keyLandscapeLeft,
+                              ),
                             ],
                           ),
                         ),
@@ -407,6 +491,11 @@ class _ScoresPageState extends State<ScoresPage> {
                               Text(
                                 (_valueRight).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextRight),
+                              ),
+                              Text(
+                                "earned: " + (_earnedRight).toString(),
+                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextRight : _colorBackgroundRight), fontSize: 30),
+                                key: _keyLandscapeRight,
                               ),
                             ],
                           ),

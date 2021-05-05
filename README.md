@@ -51,9 +51,34 @@ The following is an example of what would be copied to the clipboard:
 NOTE: at this time there is no indication that recording is enabled.
 
 
-# Todo and Future Changes
+## Todo and Future Changes
+
+
+- time rate selector for recording
+    - settings rate
+    - use rate to scale time
+
+- add earned score
+    - add setting checkmark for earned scoring
+    - detect upper right select
+    - add button labels for earned button, earned score
+    - add earned score below score
+    ```
+    00:00 Start
+    01:33 actual: Away 10, Home 9     earned: Away 1, Home 2
+    ...
+    ```
+
+
+- add screen to show recording results
+
+- add setting for youtube link
+- add screen to show youtube links
+- launch youtube link
+- copy youtube link to clipboard
+
+
 - fix settings landscape keyboard
-- fix home screen image and re generate icons
 - More fonts
 - Move fonts to another dialog?
 - Move timestamps to another dialog?

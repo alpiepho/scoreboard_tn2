@@ -48,6 +48,7 @@ const kLabelTextStyle_system = TextStyle(
 const kNumberTextStyle_system = TextStyle(
   fontSize: 250.0,
   fontWeight: FontWeight.bold,
+  height: 1.1,
 );
 
 var kLabelTextStyle_lato = GoogleFonts.lato(
@@ -59,6 +60,7 @@ var kNumberTextStyle_lato = GoogleFonts.lato(
   fontSize: 250,
   color: Colors.black,
   fontWeight: FontWeight.bold,
+  height: 1.1,
 );
 
 var kLabelTextStyle_merriweather = GoogleFonts.merriweather(
@@ -70,6 +72,7 @@ var kNumberTextStyle_merriweather = GoogleFonts.merriweather(
   fontSize: 250,
   color: Colors.black,
   fontWeight: FontWeight.bold,
+  height: 1.1,
 );
 
 var kLabelTextStyle_montserrat = GoogleFonts.montserrat(
@@ -81,6 +84,7 @@ var kNumberTextStyle_montserrat = GoogleFonts.montserrat(
   fontSize: 250,
   color: Colors.black,
   fontWeight: FontWeight.bold,
+  height: 1.1,
 );
 
 var kLabelTextStyle_robotomono = GoogleFonts.robotoMono(
@@ -92,6 +96,7 @@ var kNumberTextStyle_robotomono = GoogleFonts.robotoMono(
   fontSize: 200,
   color: Colors.black,
   fontWeight: FontWeight.bold,
+  height: 1.1,
 );
 
 var kLabelTextStyle_rocksalt = GoogleFonts.rockSalt(
@@ -103,4 +108,5 @@ var kNumberTextStyle_rocksalt = GoogleFonts.rockSalt(
   fontSize: 120,
   color: Colors.black,
   fontWeight: FontWeight.bold,
+  height: 1.1,
 );

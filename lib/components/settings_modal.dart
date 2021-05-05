@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:scoreboard_tn/constants.dart';
 import 'package:scoreboard_tn/engine.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -54,6 +55,9 @@ class _SettingsModal extends State<SettingsModal> {
     this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
     this._newColorTextRight = this.engine.newColorTextRight;
     this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
+
+    selectedRate = this.engine.recordingRate;
+    allRates = this.engine.getRates();
   }
 
   late BuildContext context;
@@ -68,8 +72,8 @@ class _SettingsModal extends State<SettingsModal> {
   late Color _newColorTextRight;
   late Color _newColorBackgroundRight;
 
-  //late TextStyle _newLabelTextStyle;
-  //late TextStyle _newNumberTextStyle;
+  late var selectedRate;
+  late List<String> allRates;
 
 
   void _fromEngine() async {
@@ -205,6 +209,38 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
+  void fontChanged(FontTypes fontType) async {
+    this.engine.fontType = fontType;
+    this.onDone();
+  }
+
+  void onTimestampRecordingRateChange() async {
+    showMaterialScrollPicker(
+      //backgroundColor: kInputPageBackgroundColor,
+      headerColor: kInputPageBackgroundColor,
+      showDivider: false,
+      context: context,
+      title: "Rate",
+      items: allRates,
+      selectedItem: selectedRate,
+      onChanged: (value) {
+        setState(() {
+          selectedRate = value;
+          this.engine.recordingRate = value;
+        });
+      },
+    );
+  }
+
+  void onEarnedEnabledChanged() async {
+    this.engine.earnedEnabled = !this.engine.earnedEnabled;
+    this.onDone();
+  }
+  void onEarnedVisibleChanged() async {
+    this.engine.earnedVisible = !this.engine.earnedVisible;
+    this.onDone();
+  }
+
   void onTimestampRecordingStart() async {
     this.engine.timestampRecordingStart();
     Navigator.of(context).pop();
@@ -219,11 +255,6 @@ class _SettingsModal extends State<SettingsModal> {
     String contents = this.engine.timestampRecordingCopy();
     Clipboard.setData(ClipboardData(text: contents));
     Navigator.of(context).pop();
-  }
-
-  void fontChanged(FontTypes fontType) async {
-    this.engine.fontType = fontType;
-    this.onDone();
   }
 
   void onHelp() async {
@@ -399,6 +430,27 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
+                'Track Earned Points',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.earnedEnabled ? Icons.check_box : Icons.check_box_outline_blank),
+              onTap: onEarnedEnabledChanged,
+            ),
+            new ListTile(
+              title: new Text(
+                'Show Earned Points',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.earnedVisible ? Icons.check_box : Icons.check_box_outline_blank),
+              onTap: onEarnedVisibleChanged,
+            ),
+
+            Divider(),
+            Divider(),
+            Divider(),
+            Divider(),
+            new ListTile(
+              title: new Text(
                 'Optional Fonts:',
                 style: kSettingsTextEditStyle,
               ),
@@ -454,6 +506,17 @@ class _SettingsModal extends State<SettingsModal> {
                 'Timestamps:',
                 style: kSettingsTextEditStyle,
               ),
+            ),
+            new ListTile(
+              title: new Text(
+                'Recording Rate',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Text(
+                selectedRate,
+                style: kSettingsTextEditStyle,
+              ),
+              onTap: onTimestampRecordingRateChange,
             ),
             new ListTile(
               title: new Text(

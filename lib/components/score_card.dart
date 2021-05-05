@@ -12,7 +12,7 @@ class TeamScoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPress as void Function()?,
+      onTapUp: onPress as void Function(TapUpDetails)?,
       onPanUpdate: onPan as void Function(DragUpdateDetails)?,
       child: Container(
         child: cardChild,
