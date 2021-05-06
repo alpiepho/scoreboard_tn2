@@ -233,7 +233,13 @@ class _SettingsModal extends State<SettingsModal> {
   }
 
   void onEarnedEnabledChanged() async {
-    this.engine.earnedEnabled = !this.engine.earnedEnabled;
+    if (!this.engine.earnedEnabled) {
+      this.engine.earnedEnabled = true;
+      this.engine.earnedVisible = true;
+    } else {
+      this.engine.earnedEnabled = false;
+      this.engine.earnedVisible = false;
+    }
     this.onDone();
   }
   void onEarnedVisibleChanged() async {
@@ -315,6 +321,7 @@ class _SettingsModal extends State<SettingsModal> {
                 onChanged: (text) => engine.newLabelLeft = text,
                 style: kSettingsTextEditStyle,
               ),
+              trailing: new Icon(Icons.edit),
             ),
             new ListTile(
               leading: null,
@@ -328,10 +335,11 @@ class _SettingsModal extends State<SettingsModal> {
                 onChanged: (text) => engine.newValueLeftString = text,
                 style: kSettingsTextEditStyle,
               ),
-            ),
+              trailing: new Icon(Icons.edit),
+           ),
             new ListTile(
               title: new Text(
-                'Text Color',
+                'Text Color...',
                 style: kSettingsTextStyle,
               ),
               trailing: Container(
@@ -346,7 +354,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Background Color',
+                'Background Color...',
                 style: kSettingsTextStyle,
               ),
               trailing: Container(
@@ -371,7 +379,8 @@ class _SettingsModal extends State<SettingsModal> {
                 onChanged: (text) => engine.newLabelRight = text,
                 style: kSettingsTextEditStyle,
               ),
-            ),
+              trailing: new Icon(Icons.edit),
+           ),
             new ListTile(
               leading: null,
               title: new TextFormField(
@@ -384,10 +393,11 @@ class _SettingsModal extends State<SettingsModal> {
                 onChanged: (text) => engine.newValueRightString = text,
                 style: kSettingsTextEditStyle,
               ),
+              trailing: new Icon(Icons.edit),
             ),
             new ListTile(
               title: new Text(
-                'Text Color',
+                'Text Color...',
                 style: kSettingsTextStyle,
               ),
               trailing: Container(
@@ -402,7 +412,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Background Color',
+                'Background Color...',
                 style: kSettingsTextStyle,
               ),
               trailing: Container(
@@ -418,7 +428,7 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Reset All',
+                'Reset All...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.clear_all),
@@ -430,7 +440,7 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Track Earned Points',
+                'Track Earned Points...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(engine.earnedEnabled ? Icons.check_box : Icons.check_box_outline_blank),
@@ -438,7 +448,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Show Earned Points',
+                'Show Earned Points...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(engine.earnedVisible ? Icons.check_box : Icons.check_box_outline_blank),
@@ -509,7 +519,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Recording Rate',
+                'Recording Rate...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Text(
@@ -520,23 +530,23 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Recording Start',
+                'Recording Start...^',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(Icons.playlist_add),
+              trailing: new Icon(Icons.call_outlined),
               onTap: onTimestampRecordingStart,
             ),
             new ListTile(
               title: new Text(
-                'Recording Stop',
+                'Recording Stop...^',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(Icons.stop_circle),
+              trailing: new Icon(Icons.call_end),
               onTap: onTimestampRecordingStop,
             ),
             new ListTile(
               title: new Text(
-                'Copy to Clipboard',
+                'Copy to Clipboard...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.library_books),
@@ -548,14 +558,16 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Help',
+                'Help...',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.help),
               onTap: onHelp,
             ),
             Divider(),
-
+            Divider(),
+            Divider(),
+            Divider(),
           ],
         ),
       ),

@@ -280,10 +280,16 @@ class Engine {
     _labelRight = "Home";
     _valueLeft = 0;
     _valueRight = 0;
+    _earnedLeft = 0;
+    _earnedRight = 0;
     _colorTextLeft = Colors.black;
     _colorBackgroundLeft = Colors.red;
     _colorTextRight = Colors.black;
     _colorBackgroundRight = Colors.blueAccent;
+    _newColorTextLeft = _colorTextLeft;
+    _newColorBackgroundLeft = _colorBackgroundLeft;
+    _newColorTextRight = _colorTextRight;
+    _newColorBackgroundRight = _colorBackgroundRight;
     fontType = FontTypes.system;
   }
 
