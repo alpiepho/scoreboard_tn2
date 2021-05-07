@@ -7,6 +7,7 @@ import 'package:scoreboard_tn/engine.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
+// ignore: must_be_immutable
 class SettingsModal extends StatefulWidget {
   late BuildContext context;
   late Engine engine;
@@ -71,6 +72,10 @@ class _SettingsModal extends State<SettingsModal> {
   late Color _newColorBackgroundLeft;
   late Color _newColorTextRight;
   late Color _newColorBackgroundRight;
+
+  //late var selectedFont = "";
+  //late List<String> allFonts;
+
 
   late var selectedRate;
   late List<String> allRates;
@@ -211,7 +216,89 @@ class _SettingsModal extends State<SettingsModal> {
 
   void fontChanged(FontTypes fontType) async {
     this.engine.fontType = fontType;
+    Navigator.of(context).pop();
     this.onDone();
+  }
+
+  void onFontChange() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: kSettingsModalBackgroundColor,
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            foregroundColor: Colors.white,
+            toolbarHeight: 50,
+            titleSpacing: 20,
+            title: Text("Settings"),
+            actions: [],
+          ),
+          body: Container(
+              child: ListView(
+                children: <Widget>[
+                  new ListTile(
+                    title: new Text(
+                      'Default: ex. 0123456789',
+                      style: kLabelTextStyle_system.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(FontTypes.system),
+                    trailing: new Icon(engine.fontType == FontTypes.system ? Icons.check : null),
+                  ),
+                  new ListTile(
+                    title: new Text(
+                      'Lato: ex. 0123456789',
+                      style: kLabelTextStyle_lato.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(FontTypes.lato),
+                    trailing: new Icon(engine.fontType == FontTypes.lato ? Icons.check : null),
+                  ),
+                  new ListTile(
+                    title: new Text(
+                      'Merriweather: ex. 0123456789',
+                      style: kLabelTextStyle_merriweather.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(FontTypes.merriweather),
+                    trailing: new Icon(engine.fontType == FontTypes.merriweather ? Icons.check : null),
+                  ),
+                  new ListTile(
+                    title: new Text(
+                      'Montserrat: ex. 0123456789',
+                      style: kLabelTextStyle_montserrat.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(FontTypes.montserrat),
+                    trailing: new Icon(engine.fontType == FontTypes.montserrat ? Icons.check : null),
+                  ),
+                  new ListTile(
+                    title: new Text(
+                      'RobotoMono: ex. 0123456789',
+                      style: kLabelTextStyle_robotomono.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(FontTypes.robotoMono),
+                    trailing: new Icon(engine.fontType == FontTypes.robotoMono ? Icons.check : null),
+                  ),
+                  new ListTile(
+                    title: new Text(
+                      'RockSalt: ex. 0123456789',
+                      style: kLabelTextStyle_rocksalt.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(FontTypes.rockSalt),
+                    trailing: new Icon(engine.fontType == FontTypes.rockSalt ? Icons.check : null),
+                  ),
+                ],
+              ),
+            ),
+          // context,
+          // this._engine,
+          // _resetBoth,
+          // _clearBoth,
+          // _swapTeams,
+          // _saveBoth,
+        );
+      },
+      isScrollControlled: true,
+    );
   }
 
   void onTimestampRecordingRateChange() async {
@@ -270,6 +357,9 @@ class _SettingsModal extends State<SettingsModal> {
 
   @override
   Widget build(BuildContext context) {
+    var fontString = getFontString(engine.fontType);
+    var fontStyle = getLabelFont(engine.fontType);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kSettingsModalBackgroundColor,
@@ -461,51 +551,17 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Optional Fonts:',
+                'Change Fonts...^',
                 style: kSettingsTextEditStyle,
               ),
+              onTap: onFontChange,
             ),
             new ListTile(
               title: new Text(
-                'Default: ex. 0123456789',
-                style: kLabelTextStyle_system.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                fontString,
+                style: fontStyle.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
-              onTap: () => fontChanged(FontTypes.system),
-            ),
-            new ListTile(
-              title: new Text(
-                'Lato: ex. 0123456789',
-                style: kLabelTextStyle_lato.copyWith(fontSize: kSettingsTextStyle_fontSize),
-              ),
-              onTap: () => fontChanged(FontTypes.lato),
-            ),
-            new ListTile(
-              title: new Text(
-                'Merriweather: ex. 0123456789',
-                style: kLabelTextStyle_merriweather.copyWith(fontSize: kSettingsTextStyle_fontSize),
-              ),
-              onTap: () => fontChanged(FontTypes.merriweather),
-            ),
-            new ListTile(
-              title: new Text(
-                'Montserrat: ex. 0123456789',
-                style: kLabelTextStyle_montserrat.copyWith(fontSize: kSettingsTextStyle_fontSize),
-              ),
-              onTap: () => fontChanged(FontTypes.montserrat),
-            ),
-            new ListTile(
-              title: new Text(
-                'RobotoMono: ex. 0123456789',
-                style: kLabelTextStyle_robotomono.copyWith(fontSize: kSettingsTextStyle_fontSize),
-              ),
-              onTap: () => fontChanged(FontTypes.robotoMono),
-            ),
-            new ListTile(
-              title: new Text(
-                'RockSalt: ex. 0123456789',
-                style: kLabelTextStyle_rocksalt.copyWith(fontSize: kSettingsTextStyle_fontSize),
-              ),
-              onTap: () => fontChanged(FontTypes.rockSalt),
+              onTap: onFontChange,
             ),
             Divider(),
             Divider(),

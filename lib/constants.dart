@@ -11,7 +11,7 @@ const kMainContainerWidthLandscape = 1000.0;
 
 const kSettingsModalBackgroundColor = Colors.black45;
 
-const kSettingsTextStyle_fontSize = 20.0;
+const kSettingsTextStyle_fontSize = 18.0;
 
 const kSettingsTextStyle = TextStyle(
   fontSize: kSettingsTextStyle_fontSize,
@@ -110,3 +110,78 @@ var kNumberTextStyle_rocksalt = GoogleFonts.rockSalt(
   fontWeight: FontWeight.bold,
   height: 1.1,
 );
+
+String getFontString(FontTypes fontType) {
+  String t;
+  switch (fontType) {
+    case FontTypes.system:
+      t = 'Default: ex. 0123456789';
+      break;
+    case FontTypes.lato:
+      t = 'Lato: ex. 0123456789';
+      break;
+    case FontTypes.merriweather:
+      t = 'Merriweather: ex. 0123456789';
+      break;
+    case FontTypes.montserrat:
+      t = 'Montserrat: ex. 0123456789';
+      break;
+    case FontTypes.robotoMono:
+      t = 'RobotoMono: ex. 0123456789';
+      break;
+    case FontTypes.rockSalt:
+      t = 'RockSalt: ex. 0123456789';
+      break;
+  }
+  return t;
+}
+
+TextStyle getLabelFont(FontTypes fontType) {
+  TextStyle t;
+  switch (fontType) {
+    case FontTypes.system:
+      t = kLabelTextStyle_system;
+      break;
+    case FontTypes.lato:
+      t = kLabelTextStyle_lato;
+      break;
+    case FontTypes.merriweather:
+      t = kLabelTextStyle_merriweather;
+      break;
+    case FontTypes.montserrat:
+      t = kLabelTextStyle_montserrat;
+      break;
+    case FontTypes.robotoMono:
+      t = kLabelTextStyle_robotomono;
+      break;
+    case FontTypes.rockSalt:
+      t = kLabelTextStyle_rocksalt;
+      break;
+  }
+  return t;
+}
+
+TextStyle getNumberFont(FontTypes fontType) {
+  TextStyle t;
+  switch (fontType) {
+    case FontTypes.system:
+      t = kNumberTextStyle_system;
+      break;
+    case FontTypes.lato:
+      t = kNumberTextStyle_lato;
+      break;
+    case FontTypes.merriweather:
+      t = kNumberTextStyle_merriweather;
+      break;
+    case FontTypes.montserrat:
+      t = kNumberTextStyle_montserrat;
+      break;
+    case FontTypes.robotoMono:
+      t = kNumberTextStyle_robotomono;
+      break;
+    case FontTypes.rockSalt:
+      t = kNumberTextStyle_rocksalt;
+      break;
+  }
+  return t;
+}

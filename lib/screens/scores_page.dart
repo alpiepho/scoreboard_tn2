@@ -319,28 +319,8 @@ class _ScoresPageState extends State<ScoresPage> {
     TextStyle labelTextStyle = kLabelTextStyle_system;
     TextStyle numberTextStyle = kNumberTextStyle_system;
 
-    switch (_fontType) {
-      case FontTypes.lato:
-        labelTextStyle = kLabelTextStyle_lato;
-        numberTextStyle = kNumberTextStyle_lato;
-        break;
-      case FontTypes.merriweather:
-        labelTextStyle = kLabelTextStyle_merriweather;
-        numberTextStyle = kNumberTextStyle_merriweather;
-        break;
-      case FontTypes.montserrat:
-        labelTextStyle = kLabelTextStyle_montserrat;
-        numberTextStyle = kNumberTextStyle_montserrat;
-        break;
-      case FontTypes.robotoMono:
-        labelTextStyle = kLabelTextStyle_robotomono;
-        numberTextStyle = kNumberTextStyle_robotomono;
-        break;
-      case FontTypes.rockSalt:
-        labelTextStyle = kLabelTextStyle_rocksalt;
-        numberTextStyle = kNumberTextStyle_rocksalt;
-        break;
-    }
+    labelTextStyle = getLabelFont(_fontType);
+    numberTextStyle = getNumberFont(_fontType);
 
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     if (isPortrait) {
