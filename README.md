@@ -50,25 +50,26 @@ The following is an example of what would be copied to the clipboard:
 
 NOTE: at this time there is no indication that recording is enabled.
 
+## Earned Points
+Have you ever wanted to track the points each team really "earned", instead of what they scored?  The setting "Track earned points"
+will let you do that.  This will enable second tally shown below the main score.  If you tap on that label, the score for earned
+and the total points will be incremented.  These values also are shown in the Recording clipboard.
+
+Since "earned" points correlates with "errors", and some parents get worked up about "errors", you can track the earned points and
+while disabling showing the values.
+
+NOTE: The swipe down, or delete a point, feature will currently decrement BOTH total and earned.  This may change in the future
+if an intuitive gesture can be found.
+## Get Application
+
+GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
+
+or QR Code:
+
+![QR Code](./qr-code.png)
 
 ## Todo and Future Changes
-
-
-- time rate selector for recording
-    - settings rate
-    - use rate to scale time
-
-- add earned score
-    - add setting checkmark for earned scoring
-    - detect upper right select
-    - add button labels for earned button, earned score
-    - add earned score below score
-    ```
-    00:00 Start
-    01:33 actual: Away 10, Home 9     earned: Away 1, Home 2
-    ...
-    ```
-
+- show when recording is enabled
 
 - add screen to show recording results
 
@@ -76,7 +77,6 @@ NOTE: at this time there is no indication that recording is enabled.
 - add screen to show youtube links
 - launch youtube link
 - copy youtube link to clipboard
-
 
 - fix settings landscape keyboard
 - More fonts
