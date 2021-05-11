@@ -271,7 +271,7 @@ class Engine {
   }
 
   String timestampRecordingCopy() {
-    print(recording);
+    //print(recording);
     return recording;
   }
 

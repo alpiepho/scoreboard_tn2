@@ -315,6 +315,41 @@ class _SettingsModal extends State<SettingsModal> {
     Navigator.of(context).pop();
   }
 
+  void onTimestampRecordingShowText() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: kSettingsModalBackgroundColor,
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            foregroundColor: Colors.white,
+            toolbarHeight: 50,
+            titleSpacing: 20,
+            title: Text("Recording Text"),
+            actions: [],
+          ),
+          body: Container(
+            child: new SingleChildScrollView (
+              scrollDirection: Axis.vertical,
+              child: new Text(
+                engine.timestampRecordingCopy(),
+              ),
+            ),
+            ),
+          // context,
+          // this._engine,
+          // _resetBoth,
+          // _clearBoth,
+          // _swapTeams,
+          // _saveBoth,
+        );
+      },
+      isScrollControlled: true,
+    );
+  }
+
   void onHelp() async {
     launch('https://github.com/alpiepho/scoreboard_tn');
     Navigator.of(context).pop();
@@ -572,6 +607,14 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               trailing: new Icon(Icons.library_books),
               onTap: onTimestampRecordingCopy,
+            ),
+            new ListTile(
+              title: new Text(
+                'Show Recording Text...^',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.library_books),
+              onTap: onTimestampRecordingShowText,
             ),
             Divider(),
             Divider(),

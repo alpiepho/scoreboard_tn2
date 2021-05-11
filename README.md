@@ -69,11 +69,6 @@ or QR Code:
 ![QR Code](./qr-code.png)
 
 ## Todo and Future Changes
-- refactor persisitance to save string instead of pieces and isolate to engine
-- other refactors
-
-- add screen to show recording results
-
 - add setting for youtube link
 - add screen to show youtube links
 - launch youtube link
@@ -81,8 +76,6 @@ or QR Code:
 
 - fix settings landscape keyboard
 - More fonts
-- Move fonts to another dialog?
-- Move timestamps to another dialog?
 - Idea: Tie into time markers for associated YouTube/Other video
 - Fix more Lighthouse issues (might be in Flutter)
 - Fix top bar (but it does show time etc)
