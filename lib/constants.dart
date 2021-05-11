@@ -51,11 +51,13 @@ const kNumberTextStyle_system = TextStyle(
   height: 1.1,
 );
 
+// ignore: non_constant_identifier_names
 var kLabelTextStyle_lato = GoogleFonts.lato(
   fontSize: 50,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
+// ignore: non_constant_identifier_names
 var kNumberTextStyle_lato = GoogleFonts.lato(
   fontSize: 250,
   color: Colors.black,
@@ -63,11 +65,13 @@ var kNumberTextStyle_lato = GoogleFonts.lato(
   height: 1.1,
 );
 
+// ignore: non_constant_identifier_names
 var kLabelTextStyle_merriweather = GoogleFonts.merriweather(
   fontSize: 40,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
+// ignore: non_constant_identifier_names
 var kNumberTextStyle_merriweather = GoogleFonts.merriweather(
   fontSize: 250,
   color: Colors.black,
@@ -75,11 +79,13 @@ var kNumberTextStyle_merriweather = GoogleFonts.merriweather(
   height: 1.1,
 );
 
+// ignore: non_constant_identifier_names
 var kLabelTextStyle_montserrat = GoogleFonts.montserrat(
   fontSize: 50,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
+// ignore: non_constant_identifier_names
 var kNumberTextStyle_montserrat = GoogleFonts.montserrat(
   fontSize: 250,
   color: Colors.black,
@@ -87,11 +93,13 @@ var kNumberTextStyle_montserrat = GoogleFonts.montserrat(
   height: 1.1,
 );
 
+// ignore: non_constant_identifier_names
 var kLabelTextStyle_robotomono = GoogleFonts.robotoMono(
   fontSize: 30,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
+// ignore: non_constant_identifier_names
 var kNumberTextStyle_robotomono = GoogleFonts.robotoMono(
   fontSize: 200,
   color: Colors.black,
@@ -99,11 +107,13 @@ var kNumberTextStyle_robotomono = GoogleFonts.robotoMono(
   height: 1.1,
 );
 
+// ignore: non_constant_identifier_names
 var kLabelTextStyle_rocksalt = GoogleFonts.rockSalt(
   fontSize: 30,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
+// ignore: non_constant_identifier_names
 var kNumberTextStyle_rocksalt = GoogleFonts.rockSalt(
   fontSize: 120,
   color: Colors.black,

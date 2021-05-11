@@ -35,6 +35,81 @@ class Engine {
 
   Engine();
 
+  //
+  // pack/unpack
+  //
+  String pack() {
+    String result = "";
+
+    result += colorTextLeft.toString() + ";";
+    result += colorBackgroundLeft.toString() + ";";
+    result += colorTextRight.toString() + ";";
+    result += colorBackgroundRight.toString() + ";";
+
+    result += labelLeft.toString() + ";";
+    result += labelRight.toString() + ";";
+    result += valueLeft.toString() + ";";
+    result += valueRight.toString() + ";";
+
+    result += earnedEnabled.toString() + ";";
+    result += earnedVisible.toString() + ";";
+    result += earnedLeft.toString() + ";";
+    result += earnedRight.toString() + ";";
+
+    result += fontType.toString() + ";";
+
+    return result;
+  }
+
+  Color stringToColor(String code) {
+    // .... Color(0xff000000)
+    var parts = code.split("0x");
+    var s = parts[1].substring(0, 8);
+    var h = int.parse(s, radix: 16);
+    return new Color(h);
+  }
+
+  void unpack(String packed) {
+    if (packed.length == 0)
+      return;
+
+    var parts = packed.split(";");
+    int index = 0;
+
+    colorTextLeft = stringToColor(parts[index++]);
+    colorBackgroundLeft = stringToColor(parts[index++]);
+    colorTextRight = stringToColor(parts[index++]);
+    colorBackgroundRight = stringToColor(parts[index++]);
+
+    labelLeft = parts[index++];
+    labelRight = parts[index++];
+    valueLeft = int.parse(parts[index++]);
+    valueRight = int.parse(parts[index++]);
+
+    earnedEnabled = parts[index++] == "true";
+    earnedVisible = parts[index++] == "true";
+    earnedLeft = int.parse(parts[index++]);
+    earnedRight = int.parse(parts[index++]);
+
+    fontType = FontTypes.system;
+    for (var value in FontTypes.values) {
+      if (value.toString() == parts[index]) {
+        fontType = value;
+        break;
+      }
+    }
+    index++;
+
+    colorTextLeft = colorTextLeft;
+    colorBackgroundLeft = colorBackgroundLeft;
+    colorTextRight = colorTextRight;
+    colorBackgroundRight = colorBackgroundRight;
+
+    newColorTextLeft = colorTextLeft;
+    newColorBackgroundLeft = colorBackgroundLeft;
+    newColorTextRight = colorTextRight;
+    newColorBackgroundRight = colorBackgroundRight;
+  }
 
   //
   // Getter/Setters for temporary variables

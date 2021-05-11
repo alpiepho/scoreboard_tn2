@@ -32,7 +32,7 @@ class _ScoresPageState extends State<ScoresPage> {
   int _valueRight = 0;
   int _earnedLeft = 0;
   int _earnedRight = 0;
-  bool _earnedEnabled = false;
+  //bool _earnedEnabled = false;
   bool _earnedVisible = false;
 
   FontTypes _fontType = FontTypes.system;
@@ -44,68 +44,68 @@ class _ScoresPageState extends State<ScoresPage> {
 
   Engine _engine = Engine();
 
-
-
-
-
   void _loadEngine() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _labelLeft = prefs.getString('labelLeft') ?? "Away";
-      _labelRight = prefs.getString('labelRight') ?? "Home";
-      _valueLeft = prefs.getInt('valueLeft') ?? 0;
-      _valueRight = prefs.getInt('valueRight') ?? 0;
-      _earnedLeft = prefs.getInt('earnedLeft') ?? 0;
-      _earnedRight = prefs.getInt('earnedRight') ?? 0;
-      _earnedEnabled = prefs.getBool('earnedEnabled') ?? false;
-      _earnedVisible = prefs.getBool('earnedVisible') ?? false;
-      _engine.labelLeft = _labelLeft;
-      _engine.labelRight = _labelRight;
-      _engine.valueLeft = _valueLeft;
-      _engine.valueRight = _valueRight;
-      _engine.earnedLeft = _earnedLeft;
-      _engine.earnedRight = _earnedRight;
-      _engine.earnedEnabled = _earnedEnabled;
-      _engine.earnedVisible = _earnedVisible;
+    var packed = prefs.getString('engine') ?? "";
+    _engine.unpack(packed);
+    _fromEngine();
+    // setState(() {
+    //   _labelLeft = prefs.getString('labelLeft') ?? "Away";
+    //   _labelRight = prefs.getString('labelRight') ?? "Home";
+    //   _valueLeft = prefs.getInt('valueLeft') ?? 0;
+    //   _valueRight = prefs.getInt('valueRight') ?? 0;
+    //   _earnedLeft = prefs.getInt('earnedLeft') ?? 0;
+    //   _earnedRight = prefs.getInt('earnedRight') ?? 0;
+    //   _earnedEnabled = prefs.getBool('earnedEnabled') ?? false;
+    //   _earnedVisible = prefs.getBool('earnedVisible') ?? false;
+    //   _engine.labelLeft = _labelLeft;
+    //   _engine.labelRight = _labelRight;
+    //   _engine.valueLeft = _valueLeft;
+    //   _engine.valueRight = _valueRight;
+    //   _engine.earnedLeft = _earnedLeft;
+    //   _engine.earnedRight = _earnedRight;
+    //   _engine.earnedEnabled = _earnedEnabled;
+    //   _engine.earnedVisible = _earnedVisible;
 
-      _colorTextLeft = Color(prefs.getInt('colorTextLeft') ?? Colors.black.value);
-      _colorBackgroundLeft = Color(prefs.getInt('colorBackgroundLeft') ?? Colors.red.value);
-      _colorTextRight = Color(prefs.getInt('colorTextRight') ?? Colors.black.value);
-      _colorBackgroundRight = Color(prefs.getInt('colorBackgroundRight') ?? Colors.blueAccent.value);
+    //   _colorTextLeft = Color(prefs.getInt('colorTextLeft') ?? Colors.black.value);
+    //   _colorBackgroundLeft = Color(prefs.getInt('colorBackgroundLeft') ?? Colors.red.value);
+    //   _colorTextRight = Color(prefs.getInt('colorTextRight') ?? Colors.black.value);
+    //   _colorBackgroundRight = Color(prefs.getInt('colorBackgroundRight') ?? Colors.blueAccent.value);
 
-      _engine.colorTextLeft = _colorTextLeft;
-      _engine.colorBackgroundLeft = _colorBackgroundLeft;
-      _engine.colorTextRight = _colorTextRight;
-      _engine.colorBackgroundRight = _colorBackgroundRight;
+    //   _engine.colorTextLeft = _colorTextLeft;
+    //   _engine.colorBackgroundLeft = _colorBackgroundLeft;
+    //   _engine.colorTextRight = _colorTextRight;
+    //   _engine.colorBackgroundRight = _colorBackgroundRight;
 
-      _engine.newColorTextLeft = _colorTextLeft;
-      _engine.newColorBackgroundLeft = _colorBackgroundLeft;
-      _engine.newColorTextRight = _colorTextRight;
-      _engine.newColorBackgroundRight = _colorBackgroundRight;
+    //   _engine.newColorTextLeft = _colorTextLeft;
+    //   _engine.newColorBackgroundLeft = _colorBackgroundLeft;
+    //   _engine.newColorTextRight = _colorTextRight;
+    //   _engine.newColorBackgroundRight = _colorBackgroundRight;
 
-      int index = prefs.getInt('fontType') ?? 0;
-      _fontType = FontTypes.values[index];
-      _engine.fontType = _fontType;
-    });
+    //   int index = prefs.getInt('fontType') ?? 0;
+    //   _fontType = FontTypes.values[index];
+    //   _engine.fontType = _fontType;
+    // });
   }
 
   void _saveEngine() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('labelLeft', _engine.labelLeft);
-    prefs.setString('labelRight', _engine.labelRight);
-    prefs.setInt('valueLeft', _engine.valueLeft);
-    prefs.setInt('valueRight', _engine.valueRight);
-    prefs.setInt('earnedLeft', _engine.earnedLeft);
-    prefs.setInt('earnedRight', _engine.earnedRight);
-    prefs.setBool('earnedEnabled', _engine.earnedEnabled);
-    prefs.setBool('earnedVisible', _engine.earnedVisible);
+    prefs.setString('engine', _engine.pack());
+    // prefs.setString('labelLeft', _engine.labelLeft);
+    // prefs.setString('labelRight', _engine.labelRight);
+    // prefs.setInt('valueLeft', _engine.valueLeft);
+    // prefs.setInt('valueRight', _engine.valueRight);
+    // prefs.setInt('earnedLeft', _engine.earnedLeft);
+    // prefs.setInt('earnedRight', _engine.earnedRight);
+    // prefs.setBool('earnedEnabled', _engine.earnedEnabled);
+    // prefs.setBool('earnedVisible', _engine.earnedVisible);
 
-    prefs.setInt('colorTextLeft', _engine.colorTextLeft.value);
-    prefs.setInt('colorBackgroundLeft', _engine.colorBackgroundLeft.value);
-    prefs.setInt('colorTextRight', _engine.colorTextRight.value);
-    prefs.setInt('colorBackgroundRight', _engine.colorBackgroundRight.value);
+    // prefs.setInt('colorTextLeft', _engine.colorTextLeft.value);
+    // prefs.setInt('colorBackgroundLeft', _engine.colorBackgroundLeft.value);
+    // prefs.setInt('colorTextRight', _engine.colorTextRight.value);
+    // prefs.setInt('colorBackgroundRight', _engine.colorBackgroundRight.value);
 
-    prefs.setInt('fontType', _engine.fontType.index);
+    // prefs.setInt('fontType', _engine.fontType.index);
   }
 
 
@@ -120,7 +120,7 @@ class _ScoresPageState extends State<ScoresPage> {
       _valueRight = this._engine.valueRight;
       _earnedLeft = this._engine.earnedLeft;
       _earnedRight = this._engine.earnedRight;
-      _earnedEnabled = this._engine.earnedEnabled;
+      //_earnedEnabled = this._engine.earnedEnabled;
       _earnedVisible = this._engine.earnedVisible;
 
       _colorTextLeft = this._engine.colorTextLeft;
@@ -425,7 +425,6 @@ class _ScoresPageState extends State<ScoresPage> {
       );
     }
     else {
-      var fontSize = numberTextStyle.fontSize;
       return Scaffold(
         backgroundColor: kInputPageBackgroundColor,
         body: Center(
