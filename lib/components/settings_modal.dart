@@ -221,6 +221,20 @@ class _SettingsModal extends State<SettingsModal> {
   }
 
   void onFontChange() async {
+    List<Widget> widgets = [];
+    for (var value in FontTypes.values) {
+      var style = getLabelFont(value);
+      var tile = new ListTile(
+                    title: new Text(
+                      getFontString(value),
+                      style: style.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                    ),
+                    onTap: () => fontChanged(value),
+                    trailing: new Icon(engine.fontType == value ? Icons.check : null),
+                  );
+      widgets.add(tile);
+    }
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -237,56 +251,7 @@ class _SettingsModal extends State<SettingsModal> {
           ),
           body: Container(
               child: ListView(
-                children: <Widget>[
-                  new ListTile(
-                    title: new Text(
-                      'Default: ex. 0123456789',
-                      style: kLabelTextStyle_system.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(FontTypes.system),
-                    trailing: new Icon(engine.fontType == FontTypes.system ? Icons.check : null),
-                  ),
-                  new ListTile(
-                    title: new Text(
-                      'Lato: ex. 0123456789',
-                      style: kLabelTextStyle_lato.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(FontTypes.lato),
-                    trailing: new Icon(engine.fontType == FontTypes.lato ? Icons.check : null),
-                  ),
-                  new ListTile(
-                    title: new Text(
-                      'Merriweather: ex. 0123456789',
-                      style: kLabelTextStyle_merriweather.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(FontTypes.merriweather),
-                    trailing: new Icon(engine.fontType == FontTypes.merriweather ? Icons.check : null),
-                  ),
-                  new ListTile(
-                    title: new Text(
-                      'Montserrat: ex. 0123456789',
-                      style: kLabelTextStyle_montserrat.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(FontTypes.montserrat),
-                    trailing: new Icon(engine.fontType == FontTypes.montserrat ? Icons.check : null),
-                  ),
-                  new ListTile(
-                    title: new Text(
-                      'RobotoMono: ex. 0123456789',
-                      style: kLabelTextStyle_robotomono.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(FontTypes.robotoMono),
-                    trailing: new Icon(engine.fontType == FontTypes.robotoMono ? Icons.check : null),
-                  ),
-                  new ListTile(
-                    title: new Text(
-                      'RockSalt: ex. 0123456789',
-                      style: kLabelTextStyle_rocksalt.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(FontTypes.rockSalt),
-                    trailing: new Icon(engine.fontType == FontTypes.rockSalt ? Icons.check : null),
-                  ),
-                ],
+                children: widgets,
               ),
             ),
           // context,
@@ -589,7 +554,7 @@ class _SettingsModal extends State<SettingsModal> {
                 'Recording Start...^',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(Icons.call_outlined),
+              trailing: new Icon(engine.recordingEnabled ? Icons.check_box : Icons.check_box_outline_blank),
               onTap: onTimestampRecordingStart,
             ),
             new ListTile(

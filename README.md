@@ -69,10 +69,7 @@ or QR Code:
 ![QR Code](./qr-code.png)
 
 ## Todo and Future Changes
-- show when recording is enabled
-- refactor font specifics out of settings into constants
 - refactor persisitance to save string instead of pieces and isolate to engine
-- remove engine setter/getters?
 - other refactors
 
 - add screen to show recording results

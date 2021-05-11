@@ -45,6 +45,9 @@ class _ScoresPageState extends State<ScoresPage> {
   Engine _engine = Engine();
 
 
+
+
+
   void _loadEngine() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -104,6 +107,10 @@ class _ScoresPageState extends State<ScoresPage> {
 
     prefs.setInt('fontType', _engine.fontType.index);
   }
+
+
+
+
 
   void _fromEngine() async {
     setState(() {
@@ -167,7 +174,6 @@ class _ScoresPageState extends State<ScoresPage> {
     return false;
   }
 
-
   void _incrementLeft(TapUpDetails details) async {
     bool earned = _hitEarnedLeft(details);
     this._engine.incrementLeft(earned);
@@ -175,7 +181,8 @@ class _ScoresPageState extends State<ScoresPage> {
   }
 
   void _decrementLeft() async {
-    this._engine.decrementLeft(true); //TODO how to swipe for earned only
+    //TODO how to swipe for earned only
+    this._engine.decrementLeft(true);
     _fromEngine();
   }
 
@@ -186,7 +193,8 @@ class _ScoresPageState extends State<ScoresPage> {
   }
 
   void _decrementRight() async {
-    this._engine.decrementRight(true); //TODO how to swipe for earned only
+    //TODO how to swipe for earned only
+    this._engine.decrementRight(true);
     _fromEngine();
   }
 
