@@ -309,12 +309,6 @@ class _SettingsModal extends State<SettingsModal> {
     Navigator.of(context).pop();
   }
 
-  void onTimestampRecordingCopy() async {
-    String contents = this.engine.timestampRecordingCopy();
-    Clipboard.setData(ClipboardData(text: contents));
-    Navigator.of(context).pop();
-  }
-
   void onTimestampRecordingShowText() async {
     showModalBottomSheet(
       context: context,
@@ -335,6 +329,59 @@ class _SettingsModal extends State<SettingsModal> {
               scrollDirection: Axis.vertical,
               child: new Text(
                 engine.timestampRecordingCopy(),
+              ),
+            ),
+            ),
+          // context,
+          // this._engine,
+          // _resetBoth,
+          // _clearBoth,
+          // _swapTeams,
+          // _saveBoth,
+        );
+      },
+      isScrollControlled: true,
+    );
+  }
+
+  void onTimestampRecordingCopy() async {
+    String contents = this.engine.timestampRecordingCopy();
+    Clipboard.setData(ClipboardData(text: contents));
+    Navigator.of(context).pop();
+  }
+
+  void onTimestampPasteYouTube(String text) async {
+    engine.recordingYTLink = text;
+     Navigator.of(context).pop();
+  }
+
+  void onTimestampPasteRecording(String text) async {
+    engine.recording = text;
+    Navigator.of(context).pop();
+  }
+
+  void onTimestampRecordingShowLinks() async {
+    //TODO: first show as text
+    //TODO: later, add as links like help
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: kSettingsModalBackgroundColor,
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            foregroundColor: Colors.white,
+            toolbarHeight: 50,
+            titleSpacing: 20,
+            title: Text("Recording Text"),
+            actions: [],
+          ),
+          body: Container(
+            child: new SingleChildScrollView (
+              scrollDirection: Axis.vertical,
+              child: new Text(
+                engine.timestampRecordingYTText(),
               ),
             ),
             ),
@@ -569,13 +616,13 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Timestamps:',
+                'Record Timestamps:',
                 style: kSettingsTextEditStyle,
               ),
             ),
             new ListTile(
               title: new Text(
-                'Recording Rate...^',
+                'Rate...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Text(
@@ -586,7 +633,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Recording Start...^',
+                'Start...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(engine.recordingEnabled ? Icons.check_box : Icons.check_box_outline_blank),
@@ -594,11 +641,19 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Recording Stop...^',
+                'Stop...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.call_end),
               onTap: onTimestampRecordingStop,
+            ),
+            new ListTile(
+              title: new Text(
+                'Show as Text...^',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.library_books),
+              onTap: onTimestampRecordingShowText,
             ),
             new ListTile(
               title: new Text(
@@ -608,14 +663,63 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(Icons.library_books),
               onTap: onTimestampRecordingCopy,
             ),
+
+
+
+
+            new ListTile(
+              leading: null,
+              title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Paste Youtube Link...'
+                ),
+                autofocus: false,
+                keyboardType: TextInputType.number,
+                onChanged: (text) => { onTimestampPasteYouTube(text) },
+              ),
+              trailing: Container(
+                width: 200,
+                child: new Text(
+                  engine.recordingYTLink,
+                  //style: kSettingsTextEditStyle,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+           ),
+            new ListTile(
+              leading: null,
+              title: new Expanded(
+                child: new TextFormField(
+                  decoration: new InputDecoration.collapsed(
+                      hintText: 'Paste Previous Recording...'
+                  ),
+                  autofocus: false,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  onChanged: (text) => { onTimestampPasteRecording(text) },
+                ),
+              ),
+              trailing: Container(
+                width: 200,
+                child: new Text(
+                  engine.recording,
+                  //style: kSettingsTextEditStyle,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+           ),
             new ListTile(
               title: new Text(
-                'Show Recording Text...^',
+                'Show YouTube Links...^',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.library_books),
-              onTap: onTimestampRecordingShowText,
+              onTap: onTimestampRecordingShowLinks,
             ),
+
+
+
+
             Divider(),
             Divider(),
             Divider(),
@@ -638,3 +742,31 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 }
+
+
+
+/*
+00:00:00 Start
+00:01:06 Away 1, Home 0
+00:02:06 Away 2, Home 0
+00:03:06 Away 3, Home 0
+00:04:06 Away 4, Home 0
+00:05:07 Away 4, Home 1
+00:06:07 Away 4, Home 2
+00:07:07 Away 4, Home 3
+00:08:07 Away 4, Home 4
+00:08:07 Away 4, Home 5
+00:10:08 Away 4, Home 6
+01:00:08 Away 4, Home 7
+02:00:12 actual:Away 5, Home 7   earned:Away 1, Home 0
+03:00:13 actual:Away 6, Home 7   earned:Away 2, Home 0
+04:00:13 actual:Away 7, Home 7   earned:Away 3, Home 0
+05:00:14 actual:Away 7, Home 8   earned:Away 3, Home 1
+06:00:14 actual:Away 7, Home 9   earned:Away 3, Home 2
+
+
+https://www.youtube.com/watch?v=k70vuZ5oDo0
+
+https://youtu.be/k70vuZ5oDo0?t=119
+
+*/

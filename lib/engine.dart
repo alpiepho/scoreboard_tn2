@@ -28,10 +28,11 @@ class Engine {
 
   FontTypes fontType = FontTypes.system;
 
+  String recordingRate = "Normal";
   bool recordingEnabled = false;
   DateTime recordingStart = DateTime.now();
   String recording = "";
-  String recordingRate = "Normal";
+  String recordingYTLink = "";
 
   Engine();
 
@@ -262,7 +263,7 @@ class Engine {
 
   void timestampRecordingStart() {
     recordingEnabled = true;
-    recording = "00:00 Start\n";
+    recording = "00:00:00 Start\n";
     recordingStart = DateTime.now();
   }
 
@@ -292,4 +293,43 @@ class Engine {
     }
   }
 
+  String timestampRecordingYTText() {
+    String results = "";
+
+    // recordingYTLink could be in one of the following forms:
+    // https://www.youtube.com/watch?v=k70vuZ5oDo0
+    // https://youtu.be/k70vuZ5oDo0?t=119
+    var v = "";
+    var parts;
+    // get v guid ie. k70vuZ5oDo0
+    if (recordingYTLink.contains("?v=")) {
+      parts = recordingYTLink.split("?v=");
+      v = parts[1];
+    }
+    else {
+      parts = recordingYTLink.replaceAll("https://youtu.be/", "").split("?t=");
+      v = parts[0];
+    }
+
+    // for each line of recording
+    var lines = recording.split("\n");
+    for (String line in lines) {
+      if (line.length == 0) {
+        break;
+      }
+      // convert nn:nn:nn to seconds
+      parts = line.split(" ");
+      var tsparts = parts[0].split(":");
+      var ts = 0;
+      ts += int.parse(tsparts[0])*60*60;
+      ts += int.parse(tsparts[1])*60;
+      ts += int.parse(tsparts[2]);
+
+      // build prefix with "https://youtu.be/" + v + "t=" + seconds
+      // add new line of prefix + delimiter(tab?) + oldline
+      results += "https://youtu.be/" + v + "?t=" + ts.toString() + "\n";
+
+    }
+    return results;
+  }
 }
