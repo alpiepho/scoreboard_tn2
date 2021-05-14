@@ -69,14 +69,9 @@ or QR Code:
 ![QR Code](./qr-code.png)
 
 ## Todo and Future Changes
-- add setting for youtube link
-- add screen to show youtube links
-- launch youtube link
-- copy youtube link to clipboard
-
+- refactor long files
 - fix settings landscape keyboard
 - More fonts
-- Idea: Tie into time markers for associated YouTube/Other video
 - Fix more Lighthouse issues (might be in Flutter)
 - Fix top bar (but it does show time etc)
 - Fix no-rotation (setup but still rotates)

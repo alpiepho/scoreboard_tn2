@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -361,8 +362,20 @@ class _SettingsModal extends State<SettingsModal> {
   }
 
   void onTimestampRecordingShowLinks() async {
-    //TODO: first show as text
     //TODO: later, add as links like help
+    var lines = engine.timestampRecordingYTText().split("\n");
+    List<TextSpan> tspans = [];
+    for (var line in lines) {
+      var span = new TextSpan(
+                  text: line+"\n",
+                  style: new TextStyle(color: Colors.black),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () { launch(line);
+                  },
+      );
+      tspans.add(span);
+    }
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -380,9 +393,11 @@ class _SettingsModal extends State<SettingsModal> {
           body: Container(
             child: new SingleChildScrollView (
               scrollDirection: Axis.vertical,
-              child: new Text(
-                engine.timestampRecordingYTText(),
-              ),
+              child: new RichText(
+            text: new TextSpan(
+              children: tspans,
+            ),
+          ),
             ),
             ),
           // context,
@@ -591,7 +606,6 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(engine.earnedVisible ? Icons.check_box : Icons.check_box_outline_blank),
               onTap: onEarnedVisibleChanged,
             ),
-
             Divider(),
             Divider(),
             Divider(),
@@ -663,10 +677,6 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(Icons.library_books),
               onTap: onTimestampRecordingCopy,
             ),
-
-
-
-
             new ListTile(
               leading: null,
               title: new TextFormField(
@@ -706,7 +716,7 @@ class _SettingsModal extends State<SettingsModal> {
                 ),
               ),
            ),
-            new ListTile(
+           new ListTile(
               title: new Text(
                 'Show YouTube Links...^',
                 style: kSettingsTextEditStyle,
@@ -714,10 +724,6 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(Icons.library_books),
               onTap: onTimestampRecordingShowLinks,
             ),
-
-
-
-
             Divider(),
             Divider(),
             Divider(),
@@ -740,31 +746,3 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 }
-
-
-
-/*
-00:00:00 Start
-00:01:06 Away 1, Home 0
-00:02:06 Away 2, Home 0
-00:03:06 Away 3, Home 0
-00:04:06 Away 4, Home 0
-00:05:07 Away 4, Home 1
-00:06:07 Away 4, Home 2
-00:07:07 Away 4, Home 3
-00:08:07 Away 4, Home 4
-00:08:07 Away 4, Home 5
-00:10:08 Away 4, Home 6
-01:00:08 Away 4, Home 7
-02:00:12 actual:Away 5, Home 7   earned:Away 1, Home 0
-03:00:13 actual:Away 6, Home 7   earned:Away 2, Home 0
-04:00:13 actual:Away 7, Home 7   earned:Away 3, Home 0
-05:00:14 actual:Away 7, Home 8   earned:Away 3, Home 1
-06:00:14 actual:Away 7, Home 9   earned:Away 3, Home 2
-
-
-https://www.youtube.com/watch?v=k70vuZ5oDo0
-
-https://youtu.be/k70vuZ5oDo0?t=119
-
-*/
