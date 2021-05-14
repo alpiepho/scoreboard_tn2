@@ -688,16 +688,14 @@ class _SettingsModal extends State<SettingsModal> {
            ),
             new ListTile(
               leading: null,
-              title: new Expanded(
-                child: new TextFormField(
-                  decoration: new InputDecoration.collapsed(
-                      hintText: 'Paste Previous Recording...'
-                  ),
-                  autofocus: false,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  onChanged: (text) => { onTimestampPasteRecording(text) },
+              title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Paste Previous Recording...'
                 ),
+                autofocus: false,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                onChanged: (text) => { onTimestampPasteRecording(text) },
               ),
               trailing: Container(
                 width: 200,
