@@ -280,6 +280,16 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
+
+  void onNotify7EnabledChanged() async {
+    if (!this.engine.notify7Enabled) {
+      this.engine.notify7Enabled = true;
+    } else {
+      this.engine.notify7Enabled = false;
+    }
+    this.onDone();
+  }
+
   void onHelp() async {
     launch('https://github.com/alpiepho/scoreboard_tn');
     Navigator.of(context).pop();
@@ -455,6 +465,18 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               //trailing: new Icon(Icons.done),
               onTap: onDone as void Function()?,
+            ),
+            Divider(),
+            Divider(),
+            Divider(),
+            Divider(),
+            new ListTile(
+              title: new Text(
+                'Notify at 7...^',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.notify7Enabled ? Icons.check_box : Icons.check_box_outline_blank),
+              onTap: onNotify7EnabledChanged,
             ),
             Divider(),
             Divider(),

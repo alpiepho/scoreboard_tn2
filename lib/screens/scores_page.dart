@@ -121,6 +121,7 @@ class _ScoresPageState extends State<ScoresPage> {
     bool earned = _hitEarnedLeft(details);
     this._engine.incrementLeft(earned);
     _fromEngine();
+    _notify7();
   }
 
   void _decrementLeft() async {
@@ -132,6 +133,7 @@ class _ScoresPageState extends State<ScoresPage> {
     bool earned = _hitEarnedRight(details);
     this._engine.incrementRight(earned);
     _fromEngine();
+    _notify7();
   }
 
   void _decrementRight() async {
@@ -254,6 +256,43 @@ class _ScoresPageState extends State<ScoresPage> {
       }
     } else {
       _panPositionYRight = 0.0;
+    }
+  }
+
+  void _notify7() async {
+    if (this._engine.notify7()) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('At 7 Points'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Would you swap teams?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Swap'),
+                onPressed: () {
+                  this._engine.swapTeams();
+                  _fromEngine();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

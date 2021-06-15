@@ -28,6 +28,8 @@ class Engine {
 
   FontTypes fontType = FontTypes.system;
 
+  bool notify7Enabled = false;
+
   Engine();
 
   //
@@ -52,6 +54,8 @@ class Engine {
     result += earnedRight.toString() + ";";
 
     result += fontType.toString() + ";";
+
+    result += notify7Enabled.toString() + ";";
 
     return result;
   }
@@ -95,6 +99,8 @@ class Engine {
     }
     index++;
 
+    notify7Enabled = parts[index++] == "true";
+
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
     colorTextRight = colorTextRight;
@@ -127,18 +133,6 @@ class Engine {
   //
   // Public methods
   //
-  List<String> getRates() {
-    List<String> results = List.empty(growable: true);
-    results.add("0.25");
-    results.add("0.5");
-    results.add("0.75");
-    results.add("Normal");
-    results.add("1.25");
-    results.add("1.5");
-    results.add("1.75");
-    results.add("2");
-    return results;
-  }
 
   void incrementLeft(bool earned) {
     valueLeft += 1;
@@ -234,5 +228,13 @@ class Engine {
     newColorTextLeft = colorTextLeft;
     newColorBackgroundLeft = newColorBackgroundLeft;
     newColorBackgroundRight = newColorBackgroundRight;
+  }
+
+  bool notify7() {
+    if (notify7Enabled) {
+      if (((valueLeft + valueRight) % 7) == 0)
+        return true;
+    }
+    return false;
   }
 }
