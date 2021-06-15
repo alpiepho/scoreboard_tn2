@@ -58,8 +58,6 @@ class _SettingsModal extends State<SettingsModal> {
     this._newColorTextRight = this.engine.newColorTextRight;
     this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
 
-    selectedRate = this.engine.recordingRate;
-    allRates = this.engine.getRates();
   }
 
   late BuildContext context;
@@ -267,24 +265,6 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
-  void onTimestampRecordingRateChange() async {
-    showMaterialScrollPicker(
-      //backgroundColor: kInputPageBackgroundColor,
-      headerColor: kInputPageBackgroundColor,
-      showDivider: false,
-      context: context,
-      title: "Rate",
-      items: allRates,
-      selectedItem: selectedRate,
-      onChanged: (value) {
-        setState(() {
-          selectedRate = value;
-          this.engine.recordingRate = value;
-        });
-      },
-    );
-  }
-
   void onEarnedEnabledChanged() async {
     if (!this.engine.earnedEnabled) {
       this.engine.earnedEnabled = true;
@@ -298,118 +278,6 @@ class _SettingsModal extends State<SettingsModal> {
   void onEarnedVisibleChanged() async {
     this.engine.earnedVisible = !this.engine.earnedVisible;
     this.onDone();
-  }
-
-  void onTimestampRecordingStart() async {
-    this.engine.timestampRecordingStart();
-    Navigator.of(context).pop();
-  }
-
-  void onTimestampRecordingStop() async {
-    this.engine.timestampRecordingStop();
-    Navigator.of(context).pop();
-  }
-
-  void onTimestampRecordingShowText() async {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: kSettingsModalBackgroundColor,
-          appBar: AppBar(
-            backgroundColor: Colors.grey,
-            foregroundColor: Colors.white,
-            toolbarHeight: 50,
-            titleSpacing: 20,
-            title: Text("Recording Text"),
-            actions: [],
-          ),
-          body: Container(
-            child: new SingleChildScrollView (
-              scrollDirection: Axis.vertical,
-              child: new Text(
-                engine.timestampRecordingCopy(),
-              ),
-            ),
-            ),
-          // context,
-          // this._engine,
-          // _resetBoth,
-          // _clearBoth,
-          // _swapTeams,
-          // _saveBoth,
-        );
-      },
-      isScrollControlled: true,
-    );
-  }
-
-  void onTimestampRecordingCopy() async {
-    String contents = this.engine.timestampRecordingCopy();
-    Clipboard.setData(ClipboardData(text: contents));
-    Navigator.of(context).pop();
-  }
-
-  void onTimestampPasteYouTube(String text) async {
-    engine.recordingYTLink = text;
-     Navigator.of(context).pop();
-  }
-
-  void onTimestampPasteRecording(String text) async {
-    engine.recording = text;
-    Navigator.of(context).pop();
-  }
-
-  void onTimestampRecordingShowLinks() async {
-    //TODO: later, add as links like help
-    var lines = engine.timestampRecordingYTText().split("\n");
-    List<TextSpan> tspans = [];
-    for (var line in lines) {
-      var span = new TextSpan(
-                  text: line+"\n",
-                  style: new TextStyle(color: Colors.black),
-                  recognizer: new TapGestureRecognizer()
-                    ..onTap = () { launch(line);
-                  },
-      );
-      tspans.add(span);
-    }
-
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: kSettingsModalBackgroundColor,
-          appBar: AppBar(
-            backgroundColor: Colors.grey,
-            foregroundColor: Colors.white,
-            toolbarHeight: 50,
-            titleSpacing: 20,
-            title: Text("Recording Text"),
-            actions: [],
-          ),
-          body: Container(
-            child: new SingleChildScrollView (
-              scrollDirection: Axis.vertical,
-              child: new RichText(
-            text: new TextSpan(
-              children: tspans,
-            ),
-          ),
-            ),
-            ),
-          // context,
-          // this._engine,
-          // _resetBoth,
-          // _clearBoth,
-          // _swapTeams,
-          // _saveBoth,
-        );
-      },
-      isScrollControlled: true,
-    );
   }
 
   void onHelp() async {
@@ -431,37 +299,40 @@ class _SettingsModal extends State<SettingsModal> {
         toolbarHeight: 50,
         titleSpacing: 20,
         title: Text("Settings"),
-        actions: [
-          Container(
-            width: 50,
-            child: GestureDetector(
-              onTap: onClear as void Function()?,
-              child: Icon(Icons.undo),
-            ),
-          ),
-          Container(
-            width: 50,
-            child: GestureDetector(
-              onTap: onSwap as void Function()?,
-              child: Icon(Icons.swap_horiz),
-            ),
-          ),
-          Container(
-            width: 50,
-            child: SizedBox(),
-          ),
-          Container(
-            width: 50,
-            child: GestureDetector(
-              onTap: onDone as void Function()?,
-              child: Icon(Icons.done),
-            ),
-          ),
-         ],
       ),
       body: Container(
         child: ListView(
           children: <Widget>[
+            Divider(),
+            new ListTile(
+              title: new Text(
+                'Swap^',
+                style: kSettingsTextEditStyle,
+              ),
+              //trailing: new Icon(Icons.swap_horiz),
+              onTap: onSwap as void Function()?,
+            ),
+            new ListTile(
+              title: new Text(
+                'Clear Scores^',
+                style: kSettingsTextEditStyle,
+              ),
+              //trailing: new Icon(Icons.undo),
+              onTap: onClear as void Function()?,
+            ),
+            Divider(),
+            new ListTile(
+              title: new Text(
+                'Reset All...^',
+                style: kSettingsTextEditStyle,
+              ),
+              //trailing: new Icon(Icons.clear_all),
+              onTap: onReset as void Function()?,
+            ),
+            Divider(),
+            Divider(),
+            Divider(),
+            Divider(),
             new ListTile(
               leading: null,
               title: new TextFormField(
@@ -577,14 +448,13 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               onTap: colorBackgroundRightEdit,
             ),
-            Divider(),
             new ListTile(
               title: new Text(
-                'Reset All...^',
+                'Done^',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(Icons.clear_all),
-              onTap: onReset as void Function()?,
+              //trailing: new Icon(Icons.done),
+              onTap: onDone as void Function()?,
             ),
             Divider(),
             Divider(),
@@ -630,104 +500,10 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Record Timestamps:',
+                'Version: 0.3',
                 style: kSettingsTextEditStyle,
               ),
             ),
-            new ListTile(
-              title: new Text(
-                'Rate...^',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Text(
-                selectedRate,
-                style: kSettingsTextEditStyle,
-              ),
-              onTap: onTimestampRecordingRateChange,
-            ),
-            new ListTile(
-              title: new Text(
-                'Start...^',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(engine.recordingEnabled ? Icons.check_box : Icons.check_box_outline_blank),
-              onTap: onTimestampRecordingStart,
-            ),
-            new ListTile(
-              title: new Text(
-                'Stop...^',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(Icons.call_end),
-              onTap: onTimestampRecordingStop,
-            ),
-            new ListTile(
-              title: new Text(
-                'Show as Text...^',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(Icons.library_books),
-              onTap: onTimestampRecordingShowText,
-            ),
-            new ListTile(
-              title: new Text(
-                'Copy to Clipboard...^',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(Icons.library_books),
-              onTap: onTimestampRecordingCopy,
-            ),
-            new ListTile(
-              leading: null,
-              title: new TextFormField(
-                decoration: new InputDecoration.collapsed(
-                    hintText: 'Paste Youtube Link...'
-                ),
-                autofocus: false,
-                keyboardType: TextInputType.number,
-                onChanged: (text) => { onTimestampPasteYouTube(text) },
-              ),
-              trailing: Container(
-                width: 200,
-                child: new Text(
-                  engine.recordingYTLink,
-                  //style: kSettingsTextEditStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-           ),
-            new ListTile(
-              leading: null,
-              title: new TextFormField(
-                decoration: new InputDecoration.collapsed(
-                    hintText: 'Paste Previous Recording...'
-                ),
-                autofocus: false,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                onChanged: (text) => { onTimestampPasteRecording(text) },
-              ),
-              trailing: Container(
-                width: 200,
-                child: new Text(
-                  engine.recording,
-                  //style: kSettingsTextEditStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-           ),
-           new ListTile(
-              title: new Text(
-                'Show YouTube Links...^',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(Icons.library_books),
-              onTap: onTimestampRecordingShowLinks,
-            ),
-            Divider(),
-            Divider(),
-            Divider(),
-            Divider(),
             new ListTile(
               title: new Text(
                 'Help...',

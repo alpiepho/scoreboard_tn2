@@ -2,6 +2,8 @@
 
 My flutter version of a Scoreboard application.
 
+Version: 0.2
+
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
 This application was built to better learn Flutter and Dart.  The world really doesn't need another simple scoring application, but attempting to duplicate how several of these common applications work, provided a way to learn many things:

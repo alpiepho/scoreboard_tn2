@@ -28,12 +28,6 @@ class Engine {
 
   FontTypes fontType = FontTypes.system;
 
-  String recordingRate = "Normal";
-  bool recordingEnabled = false;
-  DateTime recordingStart = DateTime.now();
-  String recording = "";
-  String recordingYTLink = "";
-
   Engine();
 
   //
@@ -111,27 +105,6 @@ class Engine {
     newColorTextRight = colorTextRight;
     newColorBackgroundRight = colorBackgroundRight;
 
-    //DEBUG
-//     recording = '''00:00:00 Start
-// 00:01:06 Away 1, Home 0
-// 00:02:06 Away 2, Home 0
-// 00:03:06 Away 3, Home 0
-// 00:04:06 Away 4, Home 0
-// 00:05:07 Away 4, Home 1
-// 00:06:07 Away 4, Home 2
-// 00:07:07 Away 4, Home 3
-// 00:08:07 Away 4, Home 4
-// 00:08:07 Away 4, Home 5
-// 00:10:08 Away 4, Home 6
-// 01:00:08 Away 4, Home 7
-// 02:00:12 actual:Away 5, Home 7   earned:Away 1, Home 0
-// 03:00:13 actual:Away 6, Home 7   earned:Away 2, Home 0
-// 04:00:13 actual:Away 7, Home 7   earned:Away 3, Home 0
-// 05:00:14 actual:Away 7, Home 8   earned:Away 3, Home 1
-// 06:00:14 actual:Away 7, Home 9   earned:Away 3, Home 2
-// ''';
-//   //recordingYTLink = "https://www.youtube.com/watch?v=k70vuZ5oDo0";
-//   recordingYTLink = "https://youtu.be/k70vuZ5oDo0?t=119";
   }
 
   //
@@ -167,27 +140,11 @@ class Engine {
     return results;
   }
 
-  double convertRate() {
-    double result = 1.0;
-    switch(recordingRate) {
-      case "0.25": result = 0.25; break;
-      case "0.5": result = 0.5; break;
-      case "0.75": result = 0.75; break;
-      case "Normal": result = 1.0; break;
-      case "1.25": result = 1.25; break;
-      case "1.5": result = 1.5; break;
-      case "1.75": result = 1.75; break;
-      case "2": result = 2.0; break;
-    }
-    return result;
-  }
-
   void incrementLeft(bool earned) {
     valueLeft += 1;
     if (earned) {
       earnedLeft += 1;
     }
-    _timestampRecordingAdd();
   }
 
   void decrementLeft(bool earned) {
@@ -197,7 +154,6 @@ class Engine {
       earnedLeft -= 1;
       if (earnedLeft < 0) earnedLeft = 0;
     }
-    _timestampRecordingAdd();
   }
 
   void incrementRight(bool earned) {
@@ -205,7 +161,6 @@ class Engine {
     if (earned) {
       earnedRight += 1;
     }
-    _timestampRecordingAdd();
   }
 
   void decrementRight(bool earned) {
@@ -215,7 +170,6 @@ class Engine {
       earnedRight -= 1;
       if (earnedRight < 0) earnedRight = 0;
     }
-    _timestampRecordingAdd();
   }
 
   void clearBoth() {
@@ -223,7 +177,6 @@ class Engine {
     valueRight = 0;
     earnedLeft = 0;
     earnedRight = 0;
-    _timestampRecordingAdd();
   }
 
   void resetBoth()  {
@@ -281,77 +234,5 @@ class Engine {
     newColorTextLeft = colorTextLeft;
     newColorBackgroundLeft = newColorBackgroundLeft;
     newColorBackgroundRight = newColorBackgroundRight;
-  }
-
-  void timestampRecordingStart() {
-    recordingEnabled = true;
-    recording = "00:00:00 Start\n";
-    recordingStart = DateTime.now();
-  }
-
-  void timestampRecordingStop() {
-    recordingEnabled = false;
-  }
-
-  String timestampRecordingCopy() {
-    //print(recording);
-    return recording;
-  }
-
-  _timestampFormat(Duration d) => d.toString().split('.').first.padLeft(8, "0");
-
-  void _timestampRecordingAdd() {
-    if (recordingEnabled) {
-      final rate = convertRate();
-      final difference = DateTime.now().difference(recordingStart) * rate;
-      if (this.earnedEnabled) {
-        String ts = _timestampFormat(new Duration(seconds: difference.inSeconds)) + " ";
-        recording += ts + "actual:" + labelLeft + " " + valueLeft.toString() + ", " + labelRight + " " + valueRight.toString();
-        recording +=      "   earned:" + labelLeft + " " + earnedLeft.toString() + ", " + labelRight + " " + earnedRight.toString() + "\n";
-      } else {
-        String ts = _timestampFormat(new Duration(seconds: difference.inSeconds)) + " ";
-        recording += ts + labelLeft + " " + valueLeft.toString() + ", " + labelRight + " " + valueRight.toString() + "\n";
-      }
-    }
-  }
-
-  String timestampRecordingYTText() {
-    String results = "";
-
-    // recordingYTLink could be in one of the following forms:
-    // https://www.youtube.com/watch?v=k70vuZ5oDo0
-    // https://youtu.be/k70vuZ5oDo0?t=119
-    var v = "";
-    var parts;
-    // get v guid ie. k70vuZ5oDo0
-    if (recordingYTLink.contains("?v=")) {
-      parts = recordingYTLink.split("?v=");
-      v = parts[1];
-    }
-    else {
-      parts = recordingYTLink.replaceAll("https://youtu.be/", "").split("?t=");
-      v = parts[0];
-    }
-
-    // for each line of recording
-    var lines = recording.split("\n");
-    for (String line in lines) {
-      if (line.length == 0) {
-        break;
-      }
-      // convert nn:nn:nn to seconds
-      parts = line.split(" ");
-      var tsparts = parts[0].split(":");
-      var ts = 0;
-      ts += int.parse(tsparts[0])*60*60;
-      ts += int.parse(tsparts[1])*60;
-      ts += int.parse(tsparts[2]);
-
-      // build prefix with "https://youtu.be/" + v + "t=" + seconds
-      // add new line of prefix + delimiter(tab?) + oldline
-      results += "https://www.youtube.com/watch?v=" + v + "&t=" + ts.toString() + "s\n";
-
-    }
-    return results;
   }
 }
