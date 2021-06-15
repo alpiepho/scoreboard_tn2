@@ -57,8 +57,8 @@ class _ScoresPageState extends State<ScoresPage> {
 
   void _fromEngine() async {
     setState(() {
-      _labelLeft  = this._engine.labelLeft;
-      _labelRight = this._engine.labelRight;
+      _labelLeft  = this._engine.getLabelLeft();
+      _labelRight = this._engine.getLabelRight();
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
       _earnedLeft = this._engine.earnedLeft;

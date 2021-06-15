@@ -31,6 +31,7 @@ class Engine {
   bool forceLandscape = false;
   bool notify7Enabled = false;
   bool notify8Enabled = false;
+  bool lastPointLeft = false;
 
   Engine();
 
@@ -60,6 +61,8 @@ class Engine {
     result += forceLandscape.toString() + ";";
     result += notify7Enabled.toString() + ";";
     result += notify8Enabled.toString() + ";";
+
+    result += lastPointLeft.toString() + ";";
 
     return result;
   }
@@ -107,6 +110,8 @@ class Engine {
     notify7Enabled = parts[index++] == "true";
     notify8Enabled = parts[index++] == "true";
 
+    lastPointLeft = parts[index++] == "true";
+
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
     colorTextRight = colorTextRight;
@@ -140,8 +145,21 @@ class Engine {
   // Public methods
   //
 
+  String getLabelLeft() {
+    String result = labelLeft;
+    if ((valueLeft > 0 || valueRight > 0) && lastPointLeft) result = labelLeft + " >";
+    return result;
+  }
+
+  String getLabelRight() {
+    String result = labelRight;
+    if ((valueLeft > 0 || valueRight > 0) && !lastPointLeft) result = "< " + labelRight;
+    return result;
+  }
+
   void incrementLeft(bool earned) {
     valueLeft += 1;
+    lastPointLeft = true;
     if (earned) {
       earnedLeft += 1;
     }
@@ -158,6 +176,7 @@ class Engine {
 
   void incrementRight(bool earned) {
     valueRight += 1;
+    lastPointLeft = false;
     if (earned) {
       earnedRight += 1;
     }
@@ -177,6 +196,7 @@ class Engine {
     valueRight = 0;
     earnedLeft = 0;
     earnedRight = 0;
+    lastPointLeft = false;
   }
 
   void resetBoth()  {
@@ -186,6 +206,7 @@ class Engine {
     valueRight = 0;
     earnedLeft = 0;
     earnedRight = 0;
+    lastPointLeft = false;
     colorTextLeft = Colors.black;
     colorBackgroundLeft = Colors.red;
     colorTextRight = Colors.black;
@@ -204,6 +225,7 @@ class Engine {
     valueTemp = earnedLeft;
     earnedLeft = earnedRight;
     earnedRight = valueTemp;
+    lastPointLeft = !lastPointLeft;
     var labelTemp = labelLeft;
     labelLeft = labelRight;
     labelRight = labelTemp;
