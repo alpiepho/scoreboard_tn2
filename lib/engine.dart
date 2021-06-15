@@ -28,7 +28,9 @@ class Engine {
 
   FontTypes fontType = FontTypes.system;
 
+  bool forceLandscape = false;
   bool notify7Enabled = false;
+  bool notify8Enabled = false;
 
   Engine();
 
@@ -55,7 +57,9 @@ class Engine {
 
     result += fontType.toString() + ";";
 
+    result += forceLandscape.toString() + ";";
     result += notify7Enabled.toString() + ";";
+    result += notify8Enabled.toString() + ";";
 
     return result;
   }
@@ -99,7 +103,9 @@ class Engine {
     }
     index++;
 
+    forceLandscape = parts[index++] == "true";
     notify7Enabled = parts[index++] == "true";
+    notify8Enabled = parts[index++] == "true";
 
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
@@ -233,6 +239,14 @@ class Engine {
   bool notify7() {
     if (notify7Enabled) {
       if (((valueLeft + valueRight) % 7) == 0)
+        return true;
+    }
+    return false;
+  }
+
+  bool notify8() {
+    if (notify8Enabled) {
+      if (valueLeft == 8 || valueRight == 8)
         return true;
     }
     return false;

@@ -281,6 +281,15 @@ class _SettingsModal extends State<SettingsModal> {
   }
 
 
+  void onForceLandscapeChanged() async {
+    if (!this.engine.forceLandscape) {
+      this.engine.forceLandscape = true;
+    } else {
+      this.engine.forceLandscape = false;
+    }
+    this.onDone();
+  }
+
   void onNotify7EnabledChanged() async {
     if (!this.engine.notify7Enabled) {
       this.engine.notify7Enabled = true;
@@ -289,6 +298,16 @@ class _SettingsModal extends State<SettingsModal> {
     }
     this.onDone();
   }
+
+  void onNotify8EnabledChanged() async {
+    if (!this.engine.notify8Enabled) {
+      this.engine.notify8Enabled = true;
+    } else {
+      this.engine.notify8Enabled = false;
+    }
+    this.onDone();
+  }
+
 
   void onHelp() async {
     launch('https://github.com/alpiepho/scoreboard_tn');
@@ -316,27 +335,24 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Swap^',
+                'Swap.',
                 style: kSettingsTextEditStyle,
               ),
-              //trailing: new Icon(Icons.swap_horiz),
               onTap: onSwap as void Function()?,
             ),
             new ListTile(
               title: new Text(
-                'Clear Scores^',
+                'Clear Scores.',
                 style: kSettingsTextEditStyle,
               ),
-              //trailing: new Icon(Icons.undo),
               onTap: onClear as void Function()?,
             ),
             Divider(),
             new ListTile(
               title: new Text(
-                'Reset All...^',
+                'Reset All.',
                 style: kSettingsTextEditStyle,
               ),
-              //trailing: new Icon(Icons.clear_all),
               onTap: onReset as void Function()?,
             ),
             Divider(),
@@ -460,7 +476,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Done^',
+                'Done.',
                 style: kSettingsTextEditStyle,
               ),
               //trailing: new Icon(Icons.done),
@@ -472,11 +488,27 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Notify at 7...^',
+                'Force Landscape.',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.forceLandscape ? Icons.check_box : Icons.check_box_outline_blank),
+              onTap: onForceLandscapeChanged,
+            ),
+            new ListTile(
+              title: new Text(
+                'Notify at 7.',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(engine.notify7Enabled ? Icons.check_box : Icons.check_box_outline_blank),
               onTap: onNotify7EnabledChanged,
+            ),
+            new ListTile(
+              title: new Text(
+                'Notify at 8.',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.notify8Enabled ? Icons.check_box : Icons.check_box_outline_blank),
+              onTap: onNotify8EnabledChanged,
             ),
             Divider(),
             Divider(),
@@ -484,7 +516,7 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Track Earned Points...^',
+                'Track Earned Points.',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(engine.earnedEnabled ? Icons.check_box : Icons.check_box_outline_blank),
@@ -492,7 +524,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Show Earned Points...^',
+                'Show Earned Points.',
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(engine.earnedVisible ? Icons.check_box : Icons.check_box_outline_blank),
@@ -504,7 +536,7 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Change Fonts...^',
+                'Change Fonts...',
                 style: kSettingsTextEditStyle,
               ),
               onTap: onFontChange,

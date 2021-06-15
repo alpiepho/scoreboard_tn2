@@ -2,7 +2,7 @@
 
 My flutter version of a Scoreboard application.
 
-Version: 0.2
+Version: 0.3
 
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
@@ -57,11 +57,8 @@ or QR Code:
 
 ## Todo and Future Changes
 - refactor long files
-- fix settings landscape keyboard
 - More fonts
 - Fix more Lighthouse issues (might be in Flutter)
-- Fix top bar (but it does show time etc)
-- Fix no-rotation (setup but still rotates)
 
 ## Reference
 

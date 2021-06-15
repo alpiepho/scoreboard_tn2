@@ -122,6 +122,7 @@ class _ScoresPageState extends State<ScoresPage> {
     this._engine.incrementLeft(earned);
     _fromEngine();
     _notify7();
+    _notify8();
   }
 
   void _decrementLeft() async {
@@ -134,6 +135,7 @@ class _ScoresPageState extends State<ScoresPage> {
     this._engine.incrementRight(earned);
     _fromEngine();
     _notify7();
+    _notify8();
   }
 
   void _decrementRight() async {
@@ -296,6 +298,43 @@ class _ScoresPageState extends State<ScoresPage> {
     }
   }
 
+  void _notify8() async {
+    if (this._engine.notify8()) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('At 8 Points'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Would you swap teams?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Swap'),
+                onPressed: () {
+                  this._engine.swapTeams();
+                  _fromEngine();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   initState() {
     super.initState();
@@ -311,6 +350,7 @@ class _ScoresPageState extends State<ScoresPage> {
     numberTextStyle = getNumberFont(_fontType);
 
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    var forcePortrait = this._engine.forceLandscape && isPortrait;
     if (isPortrait) {
       return Scaffold(
         backgroundColor: kInputPageBackgroundColor,
@@ -329,6 +369,7 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPan: _panUpdateLeft,
                           color: _colorBackgroundLeft,
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
+                          portrait: forcePortrait,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -355,6 +396,7 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPan: _panUpdateRight,
                           color: _colorBackgroundRight,
                           margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                          portrait: forcePortrait,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -401,7 +443,7 @@ class _ScoresPageState extends State<ScoresPage> {
               );
             }
           ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButtonLocation: (forcePortrait ? FloatingActionButtonLocation.startFloat : FloatingActionButtonLocation.endFloat),
       );
     }
     else {
@@ -422,6 +464,7 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPan: _panUpdateLeft,
                           color: _colorBackgroundLeft,
                           margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
+                          portrait: forcePortrait,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -448,6 +491,7 @@ class _ScoresPageState extends State<ScoresPage> {
                           onPan: _panUpdateRight,
                           color: _colorBackgroundRight,
                           margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
+                          portrait: forcePortrait,
                           cardChild: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
