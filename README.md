@@ -1,6 +1,3 @@
-# scoreboard_tn
-
-My flutter version of a Scoreboard application.
 ## Get Application
 Version: 0.3
 
@@ -11,6 +8,8 @@ or QR Code:
 ![QR Code](./qr-code.png)
 
 ## About
+My flutter version of a Scoreboard application.
+
 This application was built to better learn Flutter and Dart.  The world really doesn't need another simple scoring application, but attempting to duplicate how several of these common applications work, provided a way to learn many things:
 
 - Flutter itself
