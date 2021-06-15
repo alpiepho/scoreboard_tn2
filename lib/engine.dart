@@ -32,6 +32,7 @@ class Engine {
   bool notify7Enabled = false;
   bool notify8Enabled = false;
   bool lastPointLeft = false;
+  bool lastPointEnabled = false;
 
   Engine();
 
@@ -63,6 +64,7 @@ class Engine {
     result += notify8Enabled.toString() + ";";
 
     result += lastPointLeft.toString() + ";";
+    result += lastPointEnabled.toString() + ";";
 
     return result;
   }
@@ -111,6 +113,7 @@ class Engine {
     notify8Enabled = parts[index++] == "true";
 
     lastPointLeft = parts[index++] == "true";
+    lastPointEnabled = parts[index++] == "true";
 
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
@@ -147,13 +150,21 @@ class Engine {
 
   String getLabelLeft() {
     String result = labelLeft;
-    if ((valueLeft > 0 || valueRight > 0) && lastPointLeft) result = labelLeft + " >";
+    if (lastPointEnabled) {
+      if ((valueLeft > 0 || valueRight > 0) && lastPointLeft) {
+        result = labelLeft + " >";
+      }
+    }
     return result;
   }
 
   String getLabelRight() {
     String result = labelRight;
-    if ((valueLeft > 0 || valueRight > 0) && !lastPointLeft) result = "< " + labelRight;
+    if (lastPointEnabled) {
+      if ((valueLeft > 0 || valueRight > 0) && !lastPointLeft) {
+        result = "< " + labelRight;
+      }
+    }
     return result;
   }
 

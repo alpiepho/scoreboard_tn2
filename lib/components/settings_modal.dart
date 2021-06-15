@@ -290,6 +290,15 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
+  void onLastPointChanged() async {
+    if (!this.engine.lastPointEnabled) {
+      this.engine.lastPointEnabled = true;
+    } else {
+      this.engine.lastPointEnabled = false;
+    }
+    this.onDone();
+  }
+
   void onNotify7EnabledChanged() async {
     if (!this.engine.notify7Enabled) {
       this.engine.notify7Enabled = true;
@@ -493,6 +502,14 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               trailing: new Icon(engine.forceLandscape ? Icons.check_box : Icons.check_box_outline_blank),
               onTap: onForceLandscapeChanged,
+            ),
+            new ListTile(
+              title: new Text(
+                'Last Point Marker.',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.lastPointEnabled ? Icons.check_box : Icons.check_box_outline_blank),
+              onTap: onLastPointChanged,
             ),
             new ListTile(
               title: new Text(

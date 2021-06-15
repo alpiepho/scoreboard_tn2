@@ -1,11 +1,16 @@
 # scoreboard_tn
 
 My flutter version of a Scoreboard application.
-
+## Get Application
 Version: 0.3
 
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
 
+or QR Code:
+
+![QR Code](./qr-code.png)
+
+## About
 This application was built to better learn Flutter and Dart.  The world really doesn't need another simple scoring application, but attempting to duplicate how several of these common applications work, provided a way to learn many things:
 
 - Flutter itself
@@ -47,13 +52,6 @@ while disabling showing the values.
 
 NOTE: The swipe down, or delete a point, feature will currently decrement BOTH total and earned.  This may change in the future
 if an intuitive gesture can be found.
-## Get Application
-
-GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
-
-or QR Code:
-
-![QR Code](./qr-code.png)
 
 ## Todo and Future Changes
 - refactor long files
