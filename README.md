@@ -7,6 +7,29 @@ or QR Code:
 
 ![QR Code](./qr-code.png)
 
+## "Install" on iPhone
+
+This application is a Web application known as a PWA (progressive web application).  It is possible to add a PWA to the home screen of an iPhone
+like it is a downloaded application (there is a similare mechanism for Android that is not discused here).  Use the following steps:
+
+1. Open the above link in Safari and click on up-arrow
+
+![Step1](./install1.png)
+
+2. Click on "Add to Home Screen"
+
+![Step2](./install2.png)
+
+3. Select "Add"
+
+![Step3](./install3.png)
+
+
+### Known Issue
+
+A PWA on iPhone requires internet access to launch the first time.  However, once it is running, the application will work fine without and
+internet connection.
+
 ## About
 My flutter version of a Scoreboard application.
 
@@ -61,15 +84,3 @@ if an intuitive gesture can be found.
 
 Icons created with https://appicon.co/  NOTE: original image should be square to avoid white edges on IOS Home screen.
 
-## (Original Flutter Starter README) Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
