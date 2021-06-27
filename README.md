@@ -14,15 +14,15 @@ like it is a downloaded application (there is a similare mechanism for Android t
 
 1. Open the above link in Safari and click on up-arrow
 
-![Step1](./install1.png)
+![Step1](./iphone_install1.png)
 
 2. Click on "Add to Home Screen"
 
-![Step2](./install2.png)
+![Step2](./iphone_install2.png)
 
 3. Select "Add"
 
-![Step3](./install3.png)
+![Step3](./iphone_install3.png)
 
 
 ### Known Issue
