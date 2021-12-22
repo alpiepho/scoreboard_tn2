@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const kVersion = '0.3';
+const kVersion = '0.4';
 
 const kInputPageBackgroundColor = Colors.black45;
 
@@ -36,20 +36,38 @@ enum FontTypes {
   lato,
   merriweather,
   montserrat,
-  robotoMono,
-  rockSalt,
+  opensans,
+  robotomono,
+  rocksalt,
+  spacemono,
+  spartan,
 }
 
-const kLabelTextStyle_system = TextStyle(
-  fontSize: 50.0,
+// const kLabelTextStyle_system = TextStyle(
+//   fontSize: 50.0,
+//   color: Colors.black,
+//   fontWeight: FontWeight.bold,
+// );
+// const kNumberTextStyle_system = TextStyle(
+//   fontSize: 250.0,
+//   fontWeight: FontWeight.bold,
+//   height: 1.1,
+// );
+
+// ignore: non_constant_identifier_names
+var kLabelTextStyle_system = GoogleFonts.openSans(
+  fontSize: 50,
   color: Colors.black,
   fontWeight: FontWeight.bold,
 );
-const kNumberTextStyle_system = TextStyle(
-  fontSize: 250.0,
+// ignore: non_constant_identifier_names
+var kNumberTextStyle_system = GoogleFonts.openSans(
+  fontSize: 250,
+  color: Colors.black,
   fontWeight: FontWeight.bold,
   height: 1.1,
 );
+
 
 // ignore: non_constant_identifier_names
 var kLabelTextStyle_lato = GoogleFonts.lato(
@@ -94,6 +112,20 @@ var kNumberTextStyle_montserrat = GoogleFonts.montserrat(
 );
 
 // ignore: non_constant_identifier_names
+var kLabelTextStyle_opensans = GoogleFonts.openSans(
+  fontSize: 50,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+);
+// ignore: non_constant_identifier_names
+var kNumberTextStyle_opensans = GoogleFonts.openSans(
+  fontSize: 250,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+  height: 1.2,
+);
+
+// ignore: non_constant_identifier_names
 var kLabelTextStyle_robotomono = GoogleFonts.robotoMono(
   fontSize: 30,
   color: Colors.black,
@@ -115,11 +147,40 @@ var kLabelTextStyle_rocksalt = GoogleFonts.rockSalt(
 );
 // ignore: non_constant_identifier_names
 var kNumberTextStyle_rocksalt = GoogleFonts.rockSalt(
-  fontSize: 120,
+  fontSize: 150,
   color: Colors.black,
   fontWeight: FontWeight.bold,
-  height: 1.1,
+  height: 1.5,
 );
+
+// ignore: non_constant_identifier_names
+var kLabelTextStyle_spacemono = GoogleFonts.spaceMono(
+  fontSize: 30,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+);
+// ignore: non_constant_identifier_names
+var kNumberTextStyle_spacemono = GoogleFonts.spaceMono(
+  fontSize: 250,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+  height: 1.2,
+);
+
+// ignore: non_constant_identifier_names
+var kLabelTextStyle_spartan = GoogleFonts.spartan(
+  fontSize: 30,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+);
+// ignore: non_constant_identifier_names
+var kNumberTextStyle_spartan = GoogleFonts.spartan(
+  fontSize: 250,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+  height: 1.3,
+);
+
 
 String getFontString(FontTypes fontType) {
   String t;
@@ -136,11 +197,20 @@ String getFontString(FontTypes fontType) {
     case FontTypes.montserrat:
       t = 'Montserrat: ex. 0123456789';
       break;
-    case FontTypes.robotoMono:
+    case FontTypes.opensans:
+      t = 'OpenSans: ex. 0123456789';
+      break;
+    case FontTypes.robotomono:
       t = 'RobotoMono: ex. 0123456789';
       break;
-    case FontTypes.rockSalt:
+    case FontTypes.rocksalt:
       t = 'RockSalt: ex. 0123456789';
+      break;
+    case FontTypes.spacemono:
+      t = 'SpaceMono: ex. 0123456789';
+      break;
+    case FontTypes.spartan:
+      t = 'Spartan: ex. 0123456789';
       break;
   }
   return t;
@@ -161,11 +231,20 @@ TextStyle getLabelFont(FontTypes fontType) {
     case FontTypes.montserrat:
       t = kLabelTextStyle_montserrat;
       break;
-    case FontTypes.robotoMono:
+    case FontTypes.opensans:
+      t = kLabelTextStyle_opensans;
+      break;
+    case FontTypes.robotomono:
       t = kLabelTextStyle_robotomono;
       break;
-    case FontTypes.rockSalt:
+    case FontTypes.rocksalt:
       t = kLabelTextStyle_rocksalt;
+      break;
+    case FontTypes.spacemono:
+      t = kLabelTextStyle_spacemono;
+      break;
+    case FontTypes.spartan:
+      t = kLabelTextStyle_spartan;
       break;
   }
   return t;
@@ -186,11 +265,20 @@ TextStyle getNumberFont(FontTypes fontType) {
     case FontTypes.montserrat:
       t = kNumberTextStyle_montserrat;
       break;
-    case FontTypes.robotoMono:
+    case FontTypes.opensans:
+      t = kNumberTextStyle_opensans;
+      break;
+    case FontTypes.robotomono:
       t = kNumberTextStyle_robotomono;
       break;
-    case FontTypes.rockSalt:
+    case FontTypes.rocksalt:
       t = kNumberTextStyle_rocksalt;
+      break;
+    case FontTypes.spacemono:
+      t = kNumberTextStyle_spacemono;
+      break;
+    case FontTypes.spartan:
+      t = kNumberTextStyle_spartan;
       break;
   }
   return t;
