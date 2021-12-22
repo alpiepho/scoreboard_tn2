@@ -64,17 +64,6 @@ Below are some lists of things yet to do and possible future changes.
 
 Thanks for trying out this applications.
 
-## Earned Points
-Have you ever wanted to track the points each team really "earned", instead of what they scored?  The setting "Track earned points"
-will let you do that.  This will enable second tally shown below the main score.  If you tap on that label, the score for earned
-and the total points will be incremented.  These values also are shown in the Recording clipboard.
-
-Since "earned" points correlates with "errors", and some parents get worked up about "errors", you can track the earned points and
-while disabling showing the values.
-
-NOTE: The swipe down, or delete a point, feature will currently decrement BOTH total and earned.  This may change in the future
-if an intuitive gesture can be found.
-
 ## Todo and Future Changes
 - refactor long files
 - More fonts

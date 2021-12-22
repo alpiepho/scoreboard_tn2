@@ -12,23 +12,18 @@ class Engine {
   int valueLeft = 0;
   int valueRight = 0;
 
-  bool earnedEnabled = false;
-  bool earnedVisible = false;
-  int earnedLeft = 0;
-  int earnedRight = 0;
-
-  String newLabelLeft = "";
-  String newLabelRight = "";
-  int newValueLeft = 0;
-  int newValueRight = 0;
-  Color newColorTextLeft = Colors.black;
-  Color newColorBackgroundLeft = Colors.red;
-  Color newColorTextRight = Colors.black;
-  Color newColorBackgroundRight = Colors.blueAccent;
+  String pendingLabelLeft = "";
+  String pendingLabelRight = "";
+  int pendingValueLeft = 0;
+  int pendingValueRight = 0;
+  Color pendingColorTextLeft = Colors.black;
+  Color pendingColorBackgroundLeft = Colors.red;
+  Color pendingColorTextRight = Colors.black;
+  Color pendingColorBackgroundRight = Colors.blueAccent;
 
   FontTypes fontType = FontTypes.system;
 
-  bool forceLandscape = false;
+  bool forceLandscape = true;
   bool notify7Enabled = false;
   bool notify8Enabled = false;
   bool lastPointLeft = false;
@@ -52,10 +47,10 @@ class Engine {
     result += valueLeft.toString() + ";";
     result += valueRight.toString() + ";";
 
-    result += earnedEnabled.toString() + ";";
-    result += earnedVisible.toString() + ";";
-    result += earnedLeft.toString() + ";";
-    result += earnedRight.toString() + ";";
+    result += "removed" + ";";
+    result += "removed" + ";";
+    result += "removed" + ";";
+    result += "removed" + ";";
 
     result += fontType.toString() + ";";
 
@@ -94,10 +89,10 @@ class Engine {
     valueLeft = int.parse(parts[index++]);
     valueRight = int.parse(parts[index++]);
 
-    earnedEnabled = parts[index++] == "true";
-    earnedVisible = parts[index++] == "true";
-    earnedLeft = int.parse(parts[index++]);
-    earnedRight = int.parse(parts[index++]);
+    index++;
+    index++;
+    index++;
+    index++;
 
     fontType = FontTypes.system;
     for (var value in FontTypes.values) {
@@ -120,27 +115,27 @@ class Engine {
     colorTextRight = colorTextRight;
     colorBackgroundRight = colorBackgroundRight;
 
-    newColorTextLeft = colorTextLeft;
-    newColorBackgroundLeft = colorBackgroundLeft;
-    newColorTextRight = colorTextRight;
-    newColorBackgroundRight = colorBackgroundRight;
+    pendingColorTextLeft = colorTextLeft;
+    pendingColorBackgroundLeft = colorBackgroundLeft;
+    pendingColorTextRight = colorTextRight;
+    pendingColorBackgroundRight = colorBackgroundRight;
 
   }
 
   //
   // Getter/Setters for temporary variables
   //
-  set newValueLeftString(String text) {
+  set pendingValueLeftString(String text) {
     if (text.isNotEmpty) {
-      newValueLeft = int.parse(text);
-      if (newValueLeft < 0) newValueLeft = 0;
+      pendingValueLeft = int.parse(text);
+      if (pendingValueLeft < 0) pendingValueLeft = 0;
     }
   }
 
-  set newValueRightString(String text) {
+  set pendingValueRightString(String text) {
     if (text.isNotEmpty) {
-      newValueRight = int.parse(text);
-      if (newValueRight < 0) newValueRight = 0;
+      pendingValueRight = int.parse(text);
+      if (pendingValueRight < 0) pendingValueRight = 0;
     }
   }
 
@@ -168,45 +163,29 @@ class Engine {
     return result;
   }
 
-  void incrementLeft(bool earned) {
+  void incrementLeft() {
     valueLeft += 1;
     lastPointLeft = true;
-    if (earned) {
-      earnedLeft += 1;
-    }
   }
 
-  void decrementLeft(bool earned) {
+  void decrementLeft() {
     valueLeft -= 1;
     if (valueLeft < 0) valueLeft = 0;
-    if (earned) {
-      earnedLeft -= 1;
-      if (earnedLeft < 0) earnedLeft = 0;
-    }
   }
 
-  void incrementRight(bool earned) {
+  void incrementRight() {
     valueRight += 1;
     lastPointLeft = false;
-    if (earned) {
-      earnedRight += 1;
-    }
   }
 
-  void decrementRight(bool earned) {
+  void decrementRight() {
     valueRight -= 1;
     if (valueRight < 0) valueRight = 0;
-    if (earned) {
-      earnedRight -= 1;
-      if (earnedRight < 0) earnedRight = 0;
-    }
   }
 
   void clearBoth() {
     valueLeft = 0;
     valueRight = 0;
-    earnedLeft = 0;
-    earnedRight = 0;
     lastPointLeft = false;
   }
 
@@ -215,17 +194,15 @@ class Engine {
     labelRight = "Home";
     valueLeft = 0;
     valueRight = 0;
-    earnedLeft = 0;
-    earnedRight = 0;
     lastPointLeft = false;
     colorTextLeft = Colors.black;
     colorBackgroundLeft = Colors.red;
     colorTextRight = Colors.black;
     colorBackgroundRight = Colors.blueAccent;
-    newColorTextLeft = colorTextLeft;
-    newColorBackgroundLeft = colorBackgroundLeft;
-    newColorTextRight = colorTextRight;
-    newColorBackgroundRight = colorBackgroundRight;
+    pendingColorTextLeft = colorTextLeft;
+    pendingColorBackgroundLeft = colorBackgroundLeft;
+    pendingColorTextRight = colorTextRight;
+    pendingColorBackgroundRight = colorBackgroundRight;
     fontType = FontTypes.system;
   }
 
@@ -233,9 +210,6 @@ class Engine {
     var valueTemp = valueLeft;
     valueLeft = valueRight;
     valueRight = valueTemp;
-    valueTemp = earnedLeft;
-    earnedLeft = earnedRight;
-    earnedRight = valueTemp;
     lastPointLeft = !lastPointLeft;
     var labelTemp = labelLeft;
     labelLeft = labelRight;
@@ -248,25 +222,25 @@ class Engine {
     colorBackgroundRight = colorTemp;
   }
 
-  void saveBoth() {
-    labelLeft = newLabelLeft;
-    labelRight = newLabelRight;
-    valueLeft = newValueLeft;
-    valueRight = newValueRight;
-    colorTextLeft = newColorTextLeft;
-    colorBackgroundLeft = newColorBackgroundLeft;
-    colorTextRight = newColorTextRight;
-    colorBackgroundRight = newColorBackgroundRight;
+  void savePending() {
+    labelLeft = pendingLabelLeft;
+    labelRight = pendingLabelRight;
+    valueLeft = pendingValueLeft;
+    valueRight = pendingValueRight;
+    colorTextLeft = pendingColorTextLeft;
+    colorBackgroundLeft = pendingColorBackgroundLeft;
+    colorTextRight = pendingColorTextRight;
+    colorBackgroundRight = pendingColorBackgroundRight;
   }
 
-  void setNew() {
-    newLabelLeft = labelLeft;
-    newLabelRight = labelRight;
-    newValueLeft = valueLeft;
-    newValueRight = valueRight;
-    newColorTextLeft = colorTextLeft;
-    newColorBackgroundLeft = newColorBackgroundLeft;
-    newColorBackgroundRight = newColorBackgroundRight;
+  void setPending() {
+    pendingLabelLeft = labelLeft;
+    pendingLabelRight = labelRight;
+    pendingValueLeft = valueLeft;
+    pendingValueRight = valueRight;
+    pendingColorTextLeft = colorTextLeft;
+    pendingColorBackgroundLeft = pendingColorBackgroundLeft;
+    pendingColorBackgroundRight = pendingColorBackgroundRight;
   }
 
   bool notify7() {

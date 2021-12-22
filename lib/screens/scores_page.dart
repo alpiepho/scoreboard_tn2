@@ -30,10 +30,6 @@ class _ScoresPageState extends State<ScoresPage> {
   String _labelRight = "Home";
   int _valueLeft = 0;
   int _valueRight = 0;
-  int _earnedLeft = 0;
-  int _earnedRight = 0;
-  //bool _earnedEnabled = false;
-  bool _earnedVisible = false;
 
   FontTypes _fontType = FontTypes.system;
 
@@ -61,10 +57,6 @@ class _ScoresPageState extends State<ScoresPage> {
       _labelRight = this._engine.getLabelRight();
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
-      _earnedLeft = this._engine.earnedLeft;
-      _earnedRight = this._engine.earnedRight;
-      //_earnedEnabled = this._engine.earnedEnabled;
-      _earnedVisible = this._engine.earnedVisible;
 
       _colorTextLeft = this._engine.colorTextLeft;
       _colorBackgroundLeft = this._engine.colorBackgroundLeft;
@@ -77,69 +69,27 @@ class _ScoresPageState extends State<ScoresPage> {
     });
   }
 
-  bool _hitEarned(TapUpDetails details, BuildContext? c) {
-    if (c != null) {
-      RenderBox rb = c.findRenderObject() as RenderBox;
-      if(rb.size != Size.zero) {
-        Offset centerPtInWidgetSpace = Offset(rb.size.width/2, rb.size.height/2);
-        Offset centerPtInScreenSpace = rb.localToGlobal(centerPtInWidgetSpace);
-        double dx = 1.2*(rb.size.width/2);
-        double dy = 1.2*(rb.size.height/2);
-        if ((details.globalPosition.dx >= (centerPtInScreenSpace.dx - dx)) &&
-            (details.globalPosition.dx <= (centerPtInScreenSpace.dx + dx)) &&
-            (details.globalPosition.dy >= (centerPtInScreenSpace.dy - dy)) &&
-            (details.globalPosition.dy <= (centerPtInScreenSpace.dy + dy))
-        ) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  bool _hitEarnedLeft(TapUpDetails details) {
-    if (_hitEarned(details, _keyPortraitLeft.currentContext)) {
-      return true;
-    }
-    if (_hitEarned(details, _keyLandscapeLeft.currentContext)) {
-      return true;
-    }
-    return false;
-  }
-
-  bool _hitEarnedRight(TapUpDetails details) {
-    if (_hitEarned(details, _keyPortraitRight.currentContext)) {
-      return true;
-    }
-    if (_hitEarned(details, _keyLandscapeRight.currentContext)) {
-      return true;
-    }
-    return false;
-  }
-
   void _incrementLeft(TapUpDetails details) async {
-    bool earned = _hitEarnedLeft(details);
-    this._engine.incrementLeft(earned);
+    this._engine.incrementLeft();
     _fromEngine();
     _notify7();
     _notify8();
   }
 
   void _decrementLeft() async {
-    this._engine.decrementLeft(true);
+    this._engine.decrementLeft();
     _fromEngine();
   }
 
   void _incrementRight(TapUpDetails details) async {
-    bool earned = _hitEarnedRight(details);
-    this._engine.incrementRight(earned);
+    this._engine.incrementRight();
     _fromEngine();
     _notify7();
     _notify8();
   }
 
   void _decrementRight() async {
-    this._engine.decrementRight(true);
+    this._engine.decrementRight();
     _fromEngine();
   }
 
@@ -221,8 +171,8 @@ class _ScoresPageState extends State<ScoresPage> {
     Navigator.of(context).pop();
   }
 
-  void _saveBoth() async {
-    this._engine.saveBoth();
+  void _savePending() async {
+    this._engine.savePending();
     _fromEngine();
     Navigator.of(context).pop();
   }
@@ -233,7 +183,7 @@ class _ScoresPageState extends State<ScoresPage> {
       _panPositionYLeft += details.delta.dy;
       if (_panPositionYLeft < -100) {
         _panPositionYLeft = 0.0;
-        this._engine.incrementLeft(false);
+        this._engine.incrementLeft();
         _fromEngine();
       } else if (_panPositionYLeft > 100) {
         _panPositionYLeft = 0.0;
@@ -250,7 +200,7 @@ class _ScoresPageState extends State<ScoresPage> {
       _panPositionYRight += details.delta.dy;
       if (_panPositionYRight < -100) {
         _panPositionYRight = 0.0;
-        this._engine.incrementRight(false);
+        this._engine.incrementRight();
         _fromEngine();
       } else if (_panPositionYRight > 100) {
         _panPositionYRight = 0.0;
@@ -364,6 +314,7 @@ class _ScoresPageState extends State<ScoresPage> {
                   child: Column(
                     children: <Widget>[
                       Expanded(
+                        key: _keyPortraitLeft,
                         child: TeamScoreCard(
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
@@ -381,16 +332,12 @@ class _ScoresPageState extends State<ScoresPage> {
                                 (_valueLeft).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
-                              Text(
-                                "earned: " + (_earnedLeft).toString(),
-                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextLeft : _colorBackgroundLeft), fontSize: 30),
-                                key: _keyPortraitLeft,
-                              ),
                             ],
                           ),
                         ),
                       ),
                       Expanded(
+                        key: _keyPortraitRight,
                         child: TeamScoreCard(
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
@@ -408,11 +355,6 @@ class _ScoresPageState extends State<ScoresPage> {
                                 (_valueRight).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextRight),
                               ),
-                              Text(
-                                "earned: " + (_earnedRight).toString(),
-                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextRight : _colorBackgroundRight), fontSize: 30),
-                                key: _keyPortraitRight,
-                              ),
                             ],
                           ),
                         ),
@@ -426,7 +368,7 @@ class _ScoresPageState extends State<ScoresPage> {
         ),
         floatingActionButton: SettingsButton(
           onPress: () {
-            this._engine.setNew();
+            this._engine.setPending();
             showModalBottomSheet(
                 context: context,
                 builder: (BuildContext bc) {
@@ -436,7 +378,7 @@ class _ScoresPageState extends State<ScoresPage> {
                     _resetBoth,
                     _clearBoth,
                     _swapTeams,
-                    _saveBoth,
+                    _savePending,
                   );
                 },
                 isScrollControlled: true,
@@ -459,6 +401,7 @@ class _ScoresPageState extends State<ScoresPage> {
                   child: Row(
                     children: <Widget>[
                       Expanded(
+                        key: _keyLandscapeLeft,
                         child: TeamScoreCard(
                           onPress: _incrementLeft,
                           onPan: _panUpdateLeft,
@@ -476,16 +419,12 @@ class _ScoresPageState extends State<ScoresPage> {
                                 (_valueLeft).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
-                              Text(
-                                "earned: " + (_earnedLeft).toString(),
-                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextLeft : _colorBackgroundLeft), fontSize: 30),
-                                key: _keyLandscapeLeft,
-                              ),
                             ],
                           ),
                         ),
                       ),
                       Expanded(
+                        key: _keyLandscapeRight,
                         child: TeamScoreCard(
                           onPress: _incrementRight,
                           onPan: _panUpdateRight,
@@ -503,11 +442,6 @@ class _ScoresPageState extends State<ScoresPage> {
                                 (_valueRight).toString(),
                                 style: numberTextStyle.copyWith(color: _colorTextRight),
                               ),
-                              Text(
-                                "earned: " + (_earnedRight).toString(),
-                                style: labelTextStyle.copyWith(color: (_earnedVisible ? _colorTextRight : _colorBackgroundRight), fontSize: 30),
-                                key: _keyLandscapeRight,
-                              ),
                             ],
                           ),
                         ),
@@ -521,7 +455,7 @@ class _ScoresPageState extends State<ScoresPage> {
         ),
         floatingActionButton: SettingsButton(
             onPress: () {
-              this._engine.setNew();
+              this._engine.setPending();
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext bc) {
@@ -531,7 +465,7 @@ class _ScoresPageState extends State<ScoresPage> {
                       _resetBoth,
                       _clearBoth,
                       _swapTeams,
-                      _saveBoth,
+                      _savePending,
                     );
                   },
                   isScrollControlled: true,

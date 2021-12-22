@@ -1,8 +1,8 @@
-import 'package:flutter/gestures.dart';
+//import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_material_pickers/flutter_material_pickers.dart';
+//import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:scoreboard_tn/constants.dart';
 import 'package:scoreboard_tn/engine.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,10 +53,10 @@ class _SettingsModal extends State<SettingsModal> {
     this.onClear = onClear;
     this.onSwap = onSwap;
     this.onDone = onDone;
-    this._newColorTextLeft = this.engine.newColorTextLeft;
-    this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
-    this._newColorTextRight = this.engine.newColorTextRight;
-    this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
+    this._newColorTextLeft = this.engine.pendingColorTextLeft;
+    this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+    this._newColorTextRight = this.engine.pendingColorTextRight;
+    this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
 
   }
 
@@ -82,30 +82,30 @@ class _SettingsModal extends State<SettingsModal> {
 
   void _fromEngine() async {
     setState(() {
-      this._newColorTextLeft = this.engine.newColorTextLeft;
-      this._newColorBackgroundLeft = this.engine.newColorBackgroundLeft;
-      this._newColorTextRight = this.engine.newColorTextRight;
-      this._newColorBackgroundRight = this.engine.newColorBackgroundRight;
+      this._newColorTextLeft = this.engine.pendingColorTextLeft;
+      this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+      this._newColorTextRight = this.engine.pendingColorTextRight;
+      this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
     });
   }
 
   void _onColorTextLeftChanged(Color color) {
-    this.engine.newColorTextLeft = color;
+    this.engine.pendingColorTextLeft = color;
     _fromEngine();
   }
 
   void _onColorBackgroundLeftChanged(Color color) {
-    this.engine.newColorBackgroundLeft = color;
+    this.engine.pendingColorBackgroundLeft = color;
     _fromEngine();
   }
 
   void _onColorTextRightChanged(Color color) {
-    this.engine.newColorTextRight = color;
+    this.engine.pendingColorTextRight = color;
     _fromEngine();
   }
 
   void _onColorBackgroundRightChanged(Color color) {
-    this.engine.newColorBackgroundRight = color;
+    this.engine.pendingColorBackgroundRight = color;
     _fromEngine();
   }
 
@@ -265,21 +265,6 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
-  void onEarnedEnabledChanged() async {
-    if (!this.engine.earnedEnabled) {
-      this.engine.earnedEnabled = true;
-      this.engine.earnedVisible = true;
-    } else {
-      this.engine.earnedEnabled = false;
-      this.engine.earnedVisible = false;
-    }
-    this.onDone();
-  }
-  void onEarnedVisibleChanged() async {
-    this.engine.earnedVisible = !this.engine.earnedVisible;
-    this.onDone();
-  }
-
 
   void onForceLandscapeChanged() async {
     if (!this.engine.forceLandscape) {
@@ -376,7 +361,7 @@ class _SettingsModal extends State<SettingsModal> {
                 ),
                 autofocus: false,
                 initialValue: engine.labelLeft,
-                onChanged: (text) => engine.newLabelLeft = text,
+                onChanged: (text) => engine.pendingLabelLeft = text,
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.edit),
@@ -390,7 +375,7 @@ class _SettingsModal extends State<SettingsModal> {
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 initialValue: engine.valueLeft.toString(),
-                onChanged: (text) => engine.newValueLeftString = text,
+                onChanged: (text) => engine.pendingValueLeftString = text,
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.edit),
@@ -434,7 +419,7 @@ class _SettingsModal extends State<SettingsModal> {
                 ),
                 autofocus: false,
                 initialValue: engine.labelRight,
-                onChanged: (text) => engine.newLabelRight = text,
+                onChanged: (text) => engine.pendingLabelRight = text,
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.edit),
@@ -448,7 +433,7 @@ class _SettingsModal extends State<SettingsModal> {
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 initialValue: engine.valueRight.toString(),
-                onChanged: (text) => engine.newValueRightString = text,
+                onChanged: (text) => engine.pendingValueRightString = text,
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.edit),
@@ -526,26 +511,6 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               trailing: new Icon(engine.notify8Enabled ? Icons.check_box : Icons.check_box_outline_blank),
               onTap: onNotify8EnabledChanged,
-            ),
-            Divider(),
-            Divider(),
-            Divider(),
-            Divider(),
-            new ListTile(
-              title: new Text(
-                'Track Earned Points.',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(engine.earnedEnabled ? Icons.check_box : Icons.check_box_outline_blank),
-              onTap: onEarnedEnabledChanged,
-            ),
-            new ListTile(
-              title: new Text(
-                'Show Earned Points.',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(engine.earnedVisible ? Icons.check_box : Icons.check_box_outline_blank),
-              onTap: onEarnedVisibleChanged,
             ),
             Divider(),
             Divider(),
