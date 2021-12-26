@@ -98,23 +98,35 @@ class _ScoresPageState extends State<ScoresPage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Clear Scores'),
+          title: Text(
+            'Clear Scores',
+            style: kSettingsTextEditStyle,
+            ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Would you clear scores?'),
+                Text(
+                  'Would you clear scores?',
+                  style: kSettingsTextEditStyle,
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Clear'),
+              child: Text(
+                'Clear',
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 this._engine.clearBoth();
                 _fromEngine();
@@ -134,7 +146,10 @@ class _ScoresPageState extends State<ScoresPage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Reset All'),
+          title: Text(
+            'Reset All',
+            style: kSettingsTextEditStyle,
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -144,13 +159,19 @@ class _ScoresPageState extends State<ScoresPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Reset'),
+              child: Text(
+                'Reset',
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+              ),
               onPressed: () {
                 this._engine.resetBoth();
                 _fromEngine();
@@ -218,23 +239,35 @@ class _ScoresPageState extends State<ScoresPage> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('At 7 Points'),
+            title: Text(
+              'At 7 Points',
+              style: kSettingsTextEditStyle,
+            ),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Would you swap teams?'),
+                  Text(
+                    'Would you swap teams?',
+                    style: kSettingsTextEditStyle,
+                  ),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: Text('Swap'),
+                child: Text(
+                  'Swap',
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                ),
                 onPressed: () {
                   this._engine.swapTeams();
                   _fromEngine();
@@ -256,23 +289,35 @@ class _ScoresPageState extends State<ScoresPage> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('At 8 Points'),
+            title: Text(
+              'At 8 Points',
+              style: kSettingsTextEditStyle,
+            ),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Would you swap teams?'),
+                  Text(
+                    'Would you swap teams?',
+                    style: kSettingsTextEditStyle,
+                  ),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: Text('Swap'),
+                child: Text(
+                  'Swap',
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                ),
                 onPressed: () {
                   this._engine.swapTeams();
                   _fromEngine();
