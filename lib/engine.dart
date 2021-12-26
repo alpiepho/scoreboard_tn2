@@ -14,8 +14,6 @@ class Engine {
 
   String pendingLabelLeft = "";
   String pendingLabelRight = "";
-  int pendingValueLeft = 0;
-  int pendingValueRight = 0;
   Color pendingColorTextLeft = Colors.black;
   Color pendingColorBackgroundLeft = Colors.red;
   Color pendingColorTextRight = Colors.black;
@@ -27,7 +25,7 @@ class Engine {
   bool notify7Enabled = false;
   bool notify8Enabled = false;
   bool lastPointLeft = false;
-  bool lastPointEnabled = false;
+  bool lastPointEnabled = true;
 
   Engine();
 
@@ -37,29 +35,29 @@ class Engine {
   String pack() {
     String result = "";
 
-    result += colorTextLeft.toString() + ";";
-    result += colorBackgroundLeft.toString() + ";";
-    result += colorTextRight.toString() + ";";
-    result += colorBackgroundRight.toString() + ";";
+    // result += colorTextLeft.toString() + ";";
+    // result += colorBackgroundLeft.toString() + ";";
+    // result += colorTextRight.toString() + ";";
+    // result += colorBackgroundRight.toString() + ";";
 
-    result += labelLeft.toString() + ";";
-    result += labelRight.toString() + ";";
-    result += valueLeft.toString() + ";";
-    result += valueRight.toString() + ";";
+    // result += labelLeft.toString() + ";";
+    // result += labelRight.toString() + ";";
+    // result += valueLeft.toString() + ";";
+    // result += valueRight.toString() + ";";
 
-    result += "removed" + ";";
-    result += "removed" + ";";
-    result += "removed" + ";";
-    result += "removed" + ";";
+    // result += "removed" + ";";
+    // result += "removed" + ";";
+    // result += "removed" + ";";
+    // result += "removed" + ";";
 
-    result += fontType.toString() + ";";
+    // result += fontType.toString() + ";";
 
-    result += forceLandscape.toString() + ";";
-    result += notify7Enabled.toString() + ";";
-    result += notify8Enabled.toString() + ";";
+    // result += forceLandscape.toString() + ";";
+    // result += notify7Enabled.toString() + ";";
+    // result += notify8Enabled.toString() + ";";
 
-    result += lastPointLeft.toString() + ";";
-    result += lastPointEnabled.toString() + ";";
+    // result += lastPointLeft.toString() + ";";
+    // result += lastPointEnabled.toString() + ";";
 
     return result;
   }
@@ -73,70 +71,53 @@ class Engine {
   }
 
   void unpack(String packed) {
-    if (packed.length == 0)
-      return;
+    // if (packed.length == 0)
+    //   return;
 
-    var parts = packed.split(";");
-    int index = 0;
+    // var parts = packed.split(";");
+    // int index = 0;
 
-    colorTextLeft = stringToColor(parts[index++]);
-    colorBackgroundLeft = stringToColor(parts[index++]);
-    colorTextRight = stringToColor(parts[index++]);
-    colorBackgroundRight = stringToColor(parts[index++]);
+    // colorTextLeft = stringToColor(parts[index++]);
+    // colorBackgroundLeft = stringToColor(parts[index++]);
+    // colorTextRight = stringToColor(parts[index++]);
+    // colorBackgroundRight = stringToColor(parts[index++]);
 
-    labelLeft = parts[index++];
-    labelRight = parts[index++];
-    valueLeft = int.parse(parts[index++]);
-    valueRight = int.parse(parts[index++]);
+    // labelLeft = parts[index++];
+    // labelRight = parts[index++];
+    // valueLeft = int.parse(parts[index++]);
+    // valueRight = int.parse(parts[index++]);
 
-    index++;
-    index++;
-    index++;
-    index++;
+    // index++;
+    // index++;
+    // index++;
+    // index++;
 
-    fontType = FontTypes.system;
-    for (var value in FontTypes.values) {
-      if (value.toString() == parts[index]) {
-        fontType = value;
-        break;
-      }
-    }
-    index++;
+    // fontType = FontTypes.system;
+    // for (var value in FontTypes.values) {
+    //   if (value.toString() == parts[index]) {
+    //     fontType = value;
+    //     break;
+    //   }
+    // }
+    // index++;
 
-    forceLandscape = parts[index++] == "true";
-    notify7Enabled = parts[index++] == "true";
-    notify8Enabled = parts[index++] == "true";
+    // forceLandscape = parts[index++] == "true";
+    // notify7Enabled = parts[index++] == "true";
+    // notify8Enabled = parts[index++] == "true";
 
-    lastPointLeft = parts[index++] == "true";
-    lastPointEnabled = parts[index++] == "true";
+    // lastPointLeft = parts[index++] == "true";
+    // lastPointEnabled = parts[index++] == "true";
 
-    colorTextLeft = colorTextLeft;
-    colorBackgroundLeft = colorBackgroundLeft;
-    colorTextRight = colorTextRight;
-    colorBackgroundRight = colorBackgroundRight;
+    // colorTextLeft = colorTextLeft;
+    // colorBackgroundLeft = colorBackgroundLeft;
+    // colorTextRight = colorTextRight;
+    // colorBackgroundRight = colorBackgroundRight;
 
-    pendingColorTextLeft = colorTextLeft;
-    pendingColorBackgroundLeft = colorBackgroundLeft;
-    pendingColorTextRight = colorTextRight;
-    pendingColorBackgroundRight = colorBackgroundRight;
+    // pendingColorTextLeft = colorTextLeft;
+    // pendingColorBackgroundLeft = colorBackgroundLeft;
+    // pendingColorTextRight = colorTextRight;
+    // pendingColorBackgroundRight = colorBackgroundRight;
 
-  }
-
-  //
-  // Getter/Setters for temporary variables
-  //
-  set pendingValueLeftString(String text) {
-    if (text.isNotEmpty) {
-      pendingValueLeft = int.parse(text);
-      if (pendingValueLeft < 0) pendingValueLeft = 0;
-    }
-  }
-
-  set pendingValueRightString(String text) {
-    if (text.isNotEmpty) {
-      pendingValueRight = int.parse(text);
-      if (pendingValueRight < 0) pendingValueRight = 0;
-    }
   }
 
   //
@@ -225,8 +206,6 @@ class Engine {
   void savePending() {
     labelLeft = pendingLabelLeft;
     labelRight = pendingLabelRight;
-    valueLeft = pendingValueLeft;
-    valueRight = pendingValueRight;
     colorTextLeft = pendingColorTextLeft;
     colorBackgroundLeft = pendingColorBackgroundLeft;
     colorTextRight = pendingColorTextRight;
@@ -236,8 +215,6 @@ class Engine {
   void setPending() {
     pendingLabelLeft = labelLeft;
     pendingLabelRight = labelRight;
-    pendingValueLeft = valueLeft;
-    pendingValueRight = valueRight;
     pendingColorTextLeft = colorTextLeft;
     pendingColorBackgroundLeft = pendingColorBackgroundLeft;
     pendingColorBackgroundRight = pendingColorBackgroundRight;

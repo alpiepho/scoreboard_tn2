@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const kVersion = '0.4';
+const kVersion = 'Version 0.5';
 
 const kInputPageBackgroundColor = Colors.black45;
 
@@ -13,16 +13,18 @@ const kSettingsModalBackgroundColor = Colors.black45;
 
 const kSettingsTextStyle_fontSize = 18.0;
 
-const kSettingsTextStyle = TextStyle(
+// ignore: non_constant_identifier_names
+var kSettingsTextStyle = GoogleFonts.roboto(
   fontSize: kSettingsTextStyle_fontSize,
-  color: Colors.black45,
+  color: Colors.black,
   fontWeight: FontWeight.normal,
 );
-
-const kSettingsTextEditStyle = TextStyle(
+// ignore: non_constant_identifier_names
+var kSettingsTextEditStyle = GoogleFonts.roboto(
   fontSize: 20.0,
   color: Colors.black,
   fontWeight: FontWeight.normal,
+  height: 1.2,
 );
 
 

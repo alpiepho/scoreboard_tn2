@@ -15,7 +15,7 @@ class TeamScoreCard extends StatelessWidget {
     return RotatedBox(
       quarterTurns: (this.portrait ? 1 : 0),
       child: GestureDetector(
-        onTapUp: onPress as void Function(TapUpDetails)?,
+        onTap: onPress as void Function()?,
         onPanUpdate: onPan as void Function(DragUpdateDetails)?,
         child: Container(
           child: cardChild,

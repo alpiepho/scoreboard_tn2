@@ -65,11 +65,10 @@ class _ScoresPageState extends State<ScoresPage> {
 
       _fontType = this._engine.fontType;
 
-      _saveEngine();
     });
   }
 
-  void _incrementLeft(TapUpDetails details) async {
+  void _incrementLeft() async {
     this._engine.incrementLeft();
     _fromEngine();
     _notify7();
@@ -81,7 +80,7 @@ class _ScoresPageState extends State<ScoresPage> {
     _fromEngine();
   }
 
-  void _incrementRight(TapUpDetails details) async {
+  void _incrementRight() async {
     this._engine.incrementRight();
     _fromEngine();
     _notify7();
@@ -155,6 +154,7 @@ class _ScoresPageState extends State<ScoresPage> {
               onPressed: () {
                 this._engine.resetBoth();
                 _fromEngine();
+                _saveEngine();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
@@ -168,12 +168,14 @@ class _ScoresPageState extends State<ScoresPage> {
   void _swapTeams() async {
     this._engine.swapTeams();
     _fromEngine();
+    _saveEngine();
     Navigator.of(context).pop();
   }
 
   void _savePending() async {
     this._engine.savePending();
     _fromEngine();
+    _saveEngine();
     Navigator.of(context).pop();
   }
 
@@ -183,8 +185,7 @@ class _ScoresPageState extends State<ScoresPage> {
       _panPositionYLeft += details.delta.dy;
       if (_panPositionYLeft < -100) {
         _panPositionYLeft = 0.0;
-        this._engine.incrementLeft();
-        _fromEngine();
+        _incrementLeft();
       } else if (_panPositionYLeft > 100) {
         _panPositionYLeft = 0.0;
         _decrementLeft();
@@ -200,8 +201,7 @@ class _ScoresPageState extends State<ScoresPage> {
       _panPositionYRight += details.delta.dy;
       if (_panPositionYRight < -100) {
         _panPositionYRight = 0.0;
-        this._engine.incrementRight();
-        _fromEngine();
+        _incrementRight();
       } else if (_panPositionYRight > 100) {
         _panPositionYRight = 0.0;
         _decrementRight();
@@ -238,6 +238,7 @@ class _ScoresPageState extends State<ScoresPage> {
                 onPressed: () {
                   this._engine.swapTeams();
                   _fromEngine();
+                  _saveEngine();
                   Navigator.of(context).pop();
                 },
               ),
@@ -275,6 +276,7 @@ class _ScoresPageState extends State<ScoresPage> {
                 onPressed: () {
                   this._engine.swapTeams();
                   _fromEngine();
+                  _saveEngine();
                   Navigator.of(context).pop();
                 },
               ),

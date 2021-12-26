@@ -1,8 +1,5 @@
-//import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-//import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:scoreboard_tn/constants.dart';
 import 'package:scoreboard_tn/engine.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -321,7 +318,10 @@ class _SettingsModal extends State<SettingsModal> {
         foregroundColor: Colors.white,
         toolbarHeight: 50,
         titleSpacing: 20,
-        title: Text("Settings"),
+        title: Text(
+          "Settings",
+          style: kSettingsTextEditStyle,
+        ),
       ),
       body: Container(
         child: ListView(
@@ -367,20 +367,6 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(Icons.edit),
             ),
             new ListTile(
-              leading: null,
-              title: new TextFormField(
-                decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Score'
-                ),
-                autofocus: false,
-                keyboardType: TextInputType.number,
-                initialValue: engine.valueLeft.toString(),
-                onChanged: (text) => engine.pendingValueLeftString = text,
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(Icons.edit),
-           ),
-            new ListTile(
               title: new Text(
                 'Text Color...',
                 style: kSettingsTextStyle,
@@ -425,20 +411,6 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(Icons.edit),
            ),
             new ListTile(
-              leading: null,
-              title: new TextFormField(
-                decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Score'
-                ),
-                autofocus: false,
-                keyboardType: TextInputType.number,
-                initialValue: engine.valueRight.toString(),
-                onChanged: (text) => engine.pendingValueRightString = text,
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(Icons.edit),
-            ),
-            new ListTile(
               title: new Text(
                 'Text Color...',
                 style: kSettingsTextStyle,
@@ -470,7 +442,7 @@ class _SettingsModal extends State<SettingsModal> {
             ),
             new ListTile(
               title: new Text(
-                'Done.',
+                'Save Team Settings.',
                 style: kSettingsTextEditStyle,
               ),
               //trailing: new Icon(Icons.done),
@@ -536,7 +508,7 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             new ListTile(
               title: new Text(
-                'Version: 0.3',
+                kVersion,
                 style: kSettingsTextEditStyle,
               ),
             ),
