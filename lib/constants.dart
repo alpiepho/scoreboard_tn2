@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const kVersion = 'Version 0.5';
+const kVersion = 'Version 2.0';
 
 const kInputPageBackgroundColor = Colors.black45;
 
 const kMainContainerWidthPortrait = 600.0;
 const kMainContainerWidthLandscape = 1000.0;
-
 
 const kSettingsModalBackgroundColor = Colors.black45;
 
@@ -26,7 +25,6 @@ var kSettingsTextEditStyle = GoogleFonts.roboto(
   fontWeight: FontWeight.normal,
   height: 1.2,
 );
-
 
 //
 // Choices for score_page fonts
@@ -69,7 +67,6 @@ var kNumberTextStyle_system = GoogleFonts.openSans(
   fontWeight: FontWeight.bold,
   height: 1.1,
 );
-
 
 // ignore: non_constant_identifier_names
 var kLabelTextStyle_lato = GoogleFonts.lato(
@@ -182,7 +179,6 @@ var kNumberTextStyle_spartan = GoogleFonts.spartan(
   fontWeight: FontWeight.bold,
   height: 1.3,
 );
-
 
 String getFontString(FontTypes fontType) {
   String t;
