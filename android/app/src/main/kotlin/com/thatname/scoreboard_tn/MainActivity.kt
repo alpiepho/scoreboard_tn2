@@ -1,4 +1,4 @@
-package com.thatname.scoreboard_tn
+package com.thatname.scoreboard_tn2
 
 import io.flutter.embedding.android.FlutterActivity
 

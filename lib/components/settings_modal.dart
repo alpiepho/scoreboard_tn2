@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:scoreboard_tn/constants.dart';
-import 'package:scoreboard_tn/engine.dart';
+import 'package:scoreboard_tn2/constants.dart';
+import 'package:scoreboard_tn2/engine.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 // ignore: must_be_immutable
 class SettingsModal extends StatefulWidget {
@@ -14,14 +13,8 @@ class SettingsModal extends StatefulWidget {
   late Function onSwap;
   late Function onDone;
 
-  SettingsModal(
-      BuildContext context,
-      Engine engine,
-      Function onReset,
-      Function onClear,
-      Function onSwap,
-      Function onDone
-      ) {
+  SettingsModal(BuildContext context, Engine engine, Function onReset,
+      Function onClear, Function onSwap, Function onDone) {
     this.context = context;
     this.engine = engine;
     this.onReset = onReset;
@@ -31,19 +24,13 @@ class SettingsModal extends StatefulWidget {
   }
 
   @override
-  _SettingsModal createState() => _SettingsModal(context, engine, onReset, onClear, onSwap, onDone);
+  _SettingsModal createState() =>
+      _SettingsModal(context, engine, onReset, onClear, onSwap, onDone);
 }
 
 class _SettingsModal extends State<SettingsModal> {
-
-  _SettingsModal(
-      BuildContext context,
-      Engine engine,
-      Function onReset,
-      Function onClear,
-      Function onSwap,
-      Function onDone
-      ) {
+  _SettingsModal(BuildContext context, Engine engine, Function onReset,
+      Function onClear, Function onSwap, Function onDone) {
     this.context = context;
     this.engine = engine;
     this.onReset = onReset;
@@ -54,7 +41,6 @@ class _SettingsModal extends State<SettingsModal> {
     this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
     this._newColorTextRight = this.engine.pendingColorTextRight;
     this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
-
   }
 
   late BuildContext context;
@@ -72,10 +58,8 @@ class _SettingsModal extends State<SettingsModal> {
   //late var selectedFont = "";
   //late List<String> allFonts;
 
-
   late var selectedRate;
   late List<String> allRates;
-
 
   void _fromEngine() async {
     setState(() {
@@ -221,13 +205,13 @@ class _SettingsModal extends State<SettingsModal> {
     for (var value in FontTypes.values) {
       var style = getLabelFont(value);
       var tile = new ListTile(
-                    title: new Text(
-                      getFontString(value),
-                      style: style.copyWith(fontSize: kSettingsTextStyle_fontSize),
-                    ),
-                    onTap: () => fontChanged(value),
-                    trailing: new Icon(engine.fontType == value ? Icons.check : null),
-                  );
+        title: new Text(
+          getFontString(value),
+          style: style.copyWith(fontSize: kSettingsTextStyle_fontSize),
+        ),
+        onTap: () => fontChanged(value),
+        trailing: new Icon(engine.fontType == value ? Icons.check : null),
+      );
       widgets.add(tile);
     }
 
@@ -246,10 +230,10 @@ class _SettingsModal extends State<SettingsModal> {
             actions: [],
           ),
           body: Container(
-              child: ListView(
-                children: widgets,
-              ),
+            child: ListView(
+              children: widgets,
             ),
+          ),
           // context,
           // this._engine,
           // _resetBoth,
@@ -261,7 +245,6 @@ class _SettingsModal extends State<SettingsModal> {
       isScrollControlled: true,
     );
   }
-
 
   void onForceLandscapeChanged() async {
     if (!this.engine.forceLandscape) {
@@ -299,9 +282,8 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
-
   void onHelp() async {
-    launch('https://github.com/alpiepho/scoreboard_tn/blob/master/README.md');
+    launch('https://github.com/alpiepho/scoreboard_tn2/blob/master/README.md');
     Navigator.of(context).pop();
   }
 
@@ -357,7 +339,7 @@ class _SettingsModal extends State<SettingsModal> {
               leading: null,
               title: new TextFormField(
                 decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Name',
+                  hintText: 'Team Name',
                 ),
                 autofocus: false,
                 initialValue: engine.labelLeft,
@@ -376,8 +358,7 @@ class _SettingsModal extends State<SettingsModal> {
                 height: 30.0,
                 decoration: BoxDecoration(
                     color: _newColorTextLeft,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
               onTap: colorTextLeftEdit,
             ),
@@ -391,25 +372,23 @@ class _SettingsModal extends State<SettingsModal> {
                 height: 30.0,
                 decoration: BoxDecoration(
                     color: _newColorBackgroundLeft,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
               onTap: colorBackgroundLeftEdit,
             ),
             Divider(),
             new ListTile(
-                leading: null,
+              leading: null,
               title: new TextFormField(
-                decoration: new InputDecoration.collapsed(
-                    hintText: 'Team Name'
-                ),
+                decoration:
+                    new InputDecoration.collapsed(hintText: 'Team Name'),
                 autofocus: false,
                 initialValue: engine.labelRight,
                 onChanged: (text) => engine.pendingLabelRight = text,
                 style: kSettingsTextEditStyle,
               ),
               trailing: new Icon(Icons.edit),
-           ),
+            ),
             new ListTile(
               title: new Text(
                 'Text Color...',
@@ -420,8 +399,7 @@ class _SettingsModal extends State<SettingsModal> {
                 height: 30.0,
                 decoration: BoxDecoration(
                     color: _newColorTextRight,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
               onTap: colorTextRightEdit,
             ),
@@ -435,8 +413,7 @@ class _SettingsModal extends State<SettingsModal> {
                 height: 30.0,
                 decoration: BoxDecoration(
                     color: _newColorBackgroundRight,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
               onTap: colorBackgroundRightEdit,
             ),
@@ -457,7 +434,9 @@ class _SettingsModal extends State<SettingsModal> {
                 'Force Landscape.',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(engine.forceLandscape ? Icons.check_box : Icons.check_box_outline_blank),
+              trailing: new Icon(engine.forceLandscape
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
               onTap: onForceLandscapeChanged,
             ),
             new ListTile(
@@ -465,7 +444,9 @@ class _SettingsModal extends State<SettingsModal> {
                 'Last Point Marker.',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(engine.lastPointEnabled ? Icons.check_box : Icons.check_box_outline_blank),
+              trailing: new Icon(engine.lastPointEnabled
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
               onTap: onLastPointChanged,
             ),
             new ListTile(
@@ -473,7 +454,9 @@ class _SettingsModal extends State<SettingsModal> {
                 'Notify at 7.',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(engine.notify7Enabled ? Icons.check_box : Icons.check_box_outline_blank),
+              trailing: new Icon(engine.notify7Enabled
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
               onTap: onNotify7EnabledChanged,
             ),
             new ListTile(
@@ -481,7 +464,9 @@ class _SettingsModal extends State<SettingsModal> {
                 'Notify at 8.',
                 style: kSettingsTextEditStyle,
               ),
-              trailing: new Icon(engine.notify8Enabled ? Icons.check_box : Icons.check_box_outline_blank),
+              trailing: new Icon(engine.notify8Enabled
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
               onTap: onNotify8EnabledChanged,
             ),
             Divider(),
@@ -498,7 +483,8 @@ class _SettingsModal extends State<SettingsModal> {
             new ListTile(
               title: new Text(
                 fontString,
-                style: fontStyle.copyWith(fontSize: kSettingsTextStyle_fontSize),
+                style:
+                    fontStyle.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
               onTap: onFontChange,
             ),

@@ -1,7 +1,7 @@
 ## Get Application
-Version: 0.3
+Version: 2.0
 
-GH-Pages site: https://alpiepho.github.io/scoreboard_tn/
+GH-Pages site: https://alpiepho.github.io/scoreboard_tn2/
 
 or QR Code:
 
@@ -73,3 +73,4 @@ Thanks for trying out this applications.
 
 Icons created with https://appicon.co/  NOTE: original image should be square to avoid white edges on IOS Home screen.
 
+QR code generated with https://www.the-qrcode-generator.com/.  Used screen capture to save qrocode.png and copied file here.

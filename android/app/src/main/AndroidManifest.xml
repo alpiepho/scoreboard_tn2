@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thatname.scoreboard_tn">
+    package="com.thatname.scoreboard_tn2">
    <application
-        android:label="scoreboard_tn"
+        android:label="scoreboard_tn2"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

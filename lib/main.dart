@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scoreboard_tn/screens/scores_page.dart';
+import 'package:scoreboard_tn2/screens/scores_page.dart';
 
 void main() {
   //runApp(Scoreboard());
@@ -17,7 +17,6 @@ void main() {
   // and only after it finished we run our app
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(Scoreboard()));
-
 }
 
 class Scoreboard extends StatelessWidget {

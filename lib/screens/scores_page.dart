@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:scoreboard_tn/components/score_card.dart';
-import 'package:scoreboard_tn/components/settings_button.dart';
-import 'package:scoreboard_tn/components/settings_modal.dart';
-import 'package:scoreboard_tn/constants.dart';
-import 'package:scoreboard_tn/engine.dart';
+import 'package:scoreboard_tn2/components/score_card.dart';
+import 'package:scoreboard_tn2/components/settings_button.dart';
+import 'package:scoreboard_tn2/components/settings_modal.dart';
+import 'package:scoreboard_tn2/constants.dart';
+import 'package:scoreboard_tn2/engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 GlobalKey _keyPortraitLeft = GlobalKey();
@@ -17,7 +17,6 @@ class ScoresPage extends StatefulWidget {
 }
 
 class _ScoresPageState extends State<ScoresPage> {
-
   //
   // for display
   //
@@ -53,7 +52,7 @@ class _ScoresPageState extends State<ScoresPage> {
 
   void _fromEngine() async {
     setState(() {
-      _labelLeft  = this._engine.getLabelLeft();
+      _labelLeft = this._engine.getLabelLeft();
       _labelRight = this._engine.getLabelRight();
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
@@ -64,7 +63,6 @@ class _ScoresPageState extends State<ScoresPage> {
       _colorBackgroundRight = this._engine.colorBackgroundRight;
 
       _fontType = this._engine.fontType;
-
     });
   }
 
@@ -101,7 +99,7 @@ class _ScoresPageState extends State<ScoresPage> {
           title: Text(
             'Clear Scores',
             style: kSettingsTextEditStyle,
-            ),
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -116,7 +114,8 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Cancel',
-                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style:
+                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -125,7 +124,8 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Clear',
-                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style:
+                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 this._engine.clearBoth();
@@ -161,7 +161,8 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Cancel',
-                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style:
+                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -170,7 +171,8 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Reset',
-                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style:
+                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 this._engine.resetBoth();
@@ -257,7 +259,8 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Cancel',
-                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style:
+                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -266,7 +269,8 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Swap',
-                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style:
+                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   this._engine.swapTeams();
@@ -307,7 +311,8 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Cancel',
-                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style:
+                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -316,7 +321,8 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Swap',
-                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style:
+                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   this._engine.swapTeams();
@@ -373,11 +379,13 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: labelTextStyle.copyWith(color: _colorTextLeft),
+                                style: labelTextStyle.copyWith(
+                                    color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: numberTextStyle.copyWith(color: _colorTextLeft),
+                                style: numberTextStyle.copyWith(
+                                    color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -396,11 +404,13 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: labelTextStyle.copyWith(color: _colorTextRight),
+                                style: labelTextStyle.copyWith(
+                                    color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: numberTextStyle.copyWith(color: _colorTextRight),
+                                style: numberTextStyle.copyWith(
+                                    color: _colorTextRight),
                               ),
                             ],
                           ),
@@ -413,29 +423,28 @@ class _ScoresPageState extends State<ScoresPage> {
             ),
           ),
         ),
-        floatingActionButton: SettingsButton(
-          onPress: () {
-            this._engine.setPending();
-            showModalBottomSheet(
-                context: context,
-                builder: (BuildContext bc) {
-                  return SettingsModal(
-                    context,
-                    this._engine,
-                    _resetBoth,
-                    _clearBoth,
-                    _swapTeams,
-                    _savePending,
-                  );
-                },
-                isScrollControlled: true,
+        floatingActionButton: SettingsButton(onPress: () {
+          this._engine.setPending();
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext bc) {
+              return SettingsModal(
+                context,
+                this._engine,
+                _resetBoth,
+                _clearBoth,
+                _swapTeams,
+                _savePending,
               );
-            }
-          ),
-        floatingActionButtonLocation: (forcePortrait ? FloatingActionButtonLocation.startFloat : FloatingActionButtonLocation.endFloat),
+            },
+            isScrollControlled: true,
+          );
+        }),
+        floatingActionButtonLocation: (forcePortrait
+            ? FloatingActionButtonLocation.startFloat
+            : FloatingActionButtonLocation.endFloat),
       );
-    }
-    else {
+    } else {
       return Scaffold(
         backgroundColor: kInputPageBackgroundColor,
         body: Center(
@@ -460,11 +469,13 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelLeft,
-                                style: labelTextStyle.copyWith(color: _colorTextLeft),
+                                style: labelTextStyle.copyWith(
+                                    color: _colorTextLeft),
                               ),
                               Text(
                                 (_valueLeft).toString(),
-                                style: numberTextStyle.copyWith(color: _colorTextLeft),
+                                style: numberTextStyle.copyWith(
+                                    color: _colorTextLeft),
                               ),
                             ],
                           ),
@@ -483,11 +494,13 @@ class _ScoresPageState extends State<ScoresPage> {
                             children: <Widget>[
                               Text(
                                 _labelRight,
-                                style: labelTextStyle.copyWith(color: _colorTextRight),
+                                style: labelTextStyle.copyWith(
+                                    color: _colorTextRight),
                               ),
                               Text(
                                 (_valueRight).toString(),
-                                style: numberTextStyle.copyWith(color: _colorTextRight),
+                                style: numberTextStyle.copyWith(
+                                    color: _colorTextRight),
                               ),
                             ],
                           ),
@@ -500,25 +513,23 @@ class _ScoresPageState extends State<ScoresPage> {
             ),
           ),
         ),
-        floatingActionButton: SettingsButton(
-            onPress: () {
-              this._engine.setPending();
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext bc) {
-                    return SettingsModal(
-                      context,
-                      this._engine,
-                      _resetBoth,
-                      _clearBoth,
-                      _swapTeams,
-                      _savePending,
-                    );
-                  },
-                  isScrollControlled: true,
+        floatingActionButton: SettingsButton(onPress: () {
+          this._engine.setPending();
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext bc) {
+              return SettingsModal(
+                context,
+                this._engine,
+                _resetBoth,
+                _clearBoth,
+                _swapTeams,
+                _savePending,
               );
-            }
-        ),
+            },
+            isScrollControlled: true,
+          );
+        }),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
     }

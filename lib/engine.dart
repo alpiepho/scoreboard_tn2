@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoreboard_tn/constants.dart';
+import 'package:scoreboard_tn2/constants.dart';
 
 class Engine {
   Color colorTextLeft = Colors.black;
@@ -117,7 +117,6 @@ class Engine {
     // pendingColorBackgroundLeft = colorBackgroundLeft;
     // pendingColorTextRight = colorTextRight;
     // pendingColorBackgroundRight = colorBackgroundRight;
-
   }
 
   //
@@ -170,7 +169,7 @@ class Engine {
     lastPointLeft = false;
   }
 
-  void resetBoth()  {
+  void resetBoth() {
     labelLeft = "Away";
     labelRight = "Home";
     valueLeft = 0;
@@ -222,16 +221,14 @@ class Engine {
 
   bool notify7() {
     if (notify7Enabled) {
-      if (((valueLeft + valueRight) % 7) == 0)
-        return true;
+      if (((valueLeft + valueRight) % 7) == 0) return true;
     }
     return false;
   }
 
   bool notify8() {
     if (notify8Enabled) {
-      if (valueLeft == 8 || valueRight == 8)
-        return true;
+      if (valueLeft == 8 || valueRight == 8) return true;
     }
     return false;
   }
