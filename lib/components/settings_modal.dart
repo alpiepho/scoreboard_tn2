@@ -246,14 +246,14 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
-  void onForceLandscapeChanged() async {
-    if (!this.engine.forceLandscape) {
-      this.engine.forceLandscape = true;
-    } else {
-      this.engine.forceLandscape = false;
-    }
-    this.onDone();
-  }
+  // void onForceLandscapeChanged() async {
+  //   if (!this.engine.forceLandscape) {
+  //     this.engine.forceLandscape = true;
+  //   } else {
+  //     this.engine.forceLandscape = false;
+  //   }
+  //   this.onDone();
+  // }
 
   void onLastPointChanged() async {
     if (!this.engine.lastPointEnabled) {
@@ -429,16 +429,16 @@ class _SettingsModal extends State<SettingsModal> {
             Divider(),
             Divider(),
             Divider(),
-            new ListTile(
-              title: new Text(
-                'Force Landscape.',
-                style: kSettingsTextEditStyle,
-              ),
-              trailing: new Icon(engine.forceLandscape
-                  ? Icons.check_box
-                  : Icons.check_box_outline_blank),
-              onTap: onForceLandscapeChanged,
-            ),
+            // new ListTile(
+            //   title: new Text(
+            //     'Force Landscape.',
+            //     style: kSettingsTextEditStyle,
+            //   ),
+            //   trailing: new Icon(engine.forceLandscape
+            //       ? Icons.check_box
+            //       : Icons.check_box_outline_blank),
+            //   onTap: onForceLandscapeChanged,
+            // ),
             new ListTile(
               title: new Text(
                 'Last Point Marker.',

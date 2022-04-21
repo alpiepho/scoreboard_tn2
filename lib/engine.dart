@@ -21,7 +21,7 @@ class Engine {
 
   FontTypes fontType = FontTypes.system;
 
-  bool forceLandscape = true;
+  //bool forceLandscape = true;
   bool notify7Enabled = false;
   bool notify8Enabled = false;
   bool lastPointLeft = false;
@@ -52,7 +52,8 @@ class Engine {
 
     result += fontType.toString() + ";";
 
-    result += forceLandscape.toString() + ";";
+    //result += forceLandscape.toString() + ";";
+    result += "removed" + ";";
     result += notify7Enabled.toString() + ";";
     result += notify8Enabled.toString() + ";";
 
@@ -100,7 +101,8 @@ class Engine {
     }
     index++;
 
-    forceLandscape = parts[index++] == "true";
+    //forceLandscape = parts[index++] == "true";
+    index++;
     notify7Enabled = parts[index++] == "true";
     notify8Enabled = parts[index++] == "true";
 

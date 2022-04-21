@@ -343,8 +343,6 @@ class _ScoresPageState extends State<ScoresPage> {
   initState() {
     super.initState();
     _loadEngine();
-
-    // TODO: try prebuild of page
   }
 
   @override
@@ -356,7 +354,8 @@ class _ScoresPageState extends State<ScoresPage> {
     numberTextStyle = getNumberFont(_fontType);
 
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    var forcePortrait = this._engine.forceLandscape && isPortrait;
+    //var forcePortrait = this._engine.forceLandscape && isPortrait;
+    var forcePortrait = isPortrait;
 
     return Scaffold(
       backgroundColor: kInputPageBackgroundColor,
