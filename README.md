@@ -64,13 +64,17 @@ Below are some lists of things yet to do and possible future changes.
 Thanks for trying out this applications.
 
 ## Todo and Future Changes
+- [ ] use import file
+- [ ] debug painting
+- [ ] faster draw after rotate?
+- [ ] fix rotate
+- [ ] refactor long files
+
+
 - build ios
 - ios developer install
 - ios store?
 
-- debug painting
-- faster draw after rotate?
-- fix rotate
 - refactor settings modal (from bottom?)
 - track sets
 - better contrast?

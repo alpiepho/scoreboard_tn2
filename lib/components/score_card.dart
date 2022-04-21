@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TeamScoreCard extends StatelessWidget {
-  TeamScoreCard({required this.color, required this.margin, required this.portrait, this.cardChild, this.onPress, this.onPan});
+  TeamScoreCard(
+      {required this.color,
+      required this.margin,
+      required this.portrait,
+      this.cardChild,
+      this.onPress,
+      this.onPan});
 
   final Color color;
   final EdgeInsets margin;
@@ -18,13 +24,10 @@ class TeamScoreCard extends StatelessWidget {
         onTap: onPress as void Function()?,
         onPanUpdate: onPan as void Function(DragUpdateDetails)?,
         child: Container(
+          color: color,
           child: cardChild,
           margin: margin,
           width: double.infinity,
-          decoration: BoxDecoration(
-            color: color,
-            //borderRadius: BorderRadius.circular(20.0),
-          ),
         ),
       ),
     );

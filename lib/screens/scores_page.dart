@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoreboard_tn2/components/score_card.dart';
+import 'package:scoreboard_tn2/components/score_card_content.dart';
 import 'package:scoreboard_tn2/components/settings_button.dart';
 import 'package:scoreboard_tn2/components/settings_modal.dart';
 import 'package:scoreboard_tn2/constants.dart';
@@ -342,6 +343,8 @@ class _ScoresPageState extends State<ScoresPage> {
   initState() {
     super.initState();
     _loadEngine();
+
+    // TODO: try prebuild of page
   }
 
   @override
@@ -378,20 +381,12 @@ class _ScoresPageState extends State<ScoresPage> {
                               color: _colorBackgroundLeft,
                               margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
                               portrait: forcePortrait,
-                              cardChild: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    _labelLeft,
-                                    style: labelTextStyle.copyWith(
-                                        color: _colorTextLeft),
-                                  ),
-                                  Text(
-                                    (_valueLeft).toString(),
-                                    style: numberTextStyle.copyWith(
-                                        color: _colorTextLeft),
-                                  ),
-                                ],
+                              cardChild: TeamScoreCardContent(
+                                label: _labelLeft,
+                                textStyle: labelTextStyle,
+                                colorText: _colorTextLeft,
+                                value: _valueLeft,
+                                numberTextStyle: numberTextStyle,
                               ),
                             ),
                           ),
@@ -403,20 +398,12 @@ class _ScoresPageState extends State<ScoresPage> {
                               color: _colorBackgroundRight,
                               margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
                               portrait: forcePortrait,
-                              cardChild: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    _labelRight,
-                                    style: labelTextStyle.copyWith(
-                                        color: _colorTextRight),
-                                  ),
-                                  Text(
-                                    (_valueRight).toString(),
-                                    style: numberTextStyle.copyWith(
-                                        color: _colorTextRight),
-                                  ),
-                                ],
+                              cardChild: TeamScoreCardContent(
+                                label: _labelRight,
+                                textStyle: labelTextStyle,
+                                colorText: _colorTextRight,
+                                value: _valueRight,
+                                numberTextStyle: numberTextStyle,
                               ),
                             ),
                           ),
@@ -445,20 +432,12 @@ class _ScoresPageState extends State<ScoresPage> {
                               color: _colorBackgroundLeft,
                               margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
                               portrait: forcePortrait,
-                              cardChild: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    _labelLeft,
-                                    style: labelTextStyle.copyWith(
-                                        color: _colorTextLeft),
-                                  ),
-                                  Text(
-                                    (_valueLeft).toString(),
-                                    style: numberTextStyle.copyWith(
-                                        color: _colorTextLeft),
-                                  ),
-                                ],
+                              cardChild: TeamScoreCardContent(
+                                label: _labelLeft,
+                                textStyle: labelTextStyle,
+                                colorText: _colorTextLeft,
+                                value: _valueLeft,
+                                numberTextStyle: numberTextStyle,
                               ),
                             ),
                           ),
@@ -470,20 +449,12 @@ class _ScoresPageState extends State<ScoresPage> {
                               color: _colorBackgroundRight,
                               margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
                               portrait: forcePortrait,
-                              cardChild: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    _labelRight,
-                                    style: labelTextStyle.copyWith(
-                                        color: _colorTextRight),
-                                  ),
-                                  Text(
-                                    (_valueRight).toString(),
-                                    style: numberTextStyle.copyWith(
-                                        color: _colorTextRight),
-                                  ),
-                                ],
+                              cardChild: TeamScoreCardContent(
+                                label: _labelRight,
+                                textStyle: labelTextStyle,
+                                colorText: _colorTextRight,
+                                value: _valueRight,
+                                numberTextStyle: numberTextStyle,
                               ),
                             ),
                           ),
