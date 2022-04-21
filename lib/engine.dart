@@ -35,29 +35,29 @@ class Engine {
   String pack() {
     String result = "";
 
-    // result += colorTextLeft.toString() + ";";
-    // result += colorBackgroundLeft.toString() + ";";
-    // result += colorTextRight.toString() + ";";
-    // result += colorBackgroundRight.toString() + ";";
+    result += colorTextLeft.toString() + ";";
+    result += colorBackgroundLeft.toString() + ";";
+    result += colorTextRight.toString() + ";";
+    result += colorBackgroundRight.toString() + ";";
 
-    // result += labelLeft.toString() + ";";
-    // result += labelRight.toString() + ";";
-    // result += valueLeft.toString() + ";";
-    // result += valueRight.toString() + ";";
+    result += labelLeft.toString() + ";";
+    result += labelRight.toString() + ";";
+    result += valueLeft.toString() + ";";
+    result += valueRight.toString() + ";";
 
-    // result += "removed" + ";";
-    // result += "removed" + ";";
-    // result += "removed" + ";";
-    // result += "removed" + ";";
+    result += "removed" + ";";
+    result += "removed" + ";";
+    result += "removed" + ";";
+    result += "removed" + ";";
 
-    // result += fontType.toString() + ";";
+    result += fontType.toString() + ";";
 
-    // result += forceLandscape.toString() + ";";
-    // result += notify7Enabled.toString() + ";";
-    // result += notify8Enabled.toString() + ";";
+    result += forceLandscape.toString() + ";";
+    result += notify7Enabled.toString() + ";";
+    result += notify8Enabled.toString() + ";";
 
-    // result += lastPointLeft.toString() + ";";
-    // result += lastPointEnabled.toString() + ";";
+    result += lastPointLeft.toString() + ";";
+    result += lastPointEnabled.toString() + ";";
 
     return result;
   }
@@ -71,52 +71,51 @@ class Engine {
   }
 
   void unpack(String packed) {
-    // if (packed.length == 0)
-    //   return;
+    if (packed.length == 0) return;
 
-    // var parts = packed.split(";");
-    // int index = 0;
+    var parts = packed.split(";");
+    int index = 0;
 
-    // colorTextLeft = stringToColor(parts[index++]);
-    // colorBackgroundLeft = stringToColor(parts[index++]);
-    // colorTextRight = stringToColor(parts[index++]);
-    // colorBackgroundRight = stringToColor(parts[index++]);
+    colorTextLeft = stringToColor(parts[index++]);
+    colorBackgroundLeft = stringToColor(parts[index++]);
+    colorTextRight = stringToColor(parts[index++]);
+    colorBackgroundRight = stringToColor(parts[index++]);
 
-    // labelLeft = parts[index++];
-    // labelRight = parts[index++];
-    // valueLeft = int.parse(parts[index++]);
-    // valueRight = int.parse(parts[index++]);
+    labelLeft = parts[index++];
+    labelRight = parts[index++];
+    valueLeft = int.parse(parts[index++]);
+    valueRight = int.parse(parts[index++]);
 
-    // index++;
-    // index++;
-    // index++;
-    // index++;
+    index++;
+    index++;
+    index++;
+    index++;
 
-    // fontType = FontTypes.system;
-    // for (var value in FontTypes.values) {
-    //   if (value.toString() == parts[index]) {
-    //     fontType = value;
-    //     break;
-    //   }
-    // }
-    // index++;
+    fontType = FontTypes.system;
+    for (var value in FontTypes.values) {
+      if (value.toString() == parts[index]) {
+        fontType = value;
+        break;
+      }
+    }
+    index++;
 
-    // forceLandscape = parts[index++] == "true";
-    // notify7Enabled = parts[index++] == "true";
-    // notify8Enabled = parts[index++] == "true";
+    forceLandscape = parts[index++] == "true";
+    notify7Enabled = parts[index++] == "true";
+    notify8Enabled = parts[index++] == "true";
 
-    // lastPointLeft = parts[index++] == "true";
-    // lastPointEnabled = parts[index++] == "true";
+    lastPointLeft = parts[index++] == "true";
+    lastPointEnabled = parts[index++] == "true";
 
-    // colorTextLeft = colorTextLeft;
-    // colorBackgroundLeft = colorBackgroundLeft;
-    // colorTextRight = colorTextRight;
-    // colorBackgroundRight = colorBackgroundRight;
+    colorTextLeft = colorTextLeft;
+    colorBackgroundLeft = colorBackgroundLeft;
+    colorTextRight = colorTextRight;
+    colorBackgroundRight = colorBackgroundRight;
 
-    // pendingColorTextLeft = colorTextLeft;
-    // pendingColorBackgroundLeft = colorBackgroundLeft;
-    // pendingColorTextRight = colorTextRight;
-    // pendingColorBackgroundRight = colorBackgroundRight;
+    pendingColorTextLeft = colorTextLeft;
+    pendingColorBackgroundLeft = colorBackgroundLeft;
+    pendingColorTextRight = colorTextRight;
+    pendingColorBackgroundRight = colorBackgroundRight;
   }
 
   //

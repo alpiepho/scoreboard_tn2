@@ -27,8 +27,7 @@ like it is a downloaded application (there is a similare mechanism for Android t
 
 ### Known Issue
 
-A PWA on iPhone requires internet access to launch the first time.  However, once it is running, the application will work fine without and
-internet connection.
+A PWA on iPhone requires internet access to launch the first time.  However, once it is running, the application will work fine without and an internet connection.
 
 ## About
 My flutter version of a Scoreboard application.
@@ -65,6 +64,20 @@ Below are some lists of things yet to do and possible future changes.
 Thanks for trying out this applications.
 
 ## Todo and Future Changes
+- build ios
+- ios developer install
+- ios store?
+
+- debug painting
+- faster draw after rotate?
+- fix rotate
+- refactor settings modal (from bottom?)
+- track sets
+- better contrast?
+- ways to share score better?
+- mic to annotate?
+- remote BT device?
+
 - refactor long files
 - More fonts
 - Fix more Lighthouse issues (might be in Flutter)
