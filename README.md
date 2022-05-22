@@ -86,6 +86,24 @@ Thanks for trying out this applications.
 - More fonts
 - Fix more Lighthouse issues (might be in Flutter)
 
+## How to outline Repaint
+
+<pre>
+void main() {
+  // --> debugRepaintRainbowEnabled = true;
+  runApp(Scoreboard());
+}
+</pre>
+
+
+## Ideas to prevent rotate
+
+https://code-boxx.com/lock-screen-orientation/
+
+https://stackoverflow.com/questions/3501510/blocking-device-rotation-on-mobile-web-pages
+
+
+
 ## Reference
 
 Icons created with https://appicon.co/  NOTE: original image should be square to avoid white edges on IOS Home screen.
