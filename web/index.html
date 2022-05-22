@@ -47,6 +47,10 @@
       });
     }
   </script>
+  <script>
+    var lockOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+    lockOrientation("landscape-primary");
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

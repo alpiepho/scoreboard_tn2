@@ -98,11 +98,21 @@ void main() {
 
 ## Ideas to prevent rotate
 
+FAILED: 
+
 https://code-boxx.com/lock-screen-orientation/
+
+FAILED:
 
 https://stackoverflow.com/questions/3501510/blocking-device-rotation-on-mobile-web-pages
 
 
+LINK:
+
+https://www.outsystems.com/forums/discussion/64798/orientation-lock-in-pwa/
+
+
+Overall smoother rotate in IOS but still does it.  Android does not 
 
 ## Reference
 

@@ -355,117 +355,69 @@ class _ScoresPageState extends State<ScoresPage> {
 
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     //var forcePortrait = this._engine.forceLandscape && isPortrait;
-    var forcePortrait = isPortrait;
+    var forcePortrait = false;
+    //isPortrait;
 
+    // TODO: try removing Expanded and possibly save button sizes
     return Scaffold(
       backgroundColor: kInputPageBackgroundColor,
-      body: Center(
-        child: Stack(
-          children: [
-            Visibility(
-              visible: isPortrait,
-              child: Container(
-                width: kMainContainerWidthPortrait,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            key: _keyPortraitLeft,
-                            child: TeamScoreCard(
-                              onPress: _incrementLeft,
-                              onPan: _panUpdateLeft,
-                              color: _colorBackgroundLeft,
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelLeft,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextLeft,
-                                value: _valueLeft,
-                                numberTextStyle: numberTextStyle,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            key: _keyPortraitRight,
-                            child: TeamScoreCard(
-                              onPress: _incrementRight,
-                              onPan: _panUpdateRight,
-                              color: _colorBackgroundRight,
-                              margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelRight,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextRight,
-                                value: _valueRight,
-                                numberTextStyle: numberTextStyle,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+      body: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: TeamScoreCard(
+              onPress: _incrementLeft,
+              onPan: _panUpdateLeft,
+              color: _colorBackgroundLeft,
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
+              portrait: false,
+              cardChild: TeamScoreCardContent(
+                label: _labelLeft,
+                textStyle: labelTextStyle,
+                colorText: _colorTextLeft,
+                value: _valueLeft,
+                numberTextStyle: numberTextStyle,
               ),
             ),
-            Visibility(
-              visible: !isPortrait,
-              child: Container(
-                width: kMainContainerWidthLandscape,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            key: _keyLandscapeLeft,
-                            child: TeamScoreCard(
-                              onPress: _incrementLeft,
-                              onPan: _panUpdateLeft,
-                              color: _colorBackgroundLeft,
-                              margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelLeft,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextLeft,
-                                value: _valueLeft,
-                                numberTextStyle: numberTextStyle,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            key: _keyLandscapeRight,
-                            child: TeamScoreCard(
-                              onPress: _incrementRight,
-                              onPan: _panUpdateRight,
-                              color: _colorBackgroundRight,
-                              margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelRight,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextRight,
-                                value: _valueRight,
-                                numberTextStyle: numberTextStyle,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          ),
+          Positioned(
+            left: (forcePortrait ? 0 : 400),
+            top: (forcePortrait ? 400 : 0),
+            child: TeamScoreCard(
+              onPress: _incrementRight,
+              onPan: _panUpdateRight,
+              color: _colorBackgroundRight,
+              margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+              portrait: false,
+              cardChild: TeamScoreCardContent(
+                label: _labelRight,
+                textStyle: labelTextStyle,
+                colorText: _colorTextRight,
+                value: _valueRight,
+                numberTextStyle: numberTextStyle,
               ),
             ),
-          ],
-        ),
+          ),
+          // Positioned(
+          //   left: 400,
+          //   top: 0,
+          //   child: TeamScoreCard(
+          //     onPress: _incrementRight,
+          //     onPan: _panUpdateRight,
+          //     color: _colorBackgroundRight,
+          //     margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+          //     portrait: false,
+          //     cardChild: TeamScoreCardContent(
+          //       label: _labelRight,
+          //       textStyle: labelTextStyle,
+          //       colorText: _colorTextRight,
+          //       value: _valueRight,
+          //       numberTextStyle: numberTextStyle,
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
       floatingActionButton: SettingsButton(onPress: () {
         this._engine.setPending();
@@ -484,9 +436,7 @@ class _ScoresPageState extends State<ScoresPage> {
           isScrollControlled: true,
         );
       }),
-      floatingActionButtonLocation: (forcePortrait
-          ? FloatingActionButtonLocation.startFloat
-          : FloatingActionButtonLocation.endFloat),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

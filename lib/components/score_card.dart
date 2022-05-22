@@ -27,7 +27,8 @@ class TeamScoreCard extends StatelessWidget {
           color: color,
           child: cardChild,
           margin: margin,
-          width: double.infinity,
+          width: 300, //double.infinity,
+          height: 300,
         ),
       ),
     );
