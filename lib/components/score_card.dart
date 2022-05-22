@@ -24,10 +24,13 @@ class TeamScoreCard extends StatelessWidget {
         onTap: onPress as void Function()?,
         onPanUpdate: onPan as void Function(DragUpdateDetails)?,
         child: Container(
-          color: color,
           child: cardChild,
           margin: margin,
           width: double.infinity,
+          decoration: BoxDecoration(
+            color: color,
+            //borderRadius: BorderRadius.circular(20.0),
+          ),
         ),
       ),
     );

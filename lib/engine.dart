@@ -21,7 +21,7 @@ class Engine {
 
   FontTypes fontType = FontTypes.system;
 
-  //bool forceLandscape = true;
+  bool forceLandscape = true;
   bool notify7Enabled = false;
   bool notify8Enabled = false;
   bool lastPointLeft = false;
@@ -170,7 +170,7 @@ class Engine {
     lastPointLeft = false;
   }
 
-  void resetBoth() {
+  void resetBoth()  {
     labelLeft = "Away";
     labelRight = "Home";
     valueLeft = 0;
@@ -222,14 +222,16 @@ class Engine {
 
   bool notify7() {
     if (notify7Enabled) {
-      if (((valueLeft + valueRight) % 7) == 0) return true;
+      if (((valueLeft + valueRight) % 7) == 0)
+        return true;
     }
     return false;
   }
 
   bool notify8() {
     if (notify8Enabled) {
-      if (valueLeft == 8 || valueRight == 8) return true;
+      if (valueLeft == 8 || valueRight == 8)
+        return true;
     }
     return false;
   }

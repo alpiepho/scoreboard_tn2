@@ -8,6 +8,7 @@ const kInputPageBackgroundColor = Colors.black45;
 const kMainContainerWidthPortrait = 600.0;
 const kMainContainerWidthLandscape = 1000.0;
 
+
 const kSettingsModalBackgroundColor = Colors.black45;
 
 const kSettingsTextStyle_fontSize = 18.0;
@@ -25,6 +26,7 @@ var kSettingsTextEditStyle = GoogleFonts.roboto(
   fontWeight: FontWeight.normal,
   height: 1.2,
 );
+
 
 //
 // Choices for score_page fonts
@@ -179,6 +181,7 @@ var kNumberTextStyle_spartan = GoogleFonts.spartan(
   fontWeight: FontWeight.bold,
   height: 1.3,
 );
+
 
 String getFontString(FontTypes fontType) {
   String t;

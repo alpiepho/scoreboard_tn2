@@ -18,6 +18,7 @@ class ScoresPage extends StatefulWidget {
 }
 
 class _ScoresPageState extends State<ScoresPage> {
+
   //
   // for display
   //
@@ -53,7 +54,7 @@ class _ScoresPageState extends State<ScoresPage> {
 
   void _fromEngine() async {
     setState(() {
-      _labelLeft = this._engine.getLabelLeft();
+      _labelLeft  = this._engine.getLabelLeft();
       _labelRight = this._engine.getLabelRight();
       _valueLeft = this._engine.valueLeft;
       _valueRight = this._engine.valueRight;
@@ -64,6 +65,7 @@ class _ScoresPageState extends State<ScoresPage> {
       _colorBackgroundRight = this._engine.colorBackgroundRight;
 
       _fontType = this._engine.fontType;
+
     });
   }
 
@@ -100,7 +102,7 @@ class _ScoresPageState extends State<ScoresPage> {
           title: Text(
             'Clear Scores',
             style: kSettingsTextEditStyle,
-          ),
+            ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -115,8 +117,7 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Cancel',
-                style:
-                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -125,8 +126,7 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Clear',
-                style:
-                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 this._engine.clearBoth();
@@ -162,8 +162,7 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Cancel',
-                style:
-                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -172,8 +171,7 @@ class _ScoresPageState extends State<ScoresPage> {
             TextButton(
               child: Text(
                 'Reset',
-                style:
-                    kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
               ),
               onPressed: () {
                 this._engine.resetBoth();
@@ -260,8 +258,7 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Cancel',
-                  style:
-                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -270,8 +267,7 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Swap',
-                  style:
-                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   this._engine.swapTeams();
@@ -312,8 +308,7 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Cancel',
-                  style:
-                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -322,8 +317,7 @@ class _ScoresPageState extends State<ScoresPage> {
               TextButton(
                 child: Text(
                   'Swap',
-                  style:
-                      kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
+                  style: kSettingsTextEditStyle.copyWith(color: Colors.blueAccent),
                 ),
                 onPressed: () {
                   this._engine.swapTeams();
@@ -354,139 +348,180 @@ class _ScoresPageState extends State<ScoresPage> {
     numberTextStyle = getNumberFont(_fontType);
 
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    //var forcePortrait = this._engine.forceLandscape && isPortrait;
-    var forcePortrait = isPortrait;
-
-    return Scaffold(
-      backgroundColor: kInputPageBackgroundColor,
-      body: Center(
-        child: Stack(
-          children: [
-            Visibility(
-              visible: isPortrait,
-              child: Container(
-                width: kMainContainerWidthPortrait,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            key: _keyPortraitLeft,
-                            child: TeamScoreCard(
-                              onPress: _incrementLeft,
-                              onPan: _panUpdateLeft,
-                              color: _colorBackgroundLeft,
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelLeft,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextLeft,
-                                value: _valueLeft,
-                                numberTextStyle: numberTextStyle,
+    var forcePortrait = this._engine.forceLandscape && isPortrait;
+    if (isPortrait) {
+      return Scaffold(
+        backgroundColor: kInputPageBackgroundColor,
+        body: Center(
+          child: Container(
+            width: kMainContainerWidthPortrait,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        key: _keyPortraitLeft,
+                        child: TeamScoreCard(
+                          onPress: _incrementLeft,
+                          onPan: _panUpdateLeft,
+                          color: _colorBackgroundLeft,
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
+                          portrait: forcePortrait,
+                          cardChild: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _labelLeft,
+                                style: labelTextStyle.copyWith(color: _colorTextLeft),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            key: _keyPortraitRight,
-                            child: TeamScoreCard(
-                              onPress: _incrementRight,
-                              onPan: _panUpdateRight,
-                              color: _colorBackgroundRight,
-                              margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelRight,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextRight,
-                                value: _valueRight,
-                                numberTextStyle: numberTextStyle,
+                              Text(
+                                (_valueLeft).toString(),
+                                style: numberTextStyle.copyWith(color: _colorTextLeft),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Visibility(
-              visible: !isPortrait,
-              child: Container(
-                width: kMainContainerWidthLandscape,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            key: _keyLandscapeLeft,
-                            child: TeamScoreCard(
-                              onPress: _incrementLeft,
-                              onPan: _panUpdateLeft,
-                              color: _colorBackgroundLeft,
-                              margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelLeft,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextLeft,
-                                value: _valueLeft,
-                                numberTextStyle: numberTextStyle,
+                      Expanded(
+                        key: _keyPortraitRight,
+                        child: TeamScoreCard(
+                          onPress: _incrementRight,
+                          onPan: _panUpdateRight,
+                          color: _colorBackgroundRight,
+                          margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                          portrait: forcePortrait,
+                          cardChild: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _labelRight,
+                                style: labelTextStyle.copyWith(color: _colorTextRight),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            key: _keyLandscapeRight,
-                            child: TeamScoreCard(
-                              onPress: _incrementRight,
-                              onPan: _panUpdateRight,
-                              color: _colorBackgroundRight,
-                              margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
-                              portrait: forcePortrait,
-                              cardChild: TeamScoreCardContent(
-                                label: _labelRight,
-                                textStyle: labelTextStyle,
-                                colorText: _colorTextRight,
-                                value: _valueRight,
-                                numberTextStyle: numberTextStyle,
+                              Text(
+                                (_valueRight).toString(),
+                                style: numberTextStyle.copyWith(color: _colorTextRight),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-      floatingActionButton: SettingsButton(onPress: () {
-        this._engine.setPending();
-        showModalBottomSheet(
-          context: context,
-          builder: (BuildContext bc) {
-            return SettingsModal(
-              context,
-              this._engine,
-              _resetBoth,
-              _clearBoth,
-              _swapTeams,
-              _savePending,
-            );
-          },
-          isScrollControlled: true,
-        );
-      }),
-      floatingActionButtonLocation: (forcePortrait
-          ? FloatingActionButtonLocation.startFloat
-          : FloatingActionButtonLocation.endFloat),
-    );
+        floatingActionButton: SettingsButton(
+          onPress: () {
+            this._engine.setPending();
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext bc) {
+                  return SettingsModal(
+                    context,
+                    this._engine,
+                    _resetBoth,
+                    _clearBoth,
+                    _swapTeams,
+                    _savePending,
+                  );
+                },
+                isScrollControlled: true,
+              );
+            }
+          ),
+        floatingActionButtonLocation: (forcePortrait ? FloatingActionButtonLocation.startFloat : FloatingActionButtonLocation.endFloat),
+      );
+    }
+    else {
+      return Scaffold(
+        backgroundColor: kInputPageBackgroundColor,
+        body: Center(
+          child: Container(
+            width: kMainContainerWidthLandscape,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        key: _keyLandscapeLeft,
+                        child: TeamScoreCard(
+                          onPress: _incrementLeft,
+                          onPan: _panUpdateLeft,
+                          color: _colorBackgroundLeft,
+                          margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
+                          portrait: forcePortrait,
+                          cardChild: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _labelLeft,
+                                style: labelTextStyle.copyWith(color: _colorTextLeft),
+                              ),
+                              Text(
+                                (_valueLeft).toString(),
+                                style: numberTextStyle.copyWith(color: _colorTextLeft),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        key: _keyLandscapeRight,
+                        child: TeamScoreCard(
+                          onPress: _incrementRight,
+                          onPan: _panUpdateRight,
+                          color: _colorBackgroundRight,
+                          margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
+                          portrait: forcePortrait,
+                          cardChild: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _labelRight,
+                                style: labelTextStyle.copyWith(color: _colorTextRight),
+                              ),
+                              Text(
+                                (_valueRight).toString(),
+                                style: numberTextStyle.copyWith(color: _colorTextRight),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        floatingActionButton: SettingsButton(
+            onPress: () {
+              this._engine.setPending();
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext bc) {
+                    return SettingsModal(
+                      context,
+                      this._engine,
+                      _resetBoth,
+                      _clearBoth,
+                      _swapTeams,
+                      _savePending,
+                    );
+                  },
+                  isScrollControlled: true,
+              );
+            }
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      );
+    }
   }
 }
