@@ -11,7 +11,7 @@
     Fore more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
   -->
-  <base href="https://alpiepho.github.io/scoreboard_tn2/">
+  <base href="/">
 <!--  <base href="https://alpiepho.github.io/scoreboard_tn2/">-->
 
   <meta charset="UTF-8">
@@ -43,12 +43,13 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('flutter-first-frame', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=2341306148');
+        navigator.serviceWorker.register('flutter_service_worker.js?v=1285269787');
       });
     }
   </script>
   <script>
-    screen.orientation.lock("portrait");
+    var lockOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+    lockOrientation("landscape-primary");
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
