@@ -4,31 +4,41 @@ class TeamScoreCard extends StatelessWidget {
   TeamScoreCard(
       {required this.color,
       required this.margin,
-      required this.portrait,
       this.cardChild,
       this.onPress,
       this.onPan});
 
   final Color color;
   final EdgeInsets margin;
-  final bool portrait;
   final Widget? cardChild;
   final Function? onPress;
   final Function? onPan;
 
   @override
   Widget build(BuildContext context) {
-    return RotatedBox(
-      quarterTurns: (this.portrait ? 1 : 0),
-      child: GestureDetector(
-        onTap: onPress as void Function()?,
-        onPanUpdate: onPan as void Function(DragUpdateDetails)?,
-        child: Container(
-          color: color,
-          child: cardChild,
-          margin: margin,
-          width: double.infinity,
-        ),
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    bool portrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    if (portrait) {
+      height = height / 2;
+    } else {
+      width = width / 2;
+    }
+
+    //DEBUG
+    //width = width * 0.5;
+    //height = height * 0.5;
+
+    return GestureDetector(
+      onTap: onPress as void Function()?,
+      onPanUpdate: onPan as void Function(DragUpdateDetails)?,
+      child: Container(
+        color: color,
+        child: cardChild,
+        margin: margin,
+        width: width,
+        height: height,
       ),
     );
   }
