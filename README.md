@@ -64,25 +64,24 @@ Below are some lists of things yet to do and possible future changes.
 Thanks for trying out this applications.
 
 ## Todo and Future Changes
-- [ ] use import file
-- [ ] debug painting
-- [ ] faster draw after rotate?
-- [ ] fix rotate
-- [ ] refactor long files
+- [x] debug painting
+- [x] faster draw after rotate?
+- [x] fix rotate
+- [x] refactor long files
+- [ ] refactor settings modal (from bottom?)
+- [ ] track sets
+- [ ] better contrast?, bigger mode (no team name?)
+- [ ] getter offline, without first access?
+- [ ] ways to share score better?
+- [ ] mic to annotate?
+- [ ] remote BT device?
 
 
 - build ios
 - ios developer install
 - ios store?
 
-- refactor settings modal (from bottom?)
-- track sets
-- better contrast?
-- ways to share score better?
-- mic to annotate?
-- remote BT device?
 
-- refactor long files
 - More fonts
 - Fix more Lighthouse issues (might be in Flutter)
 
