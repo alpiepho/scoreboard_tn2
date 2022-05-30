@@ -351,9 +351,76 @@ class _ScoresPageState extends State<ScoresPage> {
     labelTextStyle = getLabelFont(_fontType);
     numberTextStyle = getNumberFont(_fontType);
 
+    var teamScoreCardTop = TeamScoreCard(
+      onPress: _incrementLeft,
+      onPan: _panUpdateLeft,
+      color: _colorBackgroundLeft,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
+      cardChild: TeamScoreCardContent(
+        label: _labelLeft,
+        textStyle: labelTextStyle,
+        colorText: _colorTextLeft,
+        value: _valueLeft,
+        numberTextStyle: numberTextStyle,
+      ),
+    );
+    var teamScoreCardBottom = TeamScoreCard(
+      onPress: _incrementRight,
+      onPan: _panUpdateRight,
+      color: _colorBackgroundRight,
+      margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+      cardChild: TeamScoreCardContent(
+        label: _labelRight,
+        textStyle: labelTextStyle,
+        colorText: _colorTextRight,
+        value: _valueRight,
+        numberTextStyle: numberTextStyle,
+      ),
+    );
+    var teamScoreCardLeft = TeamScoreCard(
+      onPress: _incrementLeft,
+      onPan: _panUpdateLeft,
+      color: _colorBackgroundLeft,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
+      cardChild: TeamScoreCardContent(
+        label: _labelLeft,
+        textStyle: labelTextStyle,
+        colorText: _colorTextLeft,
+        value: _valueLeft,
+        numberTextStyle: numberTextStyle,
+      ),
+    );
+    var teamScoreCardRight = TeamScoreCard(
+      onPress: _incrementRight,
+      onPan: _panUpdateRight,
+      color: _colorBackgroundRight,
+      margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+      cardChild: TeamScoreCardContent(
+        label: _labelRight,
+        textStyle: labelTextStyle,
+        colorText: _colorTextRight,
+        value: _valueRight,
+        numberTextStyle: numberTextStyle,
+      ),
+    );
+
+    // goal:
+    // in portrait, current left/right immediately hide with opacity, and
+    // top and bottom animate in from left
+    // in lascape: current tp/bottom immediately hide with opacity, and
+    // left and right animate in from top
+    //
+    // to get close to direct left->right or top->bottom transition,
+    // the start value of say the bottom panel needs to be based on
+    // horizontal values.  this is due to simply hiding unused panels.
+    // althought not shown, they are positioned.
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    double offscreen = -1000;
     var portrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    var duration = Duration(milliseconds: 500);
+    var curve = Curves.linear;
 
     return Scaffold(
       backgroundColor: kInputPageBackgroundColor,
@@ -362,89 +429,47 @@ class _ScoresPageState extends State<ScoresPage> {
           // vertical/portrait
           // top
           AnimatedPositioned(
-            left: (!portrait ? -1000 : 0),
+            left: (!portrait ? offscreen : 0),
             top: 0,
-            duration: Duration(milliseconds: 500),
+            duration: duration,
+            curve: curve,
             child: Opacity(
-              opacity: (portrait ? 1 : 0),
-              child: TeamScoreCard(
-                onPress: _incrementLeft,
-                onPan: _panUpdateLeft,
-                color: _colorBackgroundLeft,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
-                cardChild: TeamScoreCardContent(
-                  label: _labelLeft,
-                  textStyle: labelTextStyle,
-                  colorText: _colorTextLeft,
-                  value: _valueLeft,
-                  numberTextStyle: numberTextStyle,
-                ),
-              ),
+              opacity: (!portrait ? 0 : 1),
+              child: teamScoreCardTop,
             ),
           ),
           // bottom
           AnimatedPositioned(
-            left: (!portrait ? -1000 : 0),
-            top: (!portrait ? width / 2 : height / 2),
-            duration: Duration(milliseconds: 500),
+            left: (!portrait ? offscreen : 0),
+            top: (!portrait ? width / 2 : height / 2), // see note above
+            duration: duration,
+            curve: curve,
             child: Opacity(
-              opacity: (portrait ? 1 : 0),
-              child: TeamScoreCard(
-                onPress: _incrementRight,
-                onPan: _panUpdateRight,
-                color: _colorBackgroundRight,
-                margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                cardChild: TeamScoreCardContent(
-                  label: _labelRight,
-                  textStyle: labelTextStyle,
-                  colorText: _colorTextRight,
-                  value: _valueRight,
-                  numberTextStyle: numberTextStyle,
-                ),
-              ),
+              opacity: (!portrait ? 0 : 1),
+              child: teamScoreCardBottom,
             ),
           ),
           // horizontal/landscape
+          // left
           AnimatedPositioned(
             left: 0,
-            top: (portrait ? -1000 : 0),
-            duration: Duration(milliseconds: 500),
+            top: (portrait ? offscreen : 0),
+            duration: duration,
+            curve: curve,
             child: Opacity(
               opacity: (portrait ? 0 : 1),
-              child: TeamScoreCard(
-                onPress: _incrementLeft,
-                onPan: _panUpdateLeft,
-                color: _colorBackgroundLeft,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
-                cardChild: TeamScoreCardContent(
-                  label: _labelLeft,
-                  textStyle: labelTextStyle,
-                  colorText: _colorTextLeft,
-                  value: _valueLeft,
-                  numberTextStyle: numberTextStyle,
-                ),
-              ),
+              child: teamScoreCardLeft,
             ),
           ),
+          // right
           AnimatedPositioned(
-            left: (portrait ? height / 2 : width / 2),
-            top: (portrait ? -1000 : 0),
-            duration: Duration(milliseconds: 500),
+            left: (portrait ? height / 2 : width / 2), // see note above
+            top: (portrait ? offscreen : 0),
+            duration: duration,
+            curve: curve,
             child: Opacity(
               opacity: (portrait ? 0 : 1),
-              child: TeamScoreCard(
-                onPress: _incrementRight,
-                onPan: _panUpdateRight,
-                color: _colorBackgroundRight,
-                margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                cardChild: TeamScoreCardContent(
-                  label: _labelRight,
-                  textStyle: labelTextStyle,
-                  colorText: _colorTextRight,
-                  value: _valueRight,
-                  numberTextStyle: numberTextStyle,
-                ),
-              ),
+              child: teamScoreCardRight,
             ),
           ),
         ],
