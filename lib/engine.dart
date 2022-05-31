@@ -25,6 +25,7 @@ class Engine {
   bool notify8Enabled = false;
   bool lastPointLeft = false;
   bool lastPointEnabled = true;
+  bool zoom = false;
 
   Engine();
 
@@ -57,6 +58,7 @@ class Engine {
 
     result += lastPointLeft.toString() + ";";
     result += lastPointEnabled.toString() + ";";
+    result += zoom.toString() + ";";
 
     return result;
   }
@@ -105,6 +107,7 @@ class Engine {
 
     lastPointLeft = parts[index++] == "true";
     lastPointEnabled = parts[index++] == "true";
+    if (index < parts.length) zoom = parts[index++] == "true";
 
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;

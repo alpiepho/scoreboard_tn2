@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:scoreboard_tn2/components/score_card.dart';
@@ -31,6 +32,8 @@ class _ScoresPageState extends State<ScoresPage> {
 
   FontTypes _fontType = FontTypes.system;
 
+  bool _zoom = true;
+
   // for increment/decrement swiping
   double _panPositionYLeft = 0.0;
   double _panPositionYRight = 0.0;
@@ -62,6 +65,8 @@ class _ScoresPageState extends State<ScoresPage> {
       _colorBackgroundRight = this._engine.colorBackgroundRight;
 
       _fontType = this._engine.fontType;
+
+      _zoom = this._engine.zoom;
     });
   }
 
@@ -248,7 +253,7 @@ class _ScoresPageState extends State<ScoresPage> {
               child: ListBody(
                 children: <Widget>[
                   Text(
-                    'Would you swap teams?',
+                    'Swap teams?',
                     style: kSettingsTextEditStyle,
                   ),
                 ],
@@ -362,6 +367,7 @@ class _ScoresPageState extends State<ScoresPage> {
         colorText: _colorTextLeft,
         value: _valueLeft,
         numberTextStyle: numberTextStyle,
+        zoom: _zoom,
       ),
     );
     var teamScoreCardBottom = TeamScoreCard(
@@ -375,6 +381,7 @@ class _ScoresPageState extends State<ScoresPage> {
         colorText: _colorTextRight,
         value: _valueRight,
         numberTextStyle: numberTextStyle,
+        zoom: _zoom,
       ),
     );
     var teamScoreCardLeft = TeamScoreCard(
@@ -388,6 +395,7 @@ class _ScoresPageState extends State<ScoresPage> {
         colorText: _colorTextLeft,
         value: _valueLeft,
         numberTextStyle: numberTextStyle,
+        zoom: _zoom,
       ),
     );
     var teamScoreCardRight = TeamScoreCard(
@@ -401,6 +409,7 @@ class _ScoresPageState extends State<ScoresPage> {
         colorText: _colorTextRight,
         value: _valueRight,
         numberTextStyle: numberTextStyle,
+        zoom: _zoom,
       ),
     );
 
@@ -417,10 +426,12 @@ class _ScoresPageState extends State<ScoresPage> {
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    double offscreen = -1000;
     var portrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    var duration = Duration(milliseconds: 500);
-    var curve = Curves.linear;
+    double offscreen = portrait ? -1.1 * width : -1.1 * height;
+    var duration1 = Duration(milliseconds: 1000);
+    var curve1 = Curves.linear;
+    var duration2 = Duration(milliseconds: 1000);
+    var curve2 = Curves.linear;
 
     return Scaffold(
       backgroundColor: kInputPageBackgroundColor,
@@ -431,22 +442,32 @@ class _ScoresPageState extends State<ScoresPage> {
           AnimatedPositioned(
             left: (!portrait ? offscreen : 0),
             top: 0,
-            duration: duration,
-            curve: curve,
+            duration: duration1,
+            curve: curve1,
             child: Opacity(
               opacity: (!portrait ? 0 : 1),
-              child: teamScoreCardTop,
+              child: AnimatedOpacity(
+                opacity: (!portrait ? 0 : 1),
+                duration: duration2,
+                curve: curve2,
+                child: teamScoreCardTop,
+              ),
             ),
           ),
           // bottom
           AnimatedPositioned(
             left: (!portrait ? offscreen : 0),
             top: (!portrait ? width / 2 : height / 2), // see note above
-            duration: duration,
-            curve: curve,
+            duration: duration1,
+            curve: curve1,
             child: Opacity(
               opacity: (!portrait ? 0 : 1),
-              child: teamScoreCardBottom,
+              child: AnimatedOpacity(
+                opacity: (!portrait ? 0 : 1),
+                duration: duration2,
+                curve: curve2,
+                child: teamScoreCardBottom,
+              ),
             ),
           ),
           // horizontal/landscape
@@ -454,22 +475,32 @@ class _ScoresPageState extends State<ScoresPage> {
           AnimatedPositioned(
             left: 0,
             top: (portrait ? offscreen : 0),
-            duration: duration,
-            curve: curve,
+            duration: duration1,
+            curve: curve1,
             child: Opacity(
               opacity: (portrait ? 0 : 1),
-              child: teamScoreCardLeft,
+              child: AnimatedOpacity(
+                opacity: (portrait ? 0 : 1),
+                duration: duration2,
+                curve: curve2,
+                child: teamScoreCardLeft,
+              ),
             ),
           ),
           // right
           AnimatedPositioned(
             left: (portrait ? height / 2 : width / 2), // see note above
             top: (portrait ? offscreen : 0),
-            duration: duration,
-            curve: curve,
+            duration: duration1,
+            curve: curve1,
             child: Opacity(
               opacity: (portrait ? 0 : 1),
-              child: teamScoreCardRight,
+              child: AnimatedOpacity(
+                opacity: (portrait ? 0 : 1),
+                duration: duration2,
+                curve: curve2,
+                child: teamScoreCardRight,
+              ),
             ),
           ),
         ],

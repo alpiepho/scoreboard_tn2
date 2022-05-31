@@ -273,6 +273,15 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
+  void onNotifyZoomChanged() async {
+    if (!this.engine.zoom) {
+      this.engine.zoom = true;
+    } else {
+      this.engine.zoom = false;
+    }
+    this.onDone();
+  }
+
   void onHelp() async {
     launch('https://github.com/alpiepho/scoreboard_tn2/blob/master/README.md');
     Navigator.of(context).pop();
@@ -468,6 +477,16 @@ class _SettingsModal extends State<SettingsModal> {
                     fontStyle.copyWith(fontSize: kSettingsTextStyle_fontSize),
               ),
               onTap: onFontChange,
+            ),
+            new ListTile(
+              title: new Text(
+                'Zoom.',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.zoom
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
+              onTap: onNotifyZoomChanged,
             ),
             Divider(),
             Divider(),
