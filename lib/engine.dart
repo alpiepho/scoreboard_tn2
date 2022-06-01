@@ -26,6 +26,10 @@ class Engine {
   bool lastPointLeft = false;
   bool lastPointEnabled = true;
   bool zoom = false;
+  bool setsShow = false;
+  bool sets5 = false;
+  int setsLeft = 0;
+  int setsRight = 0;
 
   Engine();
 
@@ -58,7 +62,12 @@ class Engine {
 
     result += lastPointLeft.toString() + ";";
     result += lastPointEnabled.toString() + ";";
+
     result += zoom.toString() + ";";
+    result += setsShow.toString() + ";";
+    result += sets5.toString() + ";";
+    result += setsLeft.toString() + ";";
+    result += setsRight.toString() + ";";
 
     return result;
   }
@@ -107,7 +116,13 @@ class Engine {
 
     lastPointLeft = parts[index++] == "true";
     lastPointEnabled = parts[index++] == "true";
+
+    // new since last release so check index
     if (index < parts.length) zoom = parts[index++] == "true";
+    if (index < parts.length) setsShow = parts[index++] == "true";
+    if (index < parts.length) sets5 = parts[index++] == "true";
+    if (index < parts.length) setsLeft = int.parse(parts[index++]);
+    if (index < parts.length) setsRight = int.parse(parts[index++]);
 
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
@@ -185,6 +200,8 @@ class Engine {
     pendingColorTextRight = colorTextRight;
     pendingColorBackgroundRight = colorBackgroundRight;
     fontType = FontTypes.system;
+    setsLeft = 0;
+    setsRight = 0;
   }
 
   void swapTeams() {

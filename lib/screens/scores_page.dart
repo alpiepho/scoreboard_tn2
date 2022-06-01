@@ -32,7 +32,11 @@ class _ScoresPageState extends State<ScoresPage> {
 
   FontTypes _fontType = FontTypes.system;
 
-  bool _zoom = true;
+  bool _zoom = false;
+  bool _setsShow = false;
+  bool _sets5 = false;
+  int _setsLeft = 0;
+  int _setsRight = 0;
 
   // for increment/decrement swiping
   double _panPositionYLeft = 0.0;
@@ -67,6 +71,10 @@ class _ScoresPageState extends State<ScoresPage> {
       _fontType = this._engine.fontType;
 
       _zoom = this._engine.zoom;
+      _setsShow = this._engine.setsShow;
+      _sets5 = this._engine.sets5;
+      _setsLeft = this._engine.setsLeft;
+      _setsRight = this._engine.setsRight;
     });
   }
 
@@ -368,6 +376,9 @@ class _ScoresPageState extends State<ScoresPage> {
         value: _valueLeft,
         numberTextStyle: numberTextStyle,
         zoom: _zoom,
+        setsShow: _setsShow,
+        sets5: _sets5,
+        sets: _setsLeft,
       ),
     );
     var teamScoreCardBottom = TeamScoreCard(
@@ -382,6 +393,9 @@ class _ScoresPageState extends State<ScoresPage> {
         value: _valueRight,
         numberTextStyle: numberTextStyle,
         zoom: _zoom,
+        setsShow: _setsShow,
+        sets5: _sets5,
+        sets: _setsRight,
       ),
     );
     var teamScoreCardLeft = TeamScoreCard(
@@ -396,6 +410,9 @@ class _ScoresPageState extends State<ScoresPage> {
         value: _valueLeft,
         numberTextStyle: numberTextStyle,
         zoom: _zoom,
+        setsShow: _setsShow,
+        sets5: _sets5,
+        sets: _setsLeft,
       ),
     );
     var teamScoreCardRight = TeamScoreCard(
@@ -410,6 +427,9 @@ class _ScoresPageState extends State<ScoresPage> {
         value: _valueRight,
         numberTextStyle: numberTextStyle,
         zoom: _zoom,
+        setsShow: _setsShow,
+        sets5: _sets5,
+        sets: _setsRight,
       ),
     );
 

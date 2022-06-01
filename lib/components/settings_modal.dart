@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:scoreboard_tn2/constants.dart';
@@ -273,12 +275,56 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
-  void onNotifyZoomChanged() async {
+  void onZoomChanged() async {
     if (!this.engine.zoom) {
       this.engine.zoom = true;
     } else {
       this.engine.zoom = false;
     }
+    this.onDone();
+  }
+
+  void onSetsShowChanged() async {
+    if (!this.engine.setsShow) {
+      this.engine.setsShow = true;
+    } else {
+      this.engine.setsShow = false;
+    }
+    this.onDone();
+  }
+
+  void onSets5Changed() async {
+    if (!this.engine.sets5) {
+      this.engine.sets5 = true;
+    } else {
+      this.engine.sets5 = false;
+    }
+    this.onDone();
+  }
+
+  void onSetLeftIncrement() async {
+    var maxSets = this.engine.sets5 ? 5 : 3;
+    this.engine.setsLeft++;
+    this.engine.setsLeft = min(this.engine.setsLeft, maxSets);
+    this.onDone();
+  }
+
+  void onSetLeftDecriment() async {
+    this.engine.setsLeft--;
+    this.engine.setsLeft = max(this.engine.setsLeft, 0);
+    this.onDone();
+  }
+
+  void onSetRightIncrement() async {
+    var maxSets = this.engine.sets5 ? 5 : 3;
+    this.engine.setsRight++;
+    this.engine.setsRight = min(this.engine.setsRight, maxSets);
+    this.onDone();
+  }
+
+  void onSetRightDecriment() async {
+    this.engine.setsRight--;
+    this.engine.setsRight = max(this.engine.setsRight, 0);
     this.onDone();
   }
 
@@ -315,6 +361,34 @@ class _SettingsModal extends State<SettingsModal> {
                 style: kSettingsTextEditStyle,
               ),
               onTap: onSwap as void Function()?,
+            ),
+            new ListTile(
+              title: new Text(
+                'Add Set Left.',
+                style: kSettingsTextEditStyle,
+              ),
+              onTap: onSetLeftIncrement,
+            ),
+            new ListTile(
+              title: new Text(
+                'Sub Set Left.',
+                style: kSettingsTextEditStyle,
+              ),
+              onTap: onSetLeftDecriment,
+            ),
+            new ListTile(
+              title: new Text(
+                'Add Set Right.',
+                style: kSettingsTextEditStyle,
+              ),
+              onTap: onSetRightIncrement,
+            ),
+            new ListTile(
+              title: new Text(
+                'Sub Set Right.',
+                style: kSettingsTextEditStyle,
+              ),
+              onTap: onSetRightDecriment,
             ),
             new ListTile(
               title: new Text(
@@ -459,6 +533,26 @@ class _SettingsModal extends State<SettingsModal> {
                   : Icons.check_box_outline_blank),
               onTap: onNotify8EnabledChanged,
             ),
+            new ListTile(
+              title: new Text(
+                'Show Sets.',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.setsShow
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
+              onTap: onSetsShowChanged,
+            ),
+            new ListTile(
+              title: new Text(
+                '5 Sets.',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(engine.sets5
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank),
+              onTap: onSets5Changed,
+            ),
             Divider(),
             Divider(),
             Divider(),
@@ -486,7 +580,7 @@ class _SettingsModal extends State<SettingsModal> {
               trailing: new Icon(engine.zoom
                   ? Icons.check_box
                   : Icons.check_box_outline_blank),
-              onTap: onNotifyZoomChanged,
+              onTap: onZoomChanged,
             ),
             Divider(),
             Divider(),
