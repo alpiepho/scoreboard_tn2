@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:scoreboard_tn2/components/score_card.dart';
 import 'package:scoreboard_tn2/components/score_card_content.dart';
@@ -116,7 +113,7 @@ class _ScoresPageState extends State<ScoresPage> {
             child: ListBody(
               children: <Widget>[
                 Text(
-                  'Would you clear scores?',
+                  'Clear scores?',
                   style: kSettingsTextEditStyle,
                 ),
               ],

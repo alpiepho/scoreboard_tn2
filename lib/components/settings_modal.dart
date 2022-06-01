@@ -302,6 +302,8 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
+  // TODO: these methods that change engine value should be callback functions from above
+  // like for score values
   void onSetLeftIncrement() async {
     var maxSets = this.engine.sets5 ? 5 : 3;
     this.engine.setsLeft++;
@@ -325,6 +327,12 @@ class _SettingsModal extends State<SettingsModal> {
   void onSetRightDecriment() async {
     this.engine.setsRight--;
     this.engine.setsRight = max(this.engine.setsRight, 0);
+    this.onDone();
+  }
+
+  void onClearSets() async {
+    this.engine.setsLeft = 0;
+    this.engine.setsRight = 0;
     this.onDone();
   }
 
@@ -389,6 +397,13 @@ class _SettingsModal extends State<SettingsModal> {
                 style: kSettingsTextEditStyle,
               ),
               onTap: onSetRightDecriment,
+            ),
+            new ListTile(
+              title: new Text(
+                'Clear Sets.',
+                style: kSettingsTextEditStyle,
+              ),
+              onTap: onClearSets,
             ),
             new ListTile(
               title: new Text(

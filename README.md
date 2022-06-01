@@ -68,22 +68,22 @@ Thanks for trying out this applications.
 - [x] faster draw after rotate?
 - [x] fix rotate
 - [x] refactor long files
-- [ ] refactor settings modal (from bottom?)
-- [ ] track sets
-- [ ] better contrast?, bigger mode (no team name?)
+- [-] refactor settings modal (from bottom?)
+- [x] track sets
+- [x] better contrast?, bigger mode (no team name?)
 - [ ] getter offline, without first access?
 - [ ] ways to share score better?
 - [ ] mic to annotate?
 - [ ] remote BT device?
 
 
-- build ios
-- ios developer install
-- ios store?
+- [ ] build ios
+- [ ] ios developer install
+- [ ] ios store?
 
 
-- More fonts
-- Fix more Lighthouse issues (might be in Flutter)
+- [ ] More fonts
+- [ ] Run Lighthouse
 
 ## How to outline Repaint
 

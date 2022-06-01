@@ -44,7 +44,7 @@ class TeamScoreCardContent extends StatelessWidget {
       indicators.add(SizedBox.shrink());
     }
 
-    // TODO: not sure if RepaintBoundary helps
+    // RepaintBoundary should help perfromance since score changes are most active
     return RepaintBoundary(
       key: key,
       child: Column(

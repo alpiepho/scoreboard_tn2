@@ -209,15 +209,22 @@ class Engine {
     valueLeft = valueRight;
     valueRight = valueTemp;
     lastPointLeft = !lastPointLeft;
+
     var labelTemp = labelLeft;
     labelLeft = labelRight;
     labelRight = labelTemp;
+
     var colorTemp = colorTextLeft;
     colorTextLeft = colorTextRight;
     colorTextRight = colorTemp;
+
     colorTemp = colorBackgroundLeft;
     colorBackgroundLeft = colorBackgroundRight;
     colorBackgroundRight = colorTemp;
+
+    var setsTemp = setsLeft;
+    setsLeft = setsRight;
+    setsRight = setsTemp;
   }
 
   void savePending() {
