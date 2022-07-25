@@ -103,8 +103,13 @@ https://stackoverflow.com/questions/3501510/blocking-device-rotation-on-mobile-w
 
 
 
-## Reference
+## REFERENCES
 
 Icons created with https://appicon.co/  NOTE: original image should be square to avoid white edges on IOS Home screen.
 
 QR code generated with https://www.the-qrcode-generator.com/.  Used screen capture to save qrocode.png and copied file here.
+
+- https://github.com/alpiepho/scoreboard_tn2
+- https://github.com/alpiepho/scoreboard_reflector_tn2
+- https://github.com/alpiepho/scoreboard_tap_tn2
+
