@@ -14,31 +14,53 @@ class SettingsModal extends StatefulWidget {
   late Function onClear;
   late Function onSwap;
   late Function onDone;
+  late Function onReflector;
+  late Function onComment;
 
-  SettingsModal(BuildContext context, Engine engine, Function onReset,
-      Function onClear, Function onSwap, Function onDone) {
+  SettingsModal(
+    BuildContext context,
+    Engine engine,
+    Function onReset,
+    Function onClear,
+    Function onSwap,
+    Function onDone,
+    Function onReflector,
+    Function onComment,
+  ) {
     this.context = context;
     this.engine = engine;
     this.onReset = onReset;
     this.onClear = onClear;
     this.onSwap = onSwap;
     this.onDone = onDone;
+    this.onReflector = onReflector;
+    this.onComment = onComment;
   }
 
   @override
-  _SettingsModal createState() =>
-      _SettingsModal(context, engine, onReset, onClear, onSwap, onDone);
+  _SettingsModal createState() => _SettingsModal(context, engine, onReset,
+      onClear, onSwap, onDone, onReflector, onComment);
 }
 
 class _SettingsModal extends State<SettingsModal> {
-  _SettingsModal(BuildContext context, Engine engine, Function onReset,
-      Function onClear, Function onSwap, Function onDone) {
+  _SettingsModal(
+    BuildContext context,
+    Engine engine,
+    Function onReset,
+    Function onClear,
+    Function onSwap,
+    Function onDone,
+    Function onReflector,
+    Function onComment,
+  ) {
     this.context = context;
     this.engine = engine;
     this.onReset = onReset;
     this.onClear = onClear;
     this.onSwap = onSwap;
     this.onDone = onDone;
+    this.onReflector = onReflector;
+    this.onComment = onComment;
     this._newColorTextLeft = this.engine.pendingColorTextLeft;
     this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
     this._newColorTextRight = this.engine.pendingColorTextRight;
@@ -51,6 +73,8 @@ class _SettingsModal extends State<SettingsModal> {
   late Function onClear;
   late Function onSwap;
   late Function onDone;
+  late Function onReflector;
+  late Function onComment;
 
   late Color _newColorTextLeft;
   late Color _newColorBackgroundLeft;
@@ -236,12 +260,6 @@ class _SettingsModal extends State<SettingsModal> {
               children: widgets,
             ),
           ),
-          // context,
-          // this._engine,
-          // _resetBoth,
-          // _clearBoth,
-          // _swapTeams,
-          // _saveBoth,
         );
       },
       isScrollControlled: true,
@@ -336,8 +354,16 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
+  Future<void> _launchUrl(String urlString) async {
+    Uri _url = Uri.parse(urlString);
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
   void onHelp() async {
-    launch('https://github.com/alpiepho/scoreboard_tn2/blob/master/README.md');
+    _launchUrl(
+        'https://github.com/alpiepho/scoreboard_tn2/blob/master/README.md');
     Navigator.of(context).pop();
   }
 
@@ -597,6 +623,70 @@ class _SettingsModal extends State<SettingsModal> {
                   : Icons.check_box_outline_blank),
               onTap: onZoomChanged,
             ),
+            Divider(),
+            Divider(),
+            Divider(),
+            Divider(),
+            new ListTile(
+              title: new Text(
+                "Reflector Settings (blank to disable):",
+                style: kSettingsTextEditStyle,
+              ),
+            ),
+            new ListTile(
+              leading: null,
+              title: new TextFormField(
+                decoration:
+                    new InputDecoration.collapsed(hintText: 'Scorekeeper Name'),
+                autofocus: false,
+                initialValue: engine.scoreKeeper,
+                onChanged: (text) => engine.scoreKeeper = text,
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.edit),
+            ),
+            new ListTile(
+              leading: null,
+              title: new TextFormField(
+                decoration:
+                    new InputDecoration.collapsed(hintText: 'Reflector Site'),
+                autofocus: false,
+                initialValue: engine.reflectorSite,
+                onChanged: (text) => engine.reflectorSite = text,
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.edit),
+            ),
+            new ListTile(
+              title: new Text(
+                'Save Reflector Settings.',
+                style: kSettingsTextEditStyle,
+              ),
+              //trailing: new Icon(Icons.done),
+              onTap: onReflector as void Function()?,
+            ),
+            Divider(),
+            new ListTile(
+              leading: null,
+              title: new TextFormField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: 'Reflector Comment'),
+                autofocus: false,
+                initialValue: engine.reflectorComment,
+                onChanged: (text) => engine.reflectorComment = text,
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.edit),
+            ),
+            new ListTile(
+              title: new Text(
+                'Send Comment.',
+                style: kSettingsTextEditStyle,
+              ),
+              //trailing: new Icon(Icons.done),
+              onTap: onComment as void Function()?,
+            ),
+            Divider(),
             Divider(),
             Divider(),
             Divider(),

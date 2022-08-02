@@ -72,7 +72,17 @@ Thanks for trying out this applications.
 - [x] track sets
 - [x] better contrast?, bigger mode (no team name?)
 - [ ] getter offline, without first access?
+
 - [ ] ways to share score better?
+- [ ] reflector settings
+- [ ] verify settings
+- [ ] call reflector
+- [ ] fix persist settings or move to team? or save reflector
+- [ ] move time stamp here
+- [ ] add dialog for comments
+- [ ] send comments to refector
+- [ ] handle comments in reflector
+
 - [ ] mic to annotate?
 - [ ] remote BT device?
 

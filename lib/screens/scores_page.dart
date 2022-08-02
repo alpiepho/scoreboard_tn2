@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:scoreboard_tn2/components/score_card.dart';
 import 'package:scoreboard_tn2/components/score_card_content.dart';
 import 'package:scoreboard_tn2/components/settings_button.dart';
@@ -6,6 +7,7 @@ import 'package:scoreboard_tn2/components/settings_modal.dart';
 import 'package:scoreboard_tn2/constants.dart';
 import 'package:scoreboard_tn2/engine.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScoresPage extends StatefulWidget {
   @override
@@ -75,16 +77,63 @@ class _ScoresPageState extends State<ScoresPage> {
     });
   }
 
+  void _reflectorSendComment() async {
+    if (_engine.reflectorSite.length > 0 && _engine.scoreKeeper.length > 0) {
+      if (_engine.reflectorComment.length > 0) {
+        String urlString = "";
+        urlString += _engine.reflectorSite;
+        urlString += "/add?data=";
+        urlString += _engine.scoreKeeper;
+        urlString += ",";
+        urlString += _engine.reflectorComment;
+        var encoded = Uri.encodeFull(urlString);
+        Uri _url = Uri.parse(encoded);
+
+        _engine.reflectorComment = "";
+        try {
+          //  send GET without opening browser window, dont care about response
+          await http.get(_url);
+        } catch (exception, _) {}
+      }
+    }
+  }
+
+  void _reflectorSendScores() async {
+    if (_engine.reflectorSite.length > 0 && _engine.scoreKeeper.length > 0) {
+      String urlString = "";
+      urlString += _engine.reflectorSite;
+      urlString += "/add?data=";
+      urlString += _engine.scoreKeeper;
+      urlString += ",";
+
+      // TODO build score to send
+      // ie. timestamp,shannon,000000,ffffff,ffffff,000000,Them,Us,0,0, 10, 8,  0
+
+      urlString += _engine.reflectorComment;
+
+      var encoded = Uri.encodeFull(urlString);
+      Uri _url = Uri.parse(encoded);
+
+      _engine.reflectorComment = "";
+      try {
+        //  send GET without opening browser window, dont care about response
+        await http.get(_url);
+      } catch (exception, _) {}
+    }
+  }
+
   void _incrementLeft() async {
     this._engine.incrementLeft();
     _fromEngine();
     _notify7();
     _notify8();
+    _reflectorSendScores();
   }
 
   void _decrementLeft() async {
     this._engine.decrementLeft();
     _fromEngine();
+    _reflectorSendScores();
   }
 
   void _incrementRight() async {
@@ -92,11 +141,13 @@ class _ScoresPageState extends State<ScoresPage> {
     _fromEngine();
     _notify7();
     _notify8();
+    _reflectorSendScores();
   }
 
   void _decrementRight() async {
     this._engine.decrementRight();
     _fromEngine();
+    _reflectorSendScores();
   }
 
   void _clearBoth() async {
@@ -147,6 +198,7 @@ class _ScoresPageState extends State<ScoresPage> {
         );
       },
     );
+    _reflectorSendScores();
   }
 
   void _resetBoth() async {
@@ -195,6 +247,7 @@ class _ScoresPageState extends State<ScoresPage> {
         );
       },
     );
+    _reflectorSendScores();
   }
 
   void _swapTeams() async {
@@ -208,6 +261,22 @@ class _ScoresPageState extends State<ScoresPage> {
     this._engine.savePending();
     _fromEngine();
     _saveEngine();
+    Navigator.of(context).pop();
+  }
+
+  void _saveReflector() async {
+    //this._engine.savePending();
+    _fromEngine();
+    _saveEngine();
+    Navigator.of(context).pop();
+  }
+
+  void _saveComment() async {
+    if (_engine.reflectorSite.length > 0 && _engine.scoreKeeper.length > 0) {
+      if (_engine.reflectorComment.length > 0) {
+        _reflectorSendComment();
+      }
+    }
     Navigator.of(context).pop();
   }
 
@@ -534,6 +603,8 @@ class _ScoresPageState extends State<ScoresPage> {
               _clearBoth,
               _swapTeams,
               _savePending,
+              _saveReflector,
+              _saveComment,
             );
           },
           isScrollControlled: true,

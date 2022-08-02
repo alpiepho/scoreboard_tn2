@@ -31,6 +31,10 @@ class Engine {
   int setsLeft = 0;
   int setsRight = 0;
 
+  String scoreKeeper = "";
+  String reflectorSite = "";
+  String reflectorComment = "";
+
   Engine();
 
   //
@@ -68,6 +72,9 @@ class Engine {
     result += sets5.toString() + ";";
     result += setsLeft.toString() + ";";
     result += setsRight.toString() + ";";
+
+    result += scoreKeeper.toString() + ";";
+    result += reflectorSite.toString() + ";";
 
     return result;
   }
@@ -123,6 +130,9 @@ class Engine {
     if (index < parts.length) sets5 = parts[index++] == "true";
     if (index < parts.length) setsLeft = int.parse(parts[index++]);
     if (index < parts.length) setsRight = int.parse(parts[index++]);
+
+    if (index < parts.length) scoreKeeper = parts[index++];
+    if (index < parts.length) reflectorSite = parts[index++];
 
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
