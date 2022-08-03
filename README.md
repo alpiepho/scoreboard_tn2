@@ -74,14 +74,14 @@ Thanks for trying out this applications.
 - [ ] getter offline, without first access?
 
 - [ ] ways to share score better?
-- [ ] reflector settings
-- [ ] verify settings
-- [ ] call reflector
-- [ ] fix persist settings or move to team? or save reflector
-- [ ] move time stamp here
-- [ ] add dialog for comments
-- [ ] send comments to refector
-- [ ] handle comments in reflector
+- [x] reflector settings
+- [-] verify settings
+- [x] call reflector
+- [x] fix persist settings or move to team? or save reflector
+- [-] move time stamp here
+- [x] add dialog for comments
+- [x] send comments to refector
+- [x] handle comments in reflector
 
 - [ ] mic to annotate?
 - [ ] remote BT device?

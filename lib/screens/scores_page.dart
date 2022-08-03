@@ -106,10 +106,31 @@ class _ScoresPageState extends State<ScoresPage> {
       urlString += _engine.scoreKeeper;
       urlString += ",";
 
-      // TODO build score to send
+      // build score to send
       // ie. timestamp,shannon,000000,ffffff,ffffff,000000,Them,Us,0,0, 10, 8,  0
 
-      urlString += _engine.reflectorComment;
+      urlString += _engine.colorTextLeft.hashCode.toRadixString(16);
+      urlString += ",";
+      urlString += _engine.colorBackgroundLeft.hashCode.toRadixString(16);
+      urlString += ",";
+      urlString += _engine.colorTextRight.hashCode.toRadixString(16);
+      urlString += ",";
+      urlString += _engine.colorBackgroundRight.hashCode.toRadixString(16);
+      urlString += ",";
+      urlString += _engine.labelLeft;
+      urlString += ",";
+      urlString += _engine.labelRight;
+      urlString += ",";
+      urlString += _engine.setsLeft.toString();
+      urlString += ",";
+      urlString += _engine.setsRight.toString();
+      urlString += ",";
+      urlString += _engine.valueLeft.toString();
+      urlString += ",";
+      urlString += _engine.valueRight.toString();
+      urlString += ",";
+      urlString += (_engine.lastPointLeft ? "1" : "2");
+      //urlString += ",";
 
       var encoded = Uri.encodeFull(urlString);
       Uri _url = Uri.parse(encoded);
@@ -255,6 +276,7 @@ class _ScoresPageState extends State<ScoresPage> {
     _fromEngine();
     _saveEngine();
     Navigator.of(context).pop();
+    _reflectorSendScores();
   }
 
   void _savePending() async {
@@ -262,6 +284,7 @@ class _ScoresPageState extends State<ScoresPage> {
     _fromEngine();
     _saveEngine();
     Navigator.of(context).pop();
+    _reflectorSendScores();
   }
 
   void _saveReflector() async {
@@ -269,15 +292,12 @@ class _ScoresPageState extends State<ScoresPage> {
     _fromEngine();
     _saveEngine();
     Navigator.of(context).pop();
+    _reflectorSendScores();
   }
 
   void _saveComment() async {
-    if (_engine.reflectorSite.length > 0 && _engine.scoreKeeper.length > 0) {
-      if (_engine.reflectorComment.length > 0) {
-        _reflectorSendComment();
-      }
-    }
     Navigator.of(context).pop();
+    _reflectorSendComment();
   }
 
   void _panUpdateLeft(DragUpdateDetails details) async {
