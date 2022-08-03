@@ -262,13 +262,13 @@ class _ScoresPageState extends State<ScoresPage> {
                 _saveEngine();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+                _reflectorSendScores();
               },
             ),
           ],
         );
       },
     );
-    _reflectorSendScores();
   }
 
   void _swapTeams() async {
