@@ -109,13 +109,13 @@ class _ScoresPageState extends State<ScoresPage> {
       // build score to send
       // ie. timestamp,shannon,000000,ffffff,ffffff,000000,Them,Us,0,0, 10, 8,  0
 
-      urlString += _engine.colorTextLeft.hashCode.toRadixString(16);
+      urlString += _engine.colorTextLeft.value.toRadixString(16);
       urlString += ",";
-      urlString += _engine.colorBackgroundLeft.hashCode.toRadixString(16);
+      urlString += _engine.colorBackgroundLeft.value.toRadixString(16);
       urlString += ",";
-      urlString += _engine.colorTextRight.hashCode.toRadixString(16);
+      urlString += _engine.colorTextRight.value.toRadixString(16);
       urlString += ",";
-      urlString += _engine.colorBackgroundRight.hashCode.toRadixString(16);
+      urlString += _engine.colorBackgroundRight.value.toRadixString(16);
       urlString += ",";
       urlString += _engine.labelLeft;
       urlString += ",";
