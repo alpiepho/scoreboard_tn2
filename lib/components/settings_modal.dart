@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:scoreboard_tn2/constants.dart';
-import 'package:scoreboard_tn2/engine.dart';
+import '../constants.dart';
+import '../engine.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
@@ -348,6 +348,22 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone();
   }
 
+  void onReflectorSite() async {
+    if (engine.reflectorSite.isNotEmpty) {
+      String url = engine.reflectorSite + "/html";
+      _launchUrl(url);
+    }
+    Navigator.of(context).pop();
+  }
+
+  void onReflectorSiteKeeper() async {
+    if (engine.reflectorSite.isNotEmpty && engine.scoreKeeper.isNotEmpty) {
+      String url = engine.reflectorSite + "/" + engine.scoreKeeper + "/html";
+      _launchUrl(url);
+    }
+    Navigator.of(context).pop();
+  }
+
   void onClearSets() async {
     this.engine.setsLeft = 0;
     this.engine.setsRight = 0;
@@ -359,6 +375,66 @@ class _SettingsModal extends State<SettingsModal> {
     if (!await launchUrl(_url)) {
       throw 'Could not launch $_url';
     }
+  }
+
+  void onScoresQR() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Scores QR'),
+          content: SingleChildScrollView(
+            child: Container(
+              width: 200,
+              height: 200,
+              child: Image.asset("assets/qr-code-scores.png"),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void onScoresTapQR() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Scores Tap QR'),
+          content: SingleChildScrollView(
+            child: Image.asset("assets/qr-code-tap.png"),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void onScoresLink() async {
+    _launchUrl('https://alpiepho.github.io/scoreboard_tn2/');
+    Navigator.of(context).pop();
+  }
+
+  void onScoresTapLink() async {
+    _launchUrl('https://alpiepho.github.io/scoreboard_tap_tn2/');
+    Navigator.of(context).pop();
   }
 
   void onHelp() async {
@@ -696,6 +772,38 @@ class _SettingsModal extends State<SettingsModal> {
                 kVersion,
                 style: kSettingsTextEditStyle,
               ),
+            ),
+            new ListTile(
+              title: new Text(
+                'Scores QR...',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.help),
+              onTap: onScoresQR,
+            ),
+            new ListTile(
+              title: new Text(
+                'Scores Tap QR...',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.help),
+              onTap: onScoresTapQR,
+            ),
+            new ListTile(
+              title: new Text(
+                'Scores Link...',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.help),
+              onTap: onScoresLink,
+            ),
+            new ListTile(
+              title: new Text(
+                'Scores Tap Link...',
+                style: kSettingsTextEditStyle,
+              ),
+              trailing: new Icon(Icons.help),
+              onTap: onScoresTapLink,
             ),
             new ListTile(
               title: new Text(

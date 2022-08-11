@@ -5,7 +5,7 @@ GH-Pages site: https://alpiepho.github.io/scoreboard_tn2/
 
 or QR Code:
 
-![QR Code](./qr-code.png)
+![QR Code](./assets/qr-code-scores.png)
 
 ## "Install" on iPhone
 

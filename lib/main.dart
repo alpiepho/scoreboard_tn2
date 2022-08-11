@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
-import 'package:scoreboard_tn2/screens/scores_page.dart';
+import '../screens/scores_page.dart';
 
 void main() {
   //debugRepaintRainbowEnabled = true;
