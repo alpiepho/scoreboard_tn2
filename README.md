@@ -73,7 +73,7 @@ Thanks for trying out this applications.
 - [x] better contrast?, bigger mode (no team name?)
 - [ ] getter offline, without first access?
 
-- [ ] ways to share score better?
+- [x] ways to share score better?
 - [x] reflector settings
 - [-] verify settings
 - [x] call reflector
@@ -82,6 +82,11 @@ Thanks for trying out this applications.
 - [x] add dialog for comments
 - [x] send comments to refector
 - [x] handle comments in reflector
+
+- [ ] style for alert dialogs (scores app only?)
+- [ ] refactor duplicate code sections
+- [ ] fix engine save/get, add version check
+- [ ] size 13
 
 - [ ] mic to annotate?
 - [ ] remote BT device?
