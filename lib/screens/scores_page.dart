@@ -534,9 +534,9 @@ class _ScoresPageState extends State<ScoresPage> {
     double height = MediaQuery.of(context).size.height;
     var portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     double offscreen = portrait ? -1.1 * width : -1.1 * height;
-    var duration1 = Duration(milliseconds: 200);
+    var duration1 = Duration(milliseconds: 0);
     var curve1 = Curves.linear;
-    var duration2 = Duration(milliseconds: 200);
+    var duration2 = Duration(milliseconds: 0);
     var curve2 = Curves.linear;
 
     return Scaffold(

@@ -8,9 +8,13 @@ const kInputPageBackgroundColor = Colors.black45;
 const kMainContainerWidthPortrait = 600.0;
 const kMainContainerWidthLandscape = 1000.0;
 
-const kSettingsModalBackgroundColor = Colors.black45;
+const kSettingsModalBackgroundColor = Colors.white60;
 
 const kSettingsTextStyle_fontSize = 18.0;
+
+const kSettingsTextEditCursorColor = Colors.green;
+const kSettingsTextEditCursorWidth = 10.0;
+const kSettingsTextEditCursorHeight = 50.0;
 
 // ignore: non_constant_identifier_names
 var kSettingsTextStyle = GoogleFonts.roboto(
