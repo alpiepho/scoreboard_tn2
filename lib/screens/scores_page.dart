@@ -108,6 +108,10 @@ class _ScoresPageState extends State<ScoresPage> {
 
       // build score to send
       // ie. timestamp,shannon,000000,ffffff,ffffff,000000,Them,Us,0,0, 10, 8,  0
+      // time keeper colorA1 colorA2 colorB1 colorB2 nameA nameB setsA setsB scoreA scoreB possesion font zoom     sets5    setsShow
+      // 0    1      2       3       4       5       6     7     8     9     10     11     12        13   14       15       16
+      //                                                                                   1|2       str  zoomOn|  sets5|   setsShowOn|
+      //                                                                                                  zoomOff  sets3    setsShowOff
 
       urlString += _engine.colorTextLeft.value.toRadixString(16);
       urlString += ",";
@@ -130,7 +134,16 @@ class _ScoresPageState extends State<ScoresPage> {
       urlString += _engine.valueRight.toString();
       urlString += ",";
       urlString += (_engine.lastPointLeft ? "1" : "2");
-      //urlString += ",";
+
+      // add Look/Feel params: font zoom sets5 showsets
+      urlString += ",";
+      urlString += _engine.fontType.toString();
+      urlString += ",";
+      urlString += (_engine.zoom ? "zoomOn" : "zoomOff");
+      urlString += ",";
+      urlString += (_engine.sets5 ? "sets5" : "sets3");
+      urlString += ",";
+      urlString += (_engine.setsShow ? "setsShowOn" : "setsShowOff");
 
       var encoded = Uri.encodeFull(urlString);
       Uri _url = Uri.parse(encoded);

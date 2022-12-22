@@ -31,9 +31,15 @@ class Engine {
   int setsLeft = 0;
   int setsRight = 0;
 
-  String scoreKeeper = "";
-  String reflectorSite = "https://refelectortn2.uw.r.appspot.com";
+  String scoreKeeper = ""; // can be comma separated list or *
+  String reflectorSite = "";
+
+  String reflectorSiteTest = "http://localhost:3000";
+  String reflectorSiteDefault = "https://refelectortn2.uw.r.appspot.com";
+
+  // not saved
   String reflectorComment = "";
+  String possibleKeepers = "";
 
   Engine();
 

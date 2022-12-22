@@ -14,7 +14,7 @@ const kSettingsTextStyle_fontSize = 18.0;
 
 const kSettingsTextEditCursorColor = Colors.green;
 const kSettingsTextEditCursorWidth = 10.0;
-const kSettingsTextEditCursorHeight = 50.0;
+const kSettingsTextEditCursorHeight = 30.0;
 
 // ignore: non_constant_identifier_names
 var kSettingsTextStyle = GoogleFonts.roboto(
