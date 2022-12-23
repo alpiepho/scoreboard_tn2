@@ -3,7 +3,7 @@
 flutter pub get
 flutter pub global activate peanut
 export PATH="$PATH":"$HOME/development/flutter/.pub-cache/bin"
-flutter pub global run peanut
+flutter pub global run peanut  --web-renderer html
 
 git stash
 git checkout gh-pages
