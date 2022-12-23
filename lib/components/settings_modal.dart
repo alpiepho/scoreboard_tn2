@@ -553,6 +553,15 @@ class _SettingsModal extends State<SettingsModal> {
           "Settings",
           style: kSettingsTextEditStyle,
         ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black54,
+          ),
+        ),
       ),
       body: Container(
         child: ListView(
