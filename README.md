@@ -1,5 +1,5 @@
 ## Get Application
-Version: 2.2
+Version: 2.2f
 
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn2/
 
@@ -133,11 +133,11 @@ Thanks for trying out this applications.
 - [x] add dialog for comments
 - [x] send comments to refector
 - [x] handle comments in reflector
+- [-] size 13
 
 - [ ] style for alert dialogs (scores app only?)
 - [ ] refactor duplicate code sections
 - [ ] fix engine save/get, add version check
-- [ ] size 13
 
 - [ ] mic to annotate?
 - [ ] remote BT device?
