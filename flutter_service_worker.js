@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "6addc7dd22da6896e94424d2237c72b2",
-"index.html": "3db6f535b6d45b9b5e6f329bbed5e518",
-"/": "3db6f535b6d45b9b5e6f329bbed5e518",
-"main.dart.js": "927d6546c7465a12784acf37da3ecf02",
+"index.html": "e15071b6ff4da71cf82ec5edb56a4c1c",
+"/": "e15071b6ff4da71cf82ec5edb56a4c1c",
+"main.dart.js": "19ab5cabc193766a5f605e8650009f14",
 "flutter.js": "eb2682e33f25cd8f1fc59011497c35f8",
 "favicon.png": "e77f5d3b4801779bc0e4be1f4c06c63a",
 "icons/1024.png": "1f684a8e4694e7d3c9ef5528fd64df7f",
@@ -27,15 +27,13 @@ const RESOURCES = {
 "icons/40.png": "9a122e4211306ae7795840809ac5d08f",
 "icons/87.png": "ed36eaa5d7243a49ab095d839fb8cca8",
 "manifest.json": "a24df63533f9dce807241d34dff5fb78",
-"assets/AssetManifest.json": "e58f4c0087623882891ebe01df178abd",
+"assets/AssetManifest.json": "e26ab0f0a9ebee8025260de29a88a4ca",
 "assets/NOTICES": "d4d2eff396b8944da8425be7ee90ff5c",
 "assets/FontManifest.json": "3ddd9b2ab1c2ae162d46e3cc7b78ba88",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "dd3c4233029270506ecc994d67785a37",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "613e4cc1af0eb5148b8ce409ad35446d",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "d1722d5cf2c7855862f68edb85e31f88",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
-"assets/assets/qr-code-tap.png": "7da86777c62198a04088bbe550e9fd59",
-"assets/assets/qr-code-scores.png": "0c229e389751c01cfc96d9a3aaec7165",
 "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
@@ -45,11 +43,11 @@ const RESOURCES = {
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
-  "https://alpiepho.github.io/scoreboard_tn2/main.dart.js",
-"https://alpiepho.github.io/scoreboard_tn2/index.html",
-"https://alpiepho.github.io/scoreboard_tn2/assets/NOTICES",
-"https://alpiepho.github.io/scoreboard_tn2/assets/AssetManifest.json",
-"https://alpiepho.github.io/scoreboard_tn2/assets/FontManifest.json"];
+  "main.dart.js",
+"index.html",
+"assets/NOTICES",
+"assets/AssetManifest.json",
+"assets/FontManifest.json"];
 // During install, the TEMP cache is populated with the application shell files.
 self.addEventListener("install", (event) => {
   self.skipWaiting();
