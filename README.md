@@ -1,5 +1,5 @@
 ## Get Application
-Version: 2.2f
+Version: 2.2h
 
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn2/
 
@@ -134,6 +134,7 @@ Thanks for trying out this applications.
 - [x] send comments to refector
 - [x] handle comments in reflector
 - [-] size 13
+- [x] saving existing keeper syncs data
 
 - [ ] style for alert dialogs (scores app only?)
 - [ ] refactor duplicate code sections

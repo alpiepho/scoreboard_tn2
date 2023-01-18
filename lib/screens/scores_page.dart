@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -300,8 +302,86 @@ class _ScoresPageState extends State<ScoresPage> {
     _reflectorSendScores();
   }
 
+  Future<void> _syncExistingKeeper() async {
+    if (_engine.reflectorSite.isEmpty) {
+      // no sense continuing if reflector site is empty
+      return;
+    }
+    if (_engine.scoreKeeper.isEmpty) {
+      // no sense continuing if score keeper is empty
+      return;
+    }
+
+    String event = "";
+    String urlString = "";
+    String encoded;
+    Uri _url;
+
+    // Check possible keepers against _engine.scoreKeeper
+    urlString = _engine.reflectorSite;
+    urlString += "/keepers/json";
+
+    encoded = Uri.encodeFull(urlString);
+    _url = Uri.parse(encoded);
+
+    List<String> names = [];
+    try {
+      http.Response response = await http.get(_url);
+      final data = jsonDecode(response.body);
+      for (int i = 0; i < data['keepers'].length; i++) {
+        names.add(data['keepers'][i]);
+      }
+    } catch (exception, message) {
+      print(exception);
+      print(message);
+    }
+    if (names.isEmpty) {
+      // no sense continuing if score keeper list is empty
+      return;
+    }
+    if (!names.contains(this._engine.scoreKeeper)) {
+      // no sense continuing if score keeper is NOT in list
+      return;
+    }
+
+    // Update latest score for matching keeper
+    var scoreKeeper = this._engine.scoreKeeper;
+
+    event = "";
+    urlString = "";
+    urlString += _engine.reflectorSite;
+    urlString += "/";
+    urlString += scoreKeeper;
+    urlString += "/0/json";
+
+    encoded = Uri.encodeFull(urlString);
+    _url = Uri.parse(encoded);
+    //print(encoded);
+
+    try {
+      http.Response response = await http.get(_url);
+      //print(response.statusCode);
+      print(response.body);
+      final data = jsonDecode(response.body);
+      print(data);
+      event = data['entry'];
+    } catch (exception, message) {
+      print(exception);
+      print(message);
+      return;
+    }
+
+    // fill in engine from event
+    this._engine.parseLastRefelector(event);
+  }
+
   void _saveReflector() async {
     //this._engine.savePending();
+
+    // special case upon save:
+    // if keeper exists, grab settings from last entry
+    await _syncExistingKeeper();
+
     _fromEngine();
     _saveEngine();
     Navigator.of(context).pop();

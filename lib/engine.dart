@@ -93,6 +93,18 @@ class Engine {
     return new Color(h);
   }
 
+  FontTypes stringToFont(String name) {
+    var fontType = FontTypes.system;
+
+    for (var value in FontTypes.values) {
+      if (value.toString() == name) {
+        fontType = value;
+        break;
+      }
+    }
+    return fontType;
+  }
+
   void unpack(String packed) {
     if (packed.length == 0) return;
 
@@ -154,6 +166,67 @@ class Engine {
   //
   // Public methods
   //
+
+  int parseReflectorHex(String part) {
+    int result = int.parse(part, radix: 16);
+    return result;
+  }
+
+  int parseReflectorInt(String part) {
+    int result = int.parse(part, radix: 10);
+    return result;
+  }
+
+  String parseLastRefelector(String last) {
+    if (last.isEmpty) {
+      return "";
+    }
+
+    int temp = 0;
+    String result = "";
+    List<String> parts = last.split(",");
+
+    // time keeper colorA1 colorA2 colorB1 colorB2 nameA nameB setsA setsB scoreA scoreB possesion font zoom     sets5    setsShow
+    // 0    1      2       3       4       5       6     7     8     9     10     11     12        13   14       15       16
+    //                                                                                   1|2       str  zoomOn|  sets5|   setsShowOn|
+    //                                                                                                  zoomOff  sets3    setsShowOff
+    if (parts.length >= 17) {
+      // workaround for back colors, need to debug
+      temp = parseReflectorHex(parts[2]);
+      if ((temp & 0xff000000) == 0) {
+        print("BAD colors!!!");
+        print(last);
+      } else {
+        colorTextLeft = Color(parseReflectorHex(parts[2]));
+        colorBackgroundLeft = Color(parseReflectorHex(parts[3]));
+        colorTextRight = Color(parseReflectorHex(parts[4]));
+        colorBackgroundRight = Color(parseReflectorHex(parts[5]));
+      }
+
+      labelLeft = parts[6];
+      labelRight = parts[7];
+
+      setsLeft = parseReflectorInt(parts[8]);
+      setsRight = parseReflectorInt(parts[9]);
+
+      valueLeft = parseReflectorInt(parts[10]);
+      valueRight = parseReflectorInt(parts[11]);
+
+      lastPointLeft = parseReflectorInt(parts[12]) == 1;
+
+      fontType = stringToFont(parts[13]);
+      zoom = (parts[14] == "zoomOn");
+      sets5 = (parts[15] == "sets5");
+      setsShow = (parts[16] == "setsShowOn");
+    }
+    // time keeper comment
+    // 0    1      2
+    if (parts.length == 3) {
+      result = parts[2];
+    }
+
+    return result;
+  }
 
   String getLabelLeft() {
     String result = labelLeft;
