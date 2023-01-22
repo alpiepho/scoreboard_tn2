@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:scoreboard_tn2/components/saved_teams_modal.dart';
 import '../constants.dart';
 import '../engine.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -176,6 +177,31 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
+  void onFromSavedLeftEditDone() async {
+    // if (!this.engine.lastPointEnabled) {
+    //   this.engine.lastPointEnabled = true;
+    // } else {
+    //   this.engine.lastPointEnabled = false;
+    // }
+    // this.onDone();
+    Navigator.of(context).pop();
+  }
+
+  void fromSavedLeftEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return SavedTeamsModal(
+          context,
+          this.engine,
+          "left",
+          onFromSavedLeftEditDone,
+        );
+      },
+    );
+  }
+
   void colorTextRightEdit() async {
     showDialog<void>(
       context: context,
@@ -223,6 +249,31 @@ class _SettingsModal extends State<SettingsModal> {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void onFromSavedRightEditDone() async {
+    // if (!this.engine.lastPointEnabled) {
+    //   this.engine.lastPointEnabled = true;
+    // } else {
+    //   this.engine.lastPointEnabled = false;
+    // }
+    // this.onDone();
+    Navigator.of(context).pop();
+  }
+
+  void fromSavedRightEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return SavedTeamsModal(
+          context,
+          this.engine,
+          "right",
+          onFromSavedRightEditDone,
         );
       },
     );
@@ -395,80 +446,6 @@ class _SettingsModal extends State<SettingsModal> {
     }
     Navigator.of(context).pop();
   }
-
-  // void onReflectorSiteKeeper() async {
-  //   if (engine.reflectorSite.isNotEmpty && engine.scoreKeeper.isNotEmpty) {
-  //     var parts = engine.scoreKeeper.split(',');
-  //     var scoreKeeper = parts[0]; // just first keeper from settings page/modal
-  //     String url = engine.reflectorSite + "/" + scoreKeeper + "/html";
-  //     _launchUrl(url);
-  //   }
-  //   Navigator.of(context).pop();
-  // }
-
-  // void onScoresQR() async {
-  //   showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Scores QR'),
-  //         content: SingleChildScrollView(
-  //           child: Container(
-  //             width: 200,
-  //             height: 200,
-  //             child: Image.asset("assets/qr-code-scores.png"),
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('Done'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // void onScoresTapQR() async {
-  //   showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Scores Tap QR'),
-  //         content: SingleChildScrollView(
-  //           child: Container(
-  //             width: 200,
-  //             height: 200,
-  //             child: Image.asset("assets/qr-code-tap.png"),
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('Done'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // void onScoresLink() async {
-  //   _launchUrl('https://alpiepho.github.io/scoreboard_tn2/');
-  //   Navigator.of(context).pop();
-  // }
-
-  // void onScoresTapLink() async {
-  //   _launchUrl('https://alpiepho.github.io/scoreboard_tap_tn2/');
-  //   Navigator.of(context).pop();
-  // }
 
   void onScoresHelp() async {
     _launchUrl(
@@ -678,6 +655,13 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               onTap: colorBackgroundLeftEdit,
             ),
+            new ListTile(
+              title: new Text(
+                'From Saved...',
+                style: kSettingsTextStyle,
+              ),
+              onTap: fromSavedLeftEdit,
+            ),
             SizedBox(
               height: 10,
             ),
@@ -723,6 +707,13 @@ class _SettingsModal extends State<SettingsModal> {
                     borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
               onTap: colorBackgroundRightEdit,
+            ),
+            new ListTile(
+              title: new Text(
+                'From Saved...',
+                style: kSettingsTextStyle,
+              ),
+              onTap: fromSavedRightEdit,
             ),
             new ListTile(
               title: new Text(

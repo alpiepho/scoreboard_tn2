@@ -33,6 +33,7 @@ class Engine {
 
   String scoreKeeper = ""; // can be comma separated list or *
   String reflectorSite = "";
+  List<String> savedTeams = [];
 
   String reflectorSiteTest = "http://localhost:3000";
   String reflectorSiteDefault = "https://refelectortn2.uw.r.appspot.com";
@@ -48,6 +49,8 @@ class Engine {
   //
   String pack() {
     String result = "";
+
+    result += kVersion + ";";
 
     result += colorTextLeft.toString() + ";";
     result += colorBackgroundLeft.toString() + ";";
@@ -82,6 +85,8 @@ class Engine {
     result += scoreKeeper.toString() + ";";
     result += reflectorSite.toString() + ";";
 
+    result += savedTeams.join("__");
+
     return result;
   }
 
@@ -110,6 +115,12 @@ class Engine {
 
     var parts = packed.split(";");
     int index = 0;
+
+    bool versionFound = false;
+    if (parts[0].contains("Version")) {
+      versionFound = true; // remove afer version 2.2j
+    }
+    print("unpack version found: " + versionFound.toString());
 
     colorTextLeft = stringToColor(parts[index++]);
     colorBackgroundLeft = stringToColor(parts[index++]);
@@ -151,6 +162,12 @@ class Engine {
 
     if (index < parts.length) scoreKeeper = parts[index++];
     if (index < parts.length) reflectorSite = parts[index++];
+    if (index < parts.length) reflectorSite = parts[index++];
+
+    if (index < parts.length) {
+      var temp = parts[index++];
+      savedTeams = temp.split("__");
+    }
 
     colorTextLeft = colorTextLeft;
     colorBackgroundLeft = colorBackgroundLeft;
@@ -316,6 +333,21 @@ class Engine {
     setsRight = setsTemp;
   }
 
+  void addSavedTeam(String label, String color1, String color2) {
+    var teamString = "";
+    teamString += label;
+    teamString += ",";
+    teamString += color1;
+    teamString += ",";
+    teamString += color2;
+    if (!savedTeams.contains(teamString)) {
+      if (savedTeams.length >= 10) {
+        savedTeams.removeAt(savedTeams.length - 1);
+      }
+      savedTeams.add(teamString);
+    }
+  }
+
   void savePending() {
     labelLeft = pendingLabelLeft;
     labelRight = pendingLabelRight;
@@ -323,14 +355,40 @@ class Engine {
     colorBackgroundLeft = pendingColorBackgroundLeft;
     colorTextRight = pendingColorTextRight;
     colorBackgroundRight = pendingColorBackgroundRight;
+
+    addSavedTeam(
+      labelLeft,
+      colorTextLeft.toString(),
+      colorBackgroundLeft.toString(),
+    );
+    addSavedTeam(
+      labelRight,
+      colorTextRight.toString(),
+      colorBackgroundRight.toString(),
+    );
   }
 
   void setPending() {
     pendingLabelLeft = labelLeft;
     pendingLabelRight = labelRight;
     pendingColorTextLeft = colorTextLeft;
+    pendingColorTextRight = colorTextRight;
     pendingColorBackgroundLeft = pendingColorBackgroundLeft;
     pendingColorBackgroundRight = pendingColorBackgroundRight;
+  }
+
+  void setPendingSavedTeam(String teamString, String side) {
+    var parts = teamString.split(",");
+    if (side == "left") {
+      pendingLabelLeft = parts[0];
+      pendingColorTextLeft = stringToColor(parts[1]);
+      pendingColorBackgroundLeft = stringToColor(parts[2]);
+    }
+    if (side == "right") {
+      pendingLabelRight = parts[0];
+      pendingColorTextRight = stringToColor(parts[1]);
+      pendingColorBackgroundRight = stringToColor(parts[2]);
+    }
   }
 
   bool notify7() {
