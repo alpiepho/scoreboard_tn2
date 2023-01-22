@@ -70,8 +70,10 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone = onDone;
     this.onReflector = onReflector;
     this.onComment = onComment;
+    this._newLabelLeft = this.engine.pendingLabelLeft;
     this._newColorTextLeft = this.engine.pendingColorTextLeft;
     this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+    this._newLabelRight = this.engine.pendingLabelRight;
     this._newColorTextRight = this.engine.pendingColorTextRight;
     this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
   }
@@ -85,8 +87,10 @@ class _SettingsModal extends State<SettingsModal> {
   late Function onReflector;
   late Function onComment;
 
+  late String _newLabelLeft;
   late Color _newColorTextLeft;
   late Color _newColorBackgroundLeft;
+  late String _newLabelRight;
   late Color _newColorTextRight;
   late Color _newColorBackgroundRight;
 
@@ -98,8 +102,10 @@ class _SettingsModal extends State<SettingsModal> {
 
   void _fromEngine() async {
     setState(() {
+      this._newLabelLeft = this.engine.pendingLabelLeft;
       this._newColorTextLeft = this.engine.pendingColorTextLeft;
       this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+      this._newLabelRight = this.engine.pendingLabelRight;
       this._newColorTextRight = this.engine.pendingColorTextRight;
       this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
     });
@@ -178,13 +184,14 @@ class _SettingsModal extends State<SettingsModal> {
   }
 
   void onFromSavedLeftEditDone() async {
-    // if (!this.engine.lastPointEnabled) {
-    //   this.engine.lastPointEnabled = true;
-    // } else {
-    //   this.engine.lastPointEnabled = false;
-    // }
-    // this.onDone();
+    setState(() {
+      this._newLabelLeft = this.engine.pendingLabelLeft;
+      this._newColorTextLeft = this.engine.pendingColorTextLeft;
+      this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+    });
     Navigator.of(context).pop();
+    // TODO: wanted to allow edit, but can change _newLabelRight in Tile, or remove _newLabelRight etc
+    onDone();
   }
 
   void fromSavedLeftEdit() async {
@@ -255,13 +262,14 @@ class _SettingsModal extends State<SettingsModal> {
   }
 
   void onFromSavedRightEditDone() async {
-    // if (!this.engine.lastPointEnabled) {
-    //   this.engine.lastPointEnabled = true;
-    // } else {
-    //   this.engine.lastPointEnabled = false;
-    // }
-    // this.onDone();
+    setState(() {
+      this._newLabelRight = this.engine.pendingLabelRight;
+      this._newColorTextRight = this.engine.pendingColorTextRight;
+      this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
+    });
     Navigator.of(context).pop();
+    // TODO: wanted to allow edit, but can change _newLabelRight in Tile, or remove _newLabelRight etc
+    onDone();
   }
 
   void fromSavedRightEdit() async {
@@ -618,7 +626,7 @@ class _SettingsModal extends State<SettingsModal> {
                   hintText: 'Team Name',
                 ),
                 autofocus: false,
-                initialValue: engine.labelLeft,
+                initialValue: _newLabelLeft,
                 onChanged: (text) => engine.pendingLabelLeft = text,
                 style: kSettingsTextEditStyle,
                 cursorColor: kSettingsTextEditCursorColor,
@@ -671,7 +679,7 @@ class _SettingsModal extends State<SettingsModal> {
                 decoration:
                     new InputDecoration.collapsed(hintText: 'Team Name'),
                 autofocus: false,
-                initialValue: engine.labelRight,
+                initialValue: _newLabelRight,
                 onChanged: (text) => engine.pendingLabelRight = text,
                 style: kSettingsTextEditStyle,
                 cursorColor: kSettingsTextEditCursorColor,

@@ -48,32 +48,29 @@ class _SavedTeamsModal extends State<SavedTeamsModal> {
   late String side;
   late Function onDone;
 
-  // void _fromEngine() async {
-  //   setState(() {
-  //     // this._newColorTextLeft = this.engine.pendingColorTextLeft;
-  //     // this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
-  //     // this._newColorTextRight = this.engine.pendingColorTextRight;
-  //     // this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
-  //   });
-  // }
-
   String buildTeamString() {
     var result = "";
     if (side == "left") {
       result += engine.labelLeft;
       result += ",";
-      result += engine.colorTextLeft.toString();
+      result +=
+          engine.colorTextLeft.toString().replaceAll(")", "").split("0x")[1];
       result += ",";
-      result += engine.colorBackgroundLeft.toString();
-      result += ",";
+      result += engine.colorBackgroundLeft
+          .toString()
+          .replaceAll(")", "")
+          .split("0x")[1];
     }
     if (side == "right") {
       result += engine.labelRight;
       result += ",";
-      result += engine.colorTextRight.toString();
+      result +=
+          engine.colorTextRight.toString().replaceAll(")", "").split("0x")[1];
       result += ",";
-      result += engine.colorBackgroundRight.toString();
-      result += ",";
+      result += engine.colorBackgroundRight
+          .toString()
+          .replaceAll(")", "")
+          .split("0x")[1];
     }
     return result;
   }
@@ -81,7 +78,7 @@ class _SavedTeamsModal extends State<SavedTeamsModal> {
   @override
   Widget build(BuildContext context) {
     var current = buildTeamString();
-    var checked = engine.savedTeams.contains(current);
+    var checked = !engine.savedTeams.contains(current);
     List<Widget> teamTiles = [];
     teamTiles.add(
       new ListTile(
@@ -97,11 +94,12 @@ class _SavedTeamsModal extends State<SavedTeamsModal> {
           }),
     );
     for (var teamString in engine.savedTeams) {
-      var checked = engine.savedTeams.contains(current);
+      var checked = current == teamString;
       var parts = teamString.split(",");
       var teamName = parts[0];
-      var teamColor = engine.stringToColor(parts[1]);
-      var teamBackgroundColor = engine.stringToColor(parts[2]);
+      var teamColor = engine.stringToColor("Color(0x" + parts[1] + ")");
+      var teamBackgroundColor =
+          engine.stringToColor("Color(0x" + parts[2] + ")");
       teamTiles.add(
         new ListTile(
             title: new Text(

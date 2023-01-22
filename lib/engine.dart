@@ -337,9 +337,9 @@ class Engine {
     var teamString = "";
     teamString += label;
     teamString += ",";
-    teamString += color1;
+    teamString += color1.replaceAll(")", "").split("0x")[1];
     teamString += ",";
-    teamString += color2;
+    teamString += color2.replaceAll(")", "").split("0x")[1];
     if (!savedTeams.contains(teamString)) {
       if (savedTeams.length >= 10) {
         savedTeams.removeAt(savedTeams.length - 1);
@@ -381,13 +381,13 @@ class Engine {
     var parts = teamString.split(",");
     if (side == "left") {
       pendingLabelLeft = parts[0];
-      pendingColorTextLeft = stringToColor(parts[1]);
-      pendingColorBackgroundLeft = stringToColor(parts[2]);
+      pendingColorTextLeft = stringToColor("Color(0x" + parts[1] + ")");
+      pendingColorBackgroundLeft = stringToColor("Color(0x" + parts[2] + ")");
     }
     if (side == "right") {
       pendingLabelRight = parts[0];
-      pendingColorTextRight = stringToColor(parts[1]);
-      pendingColorBackgroundRight = stringToColor(parts[2]);
+      pendingColorTextRight = stringToColor("Color(0x" + parts[1] + ")");
+      pendingColorBackgroundRight = stringToColor("Color(0x" + parts[2] + ")");
     }
   }
 
