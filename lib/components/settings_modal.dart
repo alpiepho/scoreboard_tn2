@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:scoreboard_tn2/components/saved_teams_modal.dart';
 import '../constants.dart';
 import '../engine.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -69,8 +70,10 @@ class _SettingsModal extends State<SettingsModal> {
     this.onDone = onDone;
     this.onReflector = onReflector;
     this.onComment = onComment;
+    this._newLabelLeft = this.engine.pendingLabelLeft;
     this._newColorTextLeft = this.engine.pendingColorTextLeft;
     this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+    this._newLabelRight = this.engine.pendingLabelRight;
     this._newColorTextRight = this.engine.pendingColorTextRight;
     this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
   }
@@ -84,8 +87,10 @@ class _SettingsModal extends State<SettingsModal> {
   late Function onReflector;
   late Function onComment;
 
+  late String _newLabelLeft;
   late Color _newColorTextLeft;
   late Color _newColorBackgroundLeft;
+  late String _newLabelRight;
   late Color _newColorTextRight;
   late Color _newColorBackgroundRight;
 
@@ -97,8 +102,10 @@ class _SettingsModal extends State<SettingsModal> {
 
   void _fromEngine() async {
     setState(() {
+      this._newLabelLeft = this.engine.pendingLabelLeft;
       this._newColorTextLeft = this.engine.pendingColorTextLeft;
       this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+      this._newLabelRight = this.engine.pendingLabelRight;
       this._newColorTextRight = this.engine.pendingColorTextRight;
       this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
     });
@@ -176,6 +183,32 @@ class _SettingsModal extends State<SettingsModal> {
     );
   }
 
+  void onFromSavedLeftEditDone() async {
+    setState(() {
+      this._newLabelLeft = this.engine.pendingLabelLeft;
+      this._newColorTextLeft = this.engine.pendingColorTextLeft;
+      this._newColorBackgroundLeft = this.engine.pendingColorBackgroundLeft;
+    });
+    Navigator.of(context).pop();
+    // TODO: wanted to allow edit, but can change _newLabelRight in Tile, or remove _newLabelRight etc
+    onDone();
+  }
+
+  void fromSavedLeftEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return SavedTeamsModal(
+          context,
+          this.engine,
+          "left",
+          onFromSavedLeftEditDone,
+        );
+      },
+    );
+  }
+
   void colorTextRightEdit() async {
     showDialog<void>(
       context: context,
@@ -223,6 +256,32 @@ class _SettingsModal extends State<SettingsModal> {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void onFromSavedRightEditDone() async {
+    setState(() {
+      this._newLabelRight = this.engine.pendingLabelRight;
+      this._newColorTextRight = this.engine.pendingColorTextRight;
+      this._newColorBackgroundRight = this.engine.pendingColorBackgroundRight;
+    });
+    Navigator.of(context).pop();
+    // TODO: wanted to allow edit, but can change _newLabelRight in Tile, or remove _newLabelRight etc
+    onDone();
+  }
+
+  void fromSavedRightEdit() async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return SavedTeamsModal(
+          context,
+          this.engine,
+          "right",
+          onFromSavedRightEditDone,
         );
       },
     );
@@ -396,80 +455,6 @@ class _SettingsModal extends State<SettingsModal> {
     Navigator.of(context).pop();
   }
 
-  // void onReflectorSiteKeeper() async {
-  //   if (engine.reflectorSite.isNotEmpty && engine.scoreKeeper.isNotEmpty) {
-  //     var parts = engine.scoreKeeper.split(',');
-  //     var scoreKeeper = parts[0]; // just first keeper from settings page/modal
-  //     String url = engine.reflectorSite + "/" + scoreKeeper + "/html";
-  //     _launchUrl(url);
-  //   }
-  //   Navigator.of(context).pop();
-  // }
-
-  // void onScoresQR() async {
-  //   showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Scores QR'),
-  //         content: SingleChildScrollView(
-  //           child: Container(
-  //             width: 200,
-  //             height: 200,
-  //             child: Image.asset("assets/qr-code-scores.png"),
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('Done'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // void onScoresTapQR() async {
-  //   showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Scores Tap QR'),
-  //         content: SingleChildScrollView(
-  //           child: Container(
-  //             width: 200,
-  //             height: 200,
-  //             child: Image.asset("assets/qr-code-tap.png"),
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('Done'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // void onScoresLink() async {
-  //   _launchUrl('https://alpiepho.github.io/scoreboard_tn2/');
-  //   Navigator.of(context).pop();
-  // }
-
-  // void onScoresTapLink() async {
-  //   _launchUrl('https://alpiepho.github.io/scoreboard_tap_tn2/');
-  //   Navigator.of(context).pop();
-  // }
-
   void onScoresHelp() async {
     _launchUrl(
         'https://github.com/alpiepho/scoreboard_tn2/blob/master/README.md');
@@ -641,7 +626,7 @@ class _SettingsModal extends State<SettingsModal> {
                   hintText: 'Team Name',
                 ),
                 autofocus: false,
-                initialValue: engine.labelLeft,
+                initialValue: _newLabelLeft,
                 onChanged: (text) => engine.pendingLabelLeft = text,
                 style: kSettingsTextEditStyle,
                 cursorColor: kSettingsTextEditCursorColor,
@@ -678,6 +663,13 @@ class _SettingsModal extends State<SettingsModal> {
               ),
               onTap: colorBackgroundLeftEdit,
             ),
+            new ListTile(
+              title: new Text(
+                'From Saved...',
+                style: kSettingsTextStyle,
+              ),
+              onTap: fromSavedLeftEdit,
+            ),
             SizedBox(
               height: 10,
             ),
@@ -687,7 +679,7 @@ class _SettingsModal extends State<SettingsModal> {
                 decoration:
                     new InputDecoration.collapsed(hintText: 'Team Name'),
                 autofocus: false,
-                initialValue: engine.labelRight,
+                initialValue: _newLabelRight,
                 onChanged: (text) => engine.pendingLabelRight = text,
                 style: kSettingsTextEditStyle,
                 cursorColor: kSettingsTextEditCursorColor,
@@ -723,6 +715,13 @@ class _SettingsModal extends State<SettingsModal> {
                     borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
               onTap: colorBackgroundRightEdit,
+            ),
+            new ListTile(
+              title: new Text(
+                'From Saved...',
+                style: kSettingsTextStyle,
+              ),
+              onTap: fromSavedRightEdit,
             ),
             new ListTile(
               title: new Text(

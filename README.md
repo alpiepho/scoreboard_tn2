@@ -1,5 +1,5 @@
 ## Get Application
-Version: 2.2h
+Version: 2.2i
 
 GH-Pages site: https://alpiepho.github.io/scoreboard_tn2/
 
@@ -114,7 +114,7 @@ Below are some lists of things yet to do and possible future changes.
 
 Thanks for trying out this applications.
 
-## TODO AND FUTURE CHANGES
+## TODO
 - [x] debug painting
 - [x] faster draw after rotate?
 - [x] fix rotate
@@ -135,10 +135,18 @@ Thanks for trying out this applications.
 - [x] handle comments in reflector
 - [-] size 13
 - [x] saving existing keeper syncs data
+- [x] save list of last 10 used team,color,color...check duplicates
+- [x] clone settings dialog as saved team name/color
+- [x] settings link to saved_teams dialog
+- [ ] verify saved team changes label and colors
 
+## FUTURE CHANGES
+
+- [ ] fix engine save/get, add version check
+- [ ] investigate size - current
+- [ ] investigate side - try without fonts
 - [ ] style for alert dialogs (scores app only?)
 - [ ] refactor duplicate code sections
-- [ ] fix engine save/get, add version check
 
 - [ ] mic to annotate?
 - [ ] remote BT device?
