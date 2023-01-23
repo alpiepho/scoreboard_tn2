@@ -344,7 +344,7 @@ class Engine {
       if (savedTeams.length >= 10) {
         savedTeams.removeAt(savedTeams.length - 1);
       }
-      savedTeams.add(teamString);
+      savedTeams.insert(0, teamString);
     }
   }
 
