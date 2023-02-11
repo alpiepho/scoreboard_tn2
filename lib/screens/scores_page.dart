@@ -161,6 +161,7 @@ class _ScoresPageState extends State<ScoresPage> {
   void _incrementLeft() async {
     this._engine.incrementLeft();
     _fromEngine();
+    _saveEngine();
     _notify7();
     _notify8();
     _reflectorSendScores();
@@ -169,12 +170,14 @@ class _ScoresPageState extends State<ScoresPage> {
   void _decrementLeft() async {
     this._engine.decrementLeft();
     _fromEngine();
+    _saveEngine();
     _reflectorSendScores();
   }
 
   void _incrementRight() async {
     this._engine.incrementRight();
     _fromEngine();
+    _saveEngine();
     _notify7();
     _notify8();
     _reflectorSendScores();
@@ -183,6 +186,7 @@ class _ScoresPageState extends State<ScoresPage> {
   void _decrementRight() async {
     this._engine.decrementRight();
     _fromEngine();
+    _saveEngine();
     _reflectorSendScores();
   }
 
@@ -226,6 +230,7 @@ class _ScoresPageState extends State<ScoresPage> {
               onPressed: () {
                 this._engine.clearBoth();
                 _fromEngine();
+                _saveEngine();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },

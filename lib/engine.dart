@@ -119,18 +119,21 @@ class Engine {
     bool versionFound = false;
     if (parts[0].contains("Version")) {
       versionFound = true; // remove afer version 2.2j
+      index++;
     }
     print("unpack version found: " + versionFound.toString());
 
-    colorTextLeft = stringToColor(parts[index++]);
-    colorBackgroundLeft = stringToColor(parts[index++]);
-    colorTextRight = stringToColor(parts[index++]);
-    colorBackgroundRight = stringToColor(parts[index++]);
+    if (index < parts.length) colorTextLeft = stringToColor(parts[index++]);
+    if (index < parts.length)
+      colorBackgroundLeft = stringToColor(parts[index++]);
+    if (index < parts.length) colorTextRight = stringToColor(parts[index++]);
+    if (index < parts.length)
+      colorBackgroundRight = stringToColor(parts[index++]);
 
-    labelLeft = parts[index++];
-    labelRight = parts[index++];
-    valueLeft = int.parse(parts[index++]);
-    valueRight = int.parse(parts[index++]);
+    if (index < parts.length) labelLeft = parts[index++];
+    if (index < parts.length) labelRight = parts[index++];
+    if (index < parts.length) valueLeft = int.parse(parts[index++]);
+    if (index < parts.length) valueRight = int.parse(parts[index++]);
 
     index++;
     index++;
@@ -138,20 +141,22 @@ class Engine {
     index++;
 
     fontType = FontTypes.system;
-    for (var value in FontTypes.values) {
-      if (value.toString() == parts[index]) {
-        fontType = value;
-        break;
+    if (index < parts.length) {
+      for (var value in FontTypes.values) {
+        if (value.toString() == parts[index]) {
+          fontType = value;
+          break;
+        }
       }
+      index++;
     }
-    index++;
 
     index++; // was forceLandscape
-    notify7Enabled = parts[index++] == "true";
-    notify8Enabled = parts[index++] == "true";
+    if (index < parts.length) notify7Enabled = parts[index++] == "true";
+    if (index < parts.length) notify8Enabled = parts[index++] == "true";
 
-    lastPointLeft = parts[index++] == "true";
-    lastPointEnabled = parts[index++] == "true";
+    if (index < parts.length) lastPointLeft = parts[index++] == "true";
+    if (index < parts.length) lastPointEnabled = parts[index++] == "true";
 
     // new since last release so check index
     if (index < parts.length) zoom = parts[index++] == "true";
@@ -162,11 +167,12 @@ class Engine {
 
     if (index < parts.length) scoreKeeper = parts[index++];
     if (index < parts.length) reflectorSite = parts[index++];
-    if (index < parts.length) reflectorSite = parts[index++];
 
     if (index < parts.length) {
       var temp = parts[index++];
-      savedTeams = temp.split("__");
+      if (temp.length > 0) {
+        savedTeams = temp.split("__");
+      }
     }
 
     colorTextLeft = colorTextLeft;
